@@ -2,8 +2,8 @@ import React from 'react';
 
 const StationList = (props) => {
   return (
-  <section className="station-grid">
-    {props.stationList.map(station => station)
+  <section className="station-grid">{
+    props.stationList
       .filter(station => (station.latitude > 40.8100))
         .map(station => (
           <article 
