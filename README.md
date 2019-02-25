@@ -11,9 +11,11 @@ Citibike Travel Time uses Google Maps at a default location. User may input thei
 
 > [Maps Javascript API Documentation](https://developers.google.com/maps/documentation/javascript/tutorial)
 
-## Wireframes
+## Wireframes & Component Hierarchy
 
-(https://www.google.com)
+[Wireframe](https://github.com/darwin911/citiBike-React/blob/master/src/assets/images/citibike-wireframe.jpg)
+
+[Component Hierarchy](https://github.com/darwin911/citiBike-React/blob/master/src/assets/images/citibike-component-hierarchy.jpg)
 
 
 #### MVP
