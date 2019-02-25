@@ -4,8 +4,6 @@ const URL = 'https://cors.io/?http://feeds.citibikenyc.com/stations/stations.jso
 
 const getStationData = async () => {
   const resp = await axios(`${URL}`);
-
-  console.log(resp.data.stationBeanList);
   return resp.data.stationBeanList
 }
 
