@@ -13,9 +13,10 @@ const BikeMap = withScriptjs(withGoogleMap((props) => {
   }
   return (
     <GoogleMap
-    defaultZoom={12}
-    defaultCenter={location}>
-    <Marker position={location} />
+      mapTypeId={'roadmap'}
+      defaultZoom={12}
+      defaultCenter={location}>
+      <Marker position={location} />
     <BicyclingLayer />
   </GoogleMap>
   ) 

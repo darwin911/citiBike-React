@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Nav = (props) => {
-  console.log(props)
   return (
     <nav>
       <input
@@ -16,6 +15,11 @@ const Nav = (props) => {
         name="destination"
         onChange={props.handleChange}
         value={props.destination} />
+      <input
+        onSubmit={props.handleSubmit}
+        type="submit"
+        value="Get directions"
+        />
     </nav>
   )
 }

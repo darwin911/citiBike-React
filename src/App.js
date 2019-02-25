@@ -15,13 +15,14 @@ class App extends Component {
       destination: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async componentDidMount() {
     const stations = await getStationData()
     this.setState({
       stations, 
-      isMarkerShown: false,
+      isMarkerShown: true,
       center: {
         lat: 40.867768,
         lng: -73.929896
@@ -36,15 +37,18 @@ class App extends Component {
     })
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(e)
+  }
+
   render() {
-    const { origin } = this.state
     return (
       <div className="App">
         <Header />
-        <Nav
-          origin={origin}
-          handleChange={this.handleChange}/>
         <Main props={this.state}/>
+        <Nav
+          handleChange={this.handleChange}/>
         <StationList stationList={this.state.stations}/>
       </div>
     );
