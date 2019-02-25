@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       stations: []
     }
+    this.handleChange = this.handleChange.bind(this.handleChange)
   }
 
   async componentDidMount() {
@@ -20,6 +21,10 @@ class App extends Component {
     })
   }
 
+  handleChange() {
+
+  }
+
   render() {
     const KEY = process.env.REACT_APP_API_KEY
     return (
@@ -28,6 +33,7 @@ class App extends Component {
           <h1 className="title">Citi<span>Bike</span></h1>
         </header>
         <BikeMap
+          onChange={this.handleChange}
           isMarkerShown={this.state.isMarkerShown}
           googleMapURL={
             `https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`

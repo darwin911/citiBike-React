@@ -6,19 +6,15 @@ import { withScriptjs,
 from 'react-google-maps';
 
 const BikeMap = withScriptjs(withGoogleMap((props) => {
+  const location = {
+    lat: 40.783874,
+    lng: -73.965101
+  }
   return (
     <GoogleMap
     defaultZoom={12}
-    defaultCenter={{ 
-      lat: 40.783874,
-      lng: -73.965101
-    }}>
-    {/* <Marker position={{lat: 40.783874,
-          lng: -73.965101}} /> */}
-    {props.isMarketShown && <Marker
-        position={{
-          lat: 40.783874,
-          lng: -73.965101 }}/>}
+    defaultCenter={location}>
+    <Marker position={location} />
   </GoogleMap>
   ) 
  }
