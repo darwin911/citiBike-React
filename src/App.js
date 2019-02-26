@@ -55,10 +55,8 @@ class App extends Component {
     const destinationLatLng = await getGeocode(this.state.destination);
     console.log(originLatLng, destinationLatLng)
     this.setState({
-      origin: '',
-      destination: '',
-      originLatLng,
-      destinationLatLng
+      origin: originLatLng,
+      destination: destinationLatLng
     })
   }
 
