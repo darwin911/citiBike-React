@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Main from './components/Main';
 import StationList from './components/StationList';
 import Nav from './components/Nav';
-import getGeocode from './services/getGeocode';
+import { formatAddress, getLatLng } from './services/geocode';
 
 class App extends Component {
   constructor(props) {
@@ -13,9 +13,9 @@ class App extends Component {
     this.state = {
       stations: [],
       origin: '',
-      originLatLng: '',
+      originLatLng: null,
       destination: '',
-      destinationLatLng: '',
+      destinationLatLng: null,
       defaultZoom: 11,
       defaultCenter: {
         lat: 40.783874,
@@ -49,14 +49,18 @@ class App extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    console.log('Called Handle Submit')
-    // collect data from state.origin/state.destination
-    const originLatLng = await getGeocode(this.state.origin);
-    const destinationLatLng = await getGeocode(this.state.destination);
+    const originAddress = await formatAddress(this.state.origin);
+    const destinationAddress = await formatAddress(this.state.destination);
+    const originLatLng = await getLatLng(originAddress);
+    const destinationLatLng = await getLatLng(destinationAddress);
     console.log(originLatLng, destinationLatLng)
     this.setState({
-      origin: originLatLng,
-      destination: destinationLatLng
+      origin: '',
+      originAddress,
+      originLatLng,
+      destination: '',
+      destinationAddress,
+      destinationLatLng
     })
   }
 
@@ -71,14 +75,14 @@ class App extends Component {
           handleChange={this.handleChange}
           onSubmit={this.handleSubmit}/>
         <div className="origin">
-          <h3>Origin</h3>
-          <p>Lat: {this.state.originLatLng.lat}</p>
-          <p>Lng: {this.state.originLatLng.lng}</p>
+          <h3>Origin: {this.state.originAddress}</h3>
+          <p>Latitude: {(this.state.originLatLng) ? this.state.originLatLng.lat : ''}</p>
+          <p>Longitude: {(this.state.originLatLng) ? this.state.originLatLng.lng : ''}</p>
         </div>
         <div className="destination">
-          <h3>Destination</h3>
-          <p>Lat: {this.state.destinationLatLng.lat}</p>
-          <p>Lng: {this.state.destinationLatLng.lng}</p>
+          <h3>Destination: {this.state.destinationAddress}</h3>
+          <p>Latitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lat : ''}</p>
+          <p>Longitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lng : ''}</p>
         </div>
         <StationList stationList={this.state.stations}/>
       </div>
