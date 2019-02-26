@@ -7,16 +7,16 @@ const BikeMap = withScriptjs(withGoogleMap((props) => {
   const destinationMarker = 
   <Marker title="Central Park" position={props.destination} />
   
-  console.log(props)
+  // console.log(props)
   return (
     <GoogleMap
-    defaultCenter={props.defaultCenter}
-    defaultZoom={props.defaultZoom}
-    isMarkerShown={props.isMarkerShown}>
-        {originMarker}
-        {destinationMarker}
-        <BicyclingLayer />
-  </GoogleMap>
+      defaultCenter={props.defaultCenter}
+      defaultZoom={props.defaultZoom}
+      isMarkerShown={props.isMarkerShown}>
+          {originMarker}
+          {destinationMarker}
+          <BicyclingLayer />
+    </GoogleMap>
   ) 
  }
 ))

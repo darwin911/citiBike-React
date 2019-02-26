@@ -12,9 +12,9 @@ class App extends Component {
     super(props)
     this.state = {
       stations: [],
-      origin: '10 E 21st St, New York, NY 10010',
+      origin: '',
       originLatLng: '',
-      destination: '30 Water St, New York, NY 10004',
+      destination: '',
       destinationLatLng: '',
       defaultZoom: 11,
       defaultCenter: {
@@ -30,14 +30,9 @@ class App extends Component {
 
   async componentDidMount() {
     const stations = await getStationData()
-    const originLatLng = await getGeocode(this.state.origin);
-    const destinationLatLng = await getGeocode(this.state.destination);
-    console.log(destinationLatLng)
+
     this.setState({
       stations, 
-      origin: '10 E 21st St, New York, NY 10010',
-      originLatLng,
-      destinationLatLng,
       center: {
         lat: 40.867768,
         lng: -73.929896
@@ -52,9 +47,19 @@ class App extends Component {
     })
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    console.log(e)
+    console.log('Called Handle Submit')
+    // collect data from state.origin/state.destination
+    const originLatLng = await getGeocode(this.state.origin);
+    const destinationLatLng = await getGeocode(this.state.destination);
+    console.log(originLatLng, destinationLatLng)
+    this.setState({
+      origin: '',
+      destination: '',
+      originLatLng,
+      destinationLatLng
+    })
   }
 
   render() {
@@ -65,7 +70,8 @@ class App extends Component {
         <Nav
           origin={this.state.origin}
           destination={this.state.destination}
-          handleChange={this.handleChange}/>
+          handleChange={this.handleChange}
+          onSubmit={this.handleSubmit}/>
         <div className="origin">
           <h3>Origin</h3>
           <p>Lat: {this.state.originLatLng.lat}</p>

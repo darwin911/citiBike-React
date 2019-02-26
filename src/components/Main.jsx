@@ -3,7 +3,7 @@ import BikeMap from './BikeMap';
 
 const Main = (props) => {
     const KEY = process.env.REACT_APP_API_KEY
-    console.log(props.state)
+    // console.log(props.state)
   return (
     <main>
       <BikeMap
