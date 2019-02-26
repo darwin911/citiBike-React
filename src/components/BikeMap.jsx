@@ -1,21 +1,38 @@
 import React from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, BicyclingLayer, Marker } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, BicyclingLayer, DirectionsRenderer, Marker } from 'react-google-maps';
 
 const BikeMap = withScriptjs(withGoogleMap((props) => {
+  console.log(props)
   const originMarker = 
-  <Marker title="General Assembly" position={props.origin} />
+  <Marker title="General Assembly" position={props.defaultCenter} />
   const destinationMarker = 
   <Marker title="Central Park" position={props.destination} />
+  let testMe;
+
+  const DirectionsService = new window.google.maps.DirectionsService();
+  const route = DirectionsService.route({
+    origin: 'Times Square',
+    destination: '30 W 18th St., New York',
+    travelMode: 'BICYCLING'
+  }, (result, status) => {
+    if (status === window.google.maps.DirectionsStatus.OK) {
+      console.log(result);
+      testMe = result
+    } else {
+      console.error(`error fetching directions ${result}`)
+    }
+  })
   
-  // console.log(props)
+
   return (
     <GoogleMap
       defaultCenter={props.defaultCenter}
       defaultZoom={props.defaultZoom}
       isMarkerShown={props.isMarkerShown}>
           {originMarker}
-          {destinationMarker}
+          {/* {destinationMarker} */}
           <BicyclingLayer />
+          <DirectionsRenderer directions={testMe} />
     </GoogleMap>
   ) 
  }

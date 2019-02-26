@@ -21,8 +21,10 @@ class App extends Component {
         lat: 40.783874,
         lng: -73.965101
       },
+      directions: null,
       isMarkerShown: true,
-      mapTypeId: 'roadmap'
+      mapTypeId: 'roadmap',
+      travelMode: 'BICYCLING '
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -84,7 +86,7 @@ class App extends Component {
           <p>Latitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lat : ''}</p>
           <p>Longitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lng : ''}</p>
         </div>
-        <StationList stationList={this.state.stations}/>
+        {/* <StationList stationList={this.state.stations}/> */}
       </div>
     );
   }
