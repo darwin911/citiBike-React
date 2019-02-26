@@ -1,23 +1,21 @@
 import React from 'react';
-import { withScriptjs,
-         withGoogleMap,
-         GoogleMap,
-         BicyclingLayer,
-          Marker }
-from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, BicyclingLayer, Marker } from 'react-google-maps';
 
 const BikeMap = withScriptjs(withGoogleMap((props) => {
-  const location = {
-    lat: 40.783874,
-    lng: -73.965101
-  }
+  const originMarker = 
+  <Marker title="General Assembly" position={props.origin} />
+  const destinationMarker = 
+  <Marker title="Central Park" position={props.destination} />
+  
+  console.log(props)
   return (
     <GoogleMap
-      mapTypeId={'roadmap'}
-      defaultZoom={12}
-      defaultCenter={location}>
-      <Marker position={location} />
-    <BicyclingLayer />
+    defaultCenter={props.defaultCenter}
+    defaultZoom={props.defaultZoom}
+    isMarkerShown={props.isMarkerShown}>
+        {originMarker}
+        {destinationMarker}
+        <BicyclingLayer />
   </GoogleMap>
   ) 
  }

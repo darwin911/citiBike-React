@@ -27,19 +27,14 @@ h1 span {
 }
 
 /* Map Styles */
-.loading-element {
+.loading-element, .map-element {
   height: 100%;
 }
-
 .container-element {
   height: 300px;
   width: 100%;
+  max-width: 800px;
   margin: 0 auto;
-}
-
-.map-element {
-  height: 100%;
-  width: 100%;
 }
 /* /Map Styles */
 
@@ -72,18 +67,17 @@ input[type="submit"] {
   margin: .5rem auto;
   padding: .75rem;
   border-radius: 3px;
-  width: 60%;
+  width: 90%;
+  max-width: 50vmax;
   display: block;
 }
 
 input[type="submit"] {
-  /* background: #052b6c; */
   background: #0098e4;
   color: #052b6c;
   font-weight: 900;
   padding: 1rem;
   border-radius: 10px;
-  /* color: #0098e4; */
   cursor: pointer;
   transition: all 150ms ease;
 }
