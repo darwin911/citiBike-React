@@ -16,7 +16,7 @@ class App extends Component {
       originLatLng: null,
       destination: '',
       destinationLatLng: null,
-      defaultZoom: 12,
+      defaultZoom: 14,
       defaultCenter: {
         lat: 40.783874,
         lng: -73.965101
@@ -45,15 +45,13 @@ class App extends Component {
     })
   }
 
-  
-
   async handleSubmit(e) {
     e.preventDefault();
     const originAddress = await formatAddress(this.state.origin);
     const destinationAddress = await formatAddress(this.state.destination);
     const originLatLng = await getLatLng(originAddress);
     const destinationLatLng = await getLatLng(destinationAddress);
-    console.log(originLatLng, destinationLatLng)
+    console.log('origin: ', originLatLng, 'destination', destinationLatLng)
     this.setState({
       origin: '',
       originAddress,
@@ -69,9 +67,7 @@ class App extends Component {
       <div className="App">
 
         <Header />
-
         <Main state={this.state}/>
-
         <Nav
           origin={this.state.origin}
           destination={this.state.destination}

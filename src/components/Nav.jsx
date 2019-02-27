@@ -9,13 +9,13 @@ const Nav = (props) => {
           placeholder="Origin"
           name="origin"
           onChange={props.handleChange}
-          value={props.origin} />
+          value={props.origin} required/>
         <input
           type="text"
           placeholder="Destination"
           name="destination"
           onChange={props.handleChange}
-          value={props.destination} />
+          value={props.destination} required/>
         <input
           name="submit"
           type="submit"
