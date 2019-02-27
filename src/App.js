@@ -62,16 +62,22 @@ class App extends Component {
     })
   }
 
+  const 
+
   render() {
     return (
       <div className="App">
+
         <Header />
+
         <Main state={this.state}/>
+
         <Nav
           origin={this.state.origin}
           destination={this.state.destination}
           handleChange={this.handleChange}
           onSubmit={this.handleSubmit}/>
+
         <div className="origin">
           <h3>Origin: {this.state.originAddress}</h3>
           <p>Latitude: {(this.state.originLatLng) ? this.state.originLatLng.lat : ''}</p>
@@ -82,9 +88,13 @@ class App extends Component {
           <p>Latitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lat : ''}</p>
           <p>Longitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lng : ''}</p>
         </div>
-        <StationList
-          defaultCenter={this.state.defaultCenter}
-          stationList={this.state.stations}/>
+
+        {this.state.originLatLng &&
+         <StationList
+          originLatLng={this.state.originLatLng}
+          stationList={this.state.stations}/>}
+        
+
       </div>
     );
   }

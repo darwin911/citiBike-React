@@ -30,7 +30,7 @@ const BikeMap = withScriptjs(withGoogleMap((props) => {
       isMarkerShown={props.isMarkerShown}>
           {originMarker}
           {/* {destinationMarker} */}
-          {/* <BicyclingLayer /> */}
+          <BicyclingLayer />
           <DirectionsRenderer directions={testMe} />
     </GoogleMap>
 
