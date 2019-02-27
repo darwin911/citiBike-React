@@ -34,11 +34,7 @@ class App extends Component {
     const stations = await getStationData()
 
     this.setState({
-      stations, 
-      center: {
-        lat: 40.867768,
-        lng: -73.929896
-      }
+      stations
     })
   }
 
@@ -86,7 +82,9 @@ class App extends Component {
           <p>Latitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lat : ''}</p>
           <p>Longitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lng : ''}</p>
         </div>
-        {/* <StationList stationList={this.state.stations}/> */}
+        <StationList
+          defaultCenter={this.state.defaultCenter}
+          stationList={this.state.stations}/>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, BicyclingLayer, DirectionsRenderer, Marker } from 'react-google-maps';
 
 const BikeMap = withScriptjs(withGoogleMap((props) => {
-  console.log(props)
   const originMarker = 
   <Marker title="General Assembly" position={props.defaultCenter} />
   const destinationMarker = 
@@ -16,24 +15,25 @@ const BikeMap = withScriptjs(withGoogleMap((props) => {
     travelMode: 'BICYCLING'
   }, (result, status) => {
     if (status === window.google.maps.DirectionsStatus.OK) {
-      console.log(result);
-      testMe = result
+      console.log(result.routes[0]);
+      testMe = result.routes[0]
     } else {
       console.error(`error fetching directions ${result}`)
     }
   })
-  
 
   return (
     <GoogleMap
+      onChange={props.handleChange}
       defaultCenter={props.defaultCenter}
       defaultZoom={props.defaultZoom}
       isMarkerShown={props.isMarkerShown}>
           {originMarker}
           {/* {destinationMarker} */}
-          <BicyclingLayer />
+          {/* <BicyclingLayer /> */}
           <DirectionsRenderer directions={testMe} />
     </GoogleMap>
+
   ) 
  }
 ))
