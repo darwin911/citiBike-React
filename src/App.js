@@ -3,7 +3,7 @@ import './App.css';
 import getStationData from './services/getStationData';
 import Header from './components/Header';
 import Main from './components/Main';
-import StationList from './components/StationList';
+import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
 
@@ -16,7 +16,7 @@ class App extends Component {
       originLatLng: null,
       destination: '',
       destinationLatLng: null,
-      defaultZoom: 11,
+      defaultZoom: 12,
       defaultCenter: {
         lat: 40.783874,
         lng: -73.965101
@@ -45,6 +45,8 @@ class App extends Component {
     })
   }
 
+  
+
   async handleSubmit(e) {
     e.preventDefault();
     const originAddress = await formatAddress(this.state.origin);
@@ -61,8 +63,6 @@ class App extends Component {
       destinationLatLng
     })
   }
-
-  const 
 
   render() {
     return (
@@ -90,11 +90,16 @@ class App extends Component {
         </div>
 
         {this.state.originLatLng &&
-         <StationList
-          originLatLng={this.state.originLatLng}
-          stationList={this.state.stations}/>}
+          <section>
+            <OriginStations
+            originLatLng={this.state.originLatLng}
+            stationList={this.state.stations}/>
+            <DestinationStations
+            destinationLatLng={this.state.destinationLatLng}
+            stationList={this.state.stations}/>
+          </section>
+        }
         
-
       </div>
     );
   }

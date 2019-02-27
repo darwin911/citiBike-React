@@ -4,6 +4,9 @@
   box-sizing: border-box;
   margin: 0;
 }
+html {
+  min-height: 100vh;
+}
 
 body {
   font-family: 'Overpass', Helvetica, sans-serif;
@@ -16,7 +19,7 @@ body {
 .title {
   font-size: 4rem;
   line-height: 1;
-  margin: 1.5rem auto;
+  margin: 0.75rem auto;
   padding: 0;
   letter-spacing: -2px;
 }
@@ -31,7 +34,7 @@ h1 span {
   height: 100%;
 }
 .container-element {
-  height: 300px;
+  height: 265px;
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
@@ -55,7 +58,7 @@ h1 span {
 }
 
 nav {
-  margin: 2rem auto;
+  margin: 1rem auto;
 }
 
 input[name="origin"],
@@ -65,7 +68,7 @@ input[type="submit"] {
   font-family: Helvetica;
   font-size: 1rem;
   font-weight: 900;
-  margin: 1rem auto;
+  margin: 0 auto 0.75rem;
   padding: .75rem;
   border-radius: 3px;
   width: 90%;
@@ -78,7 +81,6 @@ input[type="submit"] {
   color: #052b6c;
   font-weight: 900;
   padding: 1rem;
-  border-radius: 10px;
   cursor: pointer;
   transition: all 150ms ease;
 }
@@ -88,9 +90,58 @@ input[type="submit"]:hover {
   box-shadow: inset 0px 0px 1px 8px rgba(0, 0, 0, 0.2);
 }
 
+@media screen and (min-width: 414px) {
+  nav {
+    margin: 2rem auto;
+  }
+
+  input[name="origin"],
+  input[name="destination"],
+  input[type="submit"] {
+    margin-bottom: 1rem;
+  }
+}
+
 @media screen and (min-width: 900px) {
   .container-element {
     height: 500px;
     max-width: 1100px;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .App {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);     
+  }
+  header {
+    grid-column: span 12;
+  }
+
+  main {
+    grid-column: span 12;
+  }
+
+  nav {
+    grid-column: 5/9;
+    width: 100%;
+    border: 1px solid seagreen; 
+  }
+
+  .origin {
+    grid-column: span 6;
+  }
+
+  .destination {
+    grid-column: span 6;
+  }
+
+  .title {
+    font-size: 5.5rem;
+  }
+  .container-element {
+    height: 500px;
+    max-width: 90%;
+  }
+}
+

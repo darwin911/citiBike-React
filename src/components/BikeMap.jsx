@@ -3,37 +3,59 @@ import { withScriptjs, withGoogleMap, GoogleMap, BicyclingLayer, DirectionsRende
 
 const BikeMap = withScriptjs(withGoogleMap((props) => {
   const originMarker = 
-  <Marker title="General Assembly" position={props.defaultCenter} />
-  const destinationMarker = 
-  <Marker title="Central Park" position={props.destination} />
-  let testMe;
+  <Marker
+    title="Origin"
+    position={
+      (props.originLatLng) ? props.origin : props.defaultCenter
+    } />
+
+  let route;
 
   const DirectionsService = new window.google.maps.DirectionsService();
-  const route = DirectionsService.route({
-    origin: 'Times Square',
-    destination: '30 W 18th St., New York',
-    travelMode: 'BICYCLING'
-  }, (result, status) => {
-    if (status === window.google.maps.DirectionsStatus.OK) {
-      console.log(result.routes[0]);
-      testMe = result.routes[0]
-    } else {
-      console.error(`error fetching directions ${result}`)
-    }
-  })
+  
+  DirectionsService.route({
+      origin: 'Times Square',
+      destination: '30 W 18th St., New York',
+      travelMode: 'BICYCLING'
+    }, (result, status) => {
+      (status === window.google.maps.DirectionsStatus.OK)
+      ? route = result.routes[0]
+      : console.error(`error fetching directions ${result}`)
+    })
 
-  return (
+  const defaultMap = 
     <GoogleMap
-      onChange={props.handleChange}
       defaultCenter={props.defaultCenter}
       defaultZoom={props.defaultZoom}
-      isMarkerShown={props.isMarkerShown}>
-          {originMarker}
-          {/* {destinationMarker} */}
-          <BicyclingLayer />
-          <DirectionsRenderer directions={testMe} />
+      isMarkerShown={props.isMarkerShown}
+    >
+      {originMarker}
+      <BicyclingLayer />
+      <DirectionsRenderer directions={route} />
     </GoogleMap>
 
+
+  const testMap = 
+  <GoogleMap
+    center={props.origin}
+    zoom={13}
+    isMarkerShown={true}
+  >
+    <Marker
+      title="Origin"
+      position={props.origin} />
+    {/* <BicyclingLayer /> */}
+    <DirectionsRenderer directions={route} />
+  </GoogleMap>
+    
+  // const destinationMarker = 
+  // <Marker title="Central Park" position={props.destination} />
+
+
+  return (
+    <span>
+      {(props.origin) ? testMap : defaultMap}
+    </span>
   ) 
  }
 ))

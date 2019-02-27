@@ -8,7 +8,7 @@ const Main = (props) => {
     <main>
       <BikeMap
         origin={props.state.originLatLng}
-        destination={props.state.defaultCenter}
+        destination={props.state.destinationLatLng}
         mapTypeId={props.state.mapTypeId}
         defaultCenter={props.state.defaultCenter}
         defaultZoom={props.state.defaultZoom}
