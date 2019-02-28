@@ -6,6 +6,7 @@ import Main from './components/Main';
 import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
+import Map from './components/Map';
 
 class App extends Component {
   constructor(props) {
@@ -63,11 +64,15 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div className="App">
 
         <Header />
-        <Main state={this.state} />
+        {/* <Main state={this.state} /> */}
+        <Map
+          component={Map}
+          />
         <Nav
           origin={this.state.origin}
           destination={this.state.destination}
