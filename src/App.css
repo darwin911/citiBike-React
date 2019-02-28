@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Overpass:100,200,400,700,900');
-
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
-}
-html {
-  min-height: 100vh;
 }
 
 body {
@@ -16,20 +12,36 @@ body {
   text-align: center;
 }
 
+.App { 
+  display: grid;
+  grid-template-rows: 80px 4fr auto;
+}
+
+header {
+  background: rgba(255, 255, 255, 1);
+}
+
 .title {
+  color: rgba(0, 0, 0, 1);
   font-size: 4rem;
   line-height: 1;
-  margin: 0.75rem auto;
-  padding: 0;
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: .25rem;
   letter-spacing: -2px;
+  transition: font-size 500ms ease-out;
 }
 
 h1 span {
   color: #0098e4;
   letter-spacing: -6px;
 }
-
 /* Map Styles */
+.map {
+  margin: 0;
+  background: linear-gradient(to top, #0098e4, #052b6c 420%);
+}
+
 .loading-element, .map-element {
   height: 100%;
 }
@@ -42,10 +54,10 @@ h1 span {
 }
 /* /Map Styles */
 
-.station-grid {
-  padding-top: 3rem;
-  display: grid;
-  grid-template-columns: minmax(200px, 1fr);
+nav { 
+  width: 100%;
+  background: #0098e4;
+  padding: 3rem 0;
 }
 
 .card {
@@ -57,10 +69,6 @@ h1 span {
   background: rgba(0, 0, 0, .2);
 }
 
-form {
-  margin: 1rem auto;
-}
-
 input[name="origin"],
 input[name="destination"],
 input[type="submit"] {
@@ -69,7 +77,7 @@ input[type="submit"] {
   font-weight: 900;
   margin: 0 auto 0.75rem;
   padding: .75rem;
-  border-radius: 3px;
+  border-radius: 6px;
   border: none;
   box-shadow: none;
   display: block;
@@ -79,10 +87,11 @@ input[type="submit"] {
 }
 
 input[type="submit"] {
-  background: #0098e4;
+  background: transparent;
+  border: 3px solid#052b6c;
   color: #052b6c;
-  font-weight: 900;
-  padding: 1rem;
+  font-size: 1.5rem;
+  /* padding: 1rem; */
   cursor: pointer;
   transition: all 250ms ease;
   box-shadow: none;
@@ -95,7 +104,8 @@ input[type="submit"]:hover {
 }
 
 input[type="submit"]:hover {
-  background: hsl(200, 100%, 43%);
+  color: rgba(255, 255, 255, 1);
+  background: #052b6c;
 }
 
 input[name="origin"]::placeholder,
@@ -103,9 +113,24 @@ input[name="destination"]::placeholder {
   color: lightgrey;
 }
 
-@media screen and (min-width: 414px) {
-  nav {
-    margin: 2rem auto;
+.infobox {
+  padding: 1rem 4rem;
+  margin: 0 auto;
+}
+
+.origin, .destination {
+  text-align: left;
+  margin: 0 auto .75rem;
+}
+
+.origin h3 {
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 375px) and  (min-height: 668px) {
+
+  .container-element {
+    height: 40vh;
   }
 
   input[name="origin"],
@@ -115,46 +140,91 @@ input[name="destination"]::placeholder {
   }
 }
 
+@media screen and (min-width: 414px) {
+  input[name="origin"], input[name="destination"], input[type="submit"] {
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) and  (min-height: 1024px) {
+  .App {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  header    {grid-column: span 4;}
+  main      {grid-column: span 4;}
+  nav       {grid-column: 1/3;}
+  .stations {grid-column: span 4;}
+
+  .title {
+    font-size: 6rem;
+  }
+}
+
 @media screen and (min-width: 900px) {
   .container-element {
-    height: 500px;
-    max-width: 1100px;
+    /* max-width: 1100px; */
   }
 }
 
 @media screen and (min-width: 1200px) {
+
   .App {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);     
+    grid-template-columns: 50px repeat(10, 1fr) 50px;  
+    grid-template-rows: repeat(12, auto);  
   }
+
   header {
-    grid-column: span 12;
+    margin: 1rem auto;
+    grid-column: 2/12;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+    width: 100%;
   }
 
   main {
-    grid-column: span 12;
+    grid-column: 2/7;
+    grid-row: span 2;
   }
-
-  nav {
-    grid-column: 5/9;
-    width: 100%;
-    /* border: 1px solid seagreen;  */
-  }
-
+  
   .origin {
-    grid-column: span 6;
+    grid-column: span 3;
+    align-self: center
   }
 
   .destination {
+    grid-column: span 3;
+    align-self: center;
+  }
+
+  nav {
     grid-column: span 6;
+    width: 100%;
+  }
+  
+  .stations {
+    display: grid;
+    grid-column: span 12;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .origin-stations {
+
+  }
+  .destination-stations {
+
   }
 
   .title {
     font-size: 5.5rem;
   }
   .container-element {
-    height: 500px;
-    max-width: 90%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    max-width: 100%;
+  }
+  .map-element {
+    border-radius: 8px;
   }
 }
 

@@ -67,26 +67,17 @@ class App extends Component {
       <div className="App">
 
         <Header />
-        <Main state={this.state}/>
+        <Main state={this.state} />
         <Nav
           origin={this.state.origin}
           destination={this.state.destination}
           handleChange={this.handleChange}
-          onSubmit={this.handleSubmit}/>
-
-        <div className="origin">
-          <h3>Origin: {this.state.originAddress}</h3>
-          <p>Latitude: {(this.state.originLatLng) ? this.state.originLatLng.lat : ''}</p>
-          <p>Longitude: {(this.state.originLatLng) ? this.state.originLatLng.lng : ''}</p>
-        </div>
-        <div className="destination">
-          <h3>Destination: {this.state.destinationAddress}</h3>
-          <p>Latitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lat : ''}</p>
-          <p>Longitude: {(this.state.destinationLatLng) ? this.state.destinationLatLng.lng : ''}</p>
-        </div>
+          onSubmit={this.handleSubmit}
+          originAddress={this.state.originAddress}
+          destinationAddress={this.state.destinationAddress} />
 
         {this.state.originLatLng &&
-          <section>
+          <section className="stations">
             <OriginStations
             originLatLng={this.state.originLatLng}
             stationList={this.state.stations}/>

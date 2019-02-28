@@ -5,7 +5,7 @@ const Main = (props) => {
     const KEY = process.env.REACT_APP_API_KEY
     // console.log(props.state)
   return (
-    <main>
+    <main className="map">
       <BikeMap
         origin={props.state.originLatLng}
         destination={props.state.destinationLatLng}
