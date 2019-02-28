@@ -91,6 +91,7 @@ input[type="submit"] {
   cursor: pointer;
   transition: all 200ms ease;
   box-shadow: none;
+  width: auto;
 }
 
 input[name="origin"]:hover,
@@ -138,14 +139,7 @@ input[name="destination"]::placeholder {
   }
 
   input[name="origin"],
-  input[name="destination"],
-  input[type="submit"] {
-    margin-bottom: 1rem;
-  }
-}
-
-@media screen and (min-width: 414px) {
-  input[name="origin"], input[name="destination"], input[type="submit"] {
+  input[name="destination"] {
     margin-bottom: 1rem;
   }
 }
