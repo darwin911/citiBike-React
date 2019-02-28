@@ -4,23 +4,24 @@ import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 
 class Map extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
-
   render() {
-    
+
     const Map = ReactMapboxGl({
-      accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
+      accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
     })
+    console.log(this.props.defaultCenter)
     return (
       <Map
-        style="mapbox://styles/mapbox/streets-v9"
-        containerStyle={{
-          height: "100vh",
-          width: "100vw"
-        }}>
+      center={this.props.defaultCenter}
+      style="mapbox://styles/mapbox/streets-v10"
+      containerStyle={{
+        height: "50vh",
+        width: "100vw"
+      }}>
           <Layer
             type="symbol"
             id="marker"

@@ -4,12 +4,17 @@
   margin: 0;
 }
 
+canvas.mapboxgl-canvas {
+  position: static !important;
+}
+
 body {
   font-family: 'Overpass', Helvetica, sans-serif;
   background: #0098e4;
   background: radial-gradient(circle at 10% 30%, hsl(200, 100%, 35%) 0%, #052b6c 94%);
   color: #ffffff;
   text-align: center;
+  position: relative;
 }
 
 .App { 

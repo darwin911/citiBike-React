@@ -17,15 +17,8 @@ class App extends Component {
       originLatLng: null,
       destination: '',
       destinationLatLng: null,
-      defaultZoom: 14,
-      defaultCenter: {
-        lat: 40.783874,
-        lng: -73.965101
-      },
-      directions: null,
-      isMarkerShown: true,
-      mapTypeId: 'roadmap',
-      travelMode: 'BICYCLING '
+      defaultZoom: [0],
+      defaultCenter: [-73.965101, 40.783874]
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -70,9 +63,7 @@ class App extends Component {
 
         <Header />
         {/* <Main state={this.state} /> */}
-        <Map
-          component={Map}
-          />
+        <Map defaultCenter={this.state.defaultCenter}/>
         <Nav
           origin={this.state.origin}
           destination={this.state.destination}
