@@ -16,6 +16,7 @@ class Map extends Component {
     console.log(this.props.defaultCenter)
     return (
       <Map
+      zoom={this.props.zoom}
       center={this.props.defaultCenter}
       style="mapbox://styles/mapbox/streets-v10"
       containerStyle={{

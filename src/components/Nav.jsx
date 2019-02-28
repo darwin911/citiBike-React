@@ -21,19 +21,6 @@ const Nav = (props) => {
           value="Get directions" />
 
       </form>
-
-      {props.originAddress && (
-      <div className="infobox">
-        <aside className="origin">
-          <h4>From: {props.originAddress}</h4>
-        </aside>
-        <aside className="destination">
-          <h4>To: {props.destinationAddress}</h4>
-        </aside>
-      </div>
-        )
-      }
-
       
     </nav>
   )

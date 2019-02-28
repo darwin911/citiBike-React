@@ -7,6 +7,7 @@ import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
 import Map from './components/Map';
+import InfoBox from './components/InfoBox';
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class App extends Component {
       originLatLng: null,
       destination: '',
       destinationLatLng: null,
-      defaultZoom: [0],
+      defaultZoom: [11],
       defaultCenter: [-73.965101, 40.783874]
     }
     this.handleChange = this.handleChange.bind(this)
@@ -63,7 +64,6 @@ class App extends Component {
 
         <Header />
         {/* <Main state={this.state} /> */}
-        <Map defaultCenter={this.state.defaultCenter}/>
         <Nav
           origin={this.state.origin}
           destination={this.state.destination}
@@ -72,6 +72,12 @@ class App extends Component {
           originAddress={this.state.originAddress}
           destinationAddress={this.state.destinationAddress} />
 
+        <Map
+          zoom={this.state.defaultZoom}
+          defaultCenter={this.state.defaultCenter}/>
+        <InfoBox 
+          origin={this.state.originAddress}
+          destination={this.state.destinationAddress} />
         {this.state.originLatLng &&
           <section className="stations">
             <OriginStations
