@@ -37,7 +37,7 @@ class Map extends Component {
         </Marker>
       )}
     </Map>
-    // console.log(this.props.destination)
+
     return (
       (this.props.destination) ? renderMap : defaultMap
     )
