@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import getStationData from './services/getStationData';
 import Header from './components/Header';
-import Main from './components/Main';
+// import Main from './components/Main';
 import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
@@ -21,7 +21,6 @@ class App extends Component {
       defaultZoom: [11],
       defaultCenter: [-73.965101, 40.783874]
     }
-    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -33,23 +32,13 @@ class App extends Component {
     })
   }
 
-  handleChange(e) {
-    const { name, value } = e.target
-    this.setState({
-      [name]: value
-    })
-  }
-
-  async handleSubmit(e) {
-    e.preventDefault();
-    const originAddress = await formatAddress(this.state.origin);
-    const destinationAddress = await formatAddress(this.state.destination);
+  async handleSubmit(origin, destination) {
+    const originAddress = await formatAddress(origin);
+    const destinationAddress = await formatAddress(destination);
     const originLatLng = await getLatLng(originAddress);
     const destinationLatLng = await getLatLng(destinationAddress);
     console.log('origin: ', originLatLng, 'destination', destinationLatLng)
     this.setState({
-      origin: '',
-      destination: '',
       originAddress,
       originLatLng: [originLatLng.lng, originLatLng.lat],
       destinationAddress,
