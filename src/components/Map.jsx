@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
+import ReactMapboxGl, { Marker } from "react-mapbox-gl";
 
 class Map extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
 
@@ -19,27 +16,27 @@ class Map extends Component {
     }
 
     const defaultMap = <Map
-        className="map"
-        center={this.props.defaultCenter}
-        style="mapbox://styles/mapbox/streets-v10"
-        containerStyle={style}></Map>
+      className="map"
+      center={this.props.defaultCenter}
+      style="mapbox://styles/mapbox/streets-v10"
+      containerStyle={style}></Map>
 
     const renderMap = <Map className="map"
-        center={(this.props.destination) ? this.props.origin : this.props.defaultCenter}
-        style="mapbox://styles/mapbox/streets-v10"
-        containerStyle={style}>
-        <Marker
-          coordinates={(this.props.origin) ? this.props.origin : this.props.defaultCenter}>
-          <img src="https://i.imgur.com/MK4NUzI.png" alt="Origin" />
-        </Marker>
+      center={(this.props.destination) ? this.props.origin : this.props.defaultCenter}
+      style="mapbox://styles/mapbox/streets-v10"
+      containerStyle={style}>
+      <Marker
+        coordinates={(this.props.origin) ? this.props.origin : this.props.defaultCenter}>
+        <img src="https://i.imgur.com/MK4NUzI.png" alt="Origin" />
+      </Marker>
 
-        {(this.props.destination &&
-        <Marker 
+      {(this.props.destination &&
+        <Marker
           coordinates={this.props.destination}>
-            <img src="https://i.imgur.com/MK4NUzI.png" alt="Destination" />
-        </Marker> 
-        )}
-      </Map>
+          <img src="https://i.imgur.com/MK4NUzI.png" alt="Destination" />
+        </Marker>
+      )}
+    </Map>
     // console.log(this.props.destination)
     return (
       (this.props.destination) ? renderMap : defaultMap
@@ -84,7 +81,7 @@ export default Map;
 //           longitude={viewport.longitude}
 //           zoom={viewport.zoom}
 //           mapStyle="mapbox://styles/mapbox/light-v9"
-          
+
 //           mapboxApiAccessToken={KEY}
 //           onViewportChange={(viewport) =>
 //              this.setState({

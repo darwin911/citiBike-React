@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import getStationData from './services/getStationData';
 import Header from './components/Header';
-import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
 import Map from './components/Map';
@@ -61,11 +60,11 @@ class App extends Component {
           origin={this.state.originLatLng}
           destination={this.state.destinationLatLng}
           zoom={this.state.defaultZoom}
-          defaultCenter={this.state.defaultCenter}/>
+          defaultCenter={this.state.defaultCenter} />
 
         <Route path="/results" render={(props) => (
 
-          <Results 
+          <Results
             {...props}
             origin={this.state.originAddress}
             destination={this.state.destinationAddress}
@@ -73,7 +72,7 @@ class App extends Component {
             destinationLatLng={this.state.destinationLatLng}
             stationList={this.state.stations} />
         )} />
-          
+
       </div>
     );
   }

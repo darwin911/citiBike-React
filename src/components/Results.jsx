@@ -5,21 +5,21 @@ import { OriginStations, DestinationStations } from './StationList'
 const Results = (props) => {
 
   return (
-    <div>
-      {props.origin && <InfoBox 
+    <section className="results">
+      {props.origin && <InfoBox
         origin={props.origin}
         destination={props.destination} />}
-      
+
       {props.originLatLng &&
-      <section className="stations">
-      <OriginStations
-      originLatLng={props.originLatLng}
-      stationList={props.stationList}/>
-      <DestinationStations
-      destinationLatLng={props.destinationLatLng}
-      stationList={props.stationList}/>
-      </section>}
-    </div>
+        <section className="stations">
+          <OriginStations
+            originLatLng={props.originLatLng}
+            stationList={props.stationList} />
+          <DestinationStations
+            destinationLatLng={props.destinationLatLng}
+            stationList={props.stationList} />
+        </section>}
+    </section>
   )
 }
 
