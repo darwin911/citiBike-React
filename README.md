@@ -5,15 +5,11 @@
 =========================
 
 
-Citibike Stations helps you find the nearest CitiBike stations nearest to where you are and your destination.
+Citibike Stations helps you find the nearest CitiBike stations nearest to where you are and your destination. Origin and Destination will have Markers on the Map. Find Stations will location the nearest stations.
 
+>[Mapbox Docs](https://docs.mapbox.com/mapbox-gl-js/api/)
 
-
-displays a map Mapbox at a default location. User may input their location and destination to request directions to and from CitiBike Stations, show distance and directions. Origin and Destination will have Markers on the Map. There will also be an input to locate stations near you.
-
->[Mapbox Docs]
-
->[Mapbox React GL]
+>[Mapbox React GL](https://github.com/alex3165/react-mapbox-gl)
 
 >[React Google Maps Style Guide](https://tomchentw.github.io/react-google-maps/#introduction)
 
@@ -71,6 +67,8 @@ App will hold all state and will be passed down through props to `<Map />, <Stat
 
 ## Code Snippet
 
+This code snippet filters stations that have a difference (r) in their locations (Latitude and Longitude).
+
 ```javascript
 return (
     <section className="origin-stations">
@@ -104,3 +102,7 @@ return (
 * Issue: Mapbox map would re-render after any input inside of Origin Input or Destination Input. 
 
 - Resolution: Manipulate and change required state inside of Nav component and pass values to handleSubmit function in order to update state in App required for Origin/Destination location. 
+
+- Issue: Was not able to use Google Maps API directions service given documentation was written for Javascript, not React projects; and, `react-google-maps` which is a wrapper for Google Maps, was limited in documention and code snippets were written with `recompose.
+
+- Resolution: Mapbox. Better documentation and easier to incorporate into my project.
