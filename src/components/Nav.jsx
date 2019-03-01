@@ -5,20 +5,26 @@ const Nav = (props) => {
     <nav>
       <form onSubmit={props.onSubmit}>
 
-        <input type="text"
+        <input 
+            className="origin-input"
+            type="text"
             placeholder="Origin"
             name="origin"
             onChange={props.handleChange}
             value={props.origin} required/>
 
-        <input type="text"
+        <input 
+            className="destination-input"
+            type="text"
             placeholder="Destination"
             name="destination"
             onChange={props.handleChange}
             value={props.destination} required/>
 
-        <input type="submit"
-          value="Get directions" />
+        <input 
+          className="submit"
+          type="submit"
+          value="Find Stations" />
 
       </form>
       

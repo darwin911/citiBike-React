@@ -49,11 +49,11 @@ class App extends Component {
     console.log('origin: ', originLatLng, 'destination', destinationLatLng)
     this.setState({
       origin: '',
-      originAddress,
-      originLatLng,
       destination: '',
+      originAddress,
+      originLatLng: [originLatLng.lng, originLatLng.lat],
       destinationAddress,
-      destinationLatLng
+      destinationLatLng: [destinationLatLng.lng, destinationLatLng.lat]
     })
   }
 
@@ -73,11 +73,15 @@ class App extends Component {
           destinationAddress={this.state.destinationAddress} />
 
         <Map
+          origin={this.state.originLatLng}
+          destination={this.state.destinationLatLng}
           zoom={this.state.defaultZoom}
           defaultCenter={this.state.defaultCenter}/>
-        <InfoBox 
-          origin={this.state.originAddress}
-          destination={this.state.destinationAddress} />
+
+        {this.state.originAddress && <InfoBox 
+              origin={this.state.originAddress}
+              destination={this.state.destinationAddress} />}
+
         {this.state.originLatLng &&
           <section className="stations">
             <OriginStations
