@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import getStationData from './services/getStationData';
 import Header from './components/Header';
-// import Main from './components/Main';
 import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
@@ -14,9 +13,7 @@ class App extends Component {
     super(props)
     this.state = {
       stations: [],
-      origin: '',
       originLatLng: null,
-      destination: '',
       destinationLatLng: null,
       defaultZoom: [11],
       defaultCenter: [-73.965101, 40.783874]
@@ -26,7 +23,6 @@ class App extends Component {
 
   async componentDidMount() {
     const stations = await getStationData()
-
     this.setState({
       stations
     })
@@ -37,7 +33,6 @@ class App extends Component {
     const destinationAddress = await formatAddress(destination);
     const originLatLng = await getLatLng(originAddress);
     const destinationLatLng = await getLatLng(destinationAddress);
-    console.log('origin: ', originLatLng, 'destination', destinationLatLng)
     this.setState({
       originAddress,
       originLatLng: [originLatLng.lng, originLatLng.lat],
@@ -52,25 +47,21 @@ class App extends Component {
       <div className="App">
 
         <Header />
-        {/* <Main state={this.state} /> */}
         <Nav
           origin={this.state.origin}
-          destination={this.state.destination}
-          handleChange={this.handleChange}
-          onSubmit={this.handleSubmit}
           originAddress={this.state.originAddress}
-          destinationAddress={this.state.destinationAddress} />
-
+          destination={this.state.destination}
+          destinationAddress={this.state.destinationAddress}
+          handleChange={this.handleChange}
+          onSubmit={this.handleSubmit} />
         <Map
           origin={this.state.originLatLng}
           destination={this.state.destinationLatLng}
           zoom={this.state.defaultZoom}
           defaultCenter={this.state.defaultCenter}/>
-
         {this.state.originAddress && <InfoBox 
               origin={this.state.originAddress}
               destination={this.state.destinationAddress} />}
-
         {this.state.originLatLng &&
           <section className="stations">
             <OriginStations
@@ -79,9 +70,8 @@ class App extends Component {
             <DestinationStations
             destinationLatLng={this.state.destinationLatLng}
             stationList={this.state.stations}/>
-          </section>
-        }
-        
+          </section>}
+          
       </div>
     );
   }

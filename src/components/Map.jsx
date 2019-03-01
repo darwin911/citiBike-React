@@ -15,7 +15,7 @@ class Map extends Component {
     const style = {
       height: '35vh',
       width: '100vw',
-      'min-height': '200px'
+      minHeight: '200px'
     }
 
     const defaultMap = <Map
