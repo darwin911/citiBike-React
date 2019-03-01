@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link, withRouter } from 'react-router-dom';
 
 class Nav extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class Nav extends Component {
       <nav>
         <form onSubmit={(e) => {
           e.preventDefault();
+          this.props.history.push('/results');
           this.props.onSubmit(this.state.origin, this.state.destination)
           this.setState({
             origin: '',
@@ -46,10 +48,10 @@ class Nav extends Component {
             onChange={this.handleChange}
             value={this.state.destination} required />
 
-          <input
-            className="submit"
-            type="submit"
-            value="Find Stations" />
+            <input
+              className="submit"
+              type="submit"
+              value="Find Stations" />
 
         </form>
 
@@ -58,4 +60,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+export default withRouter(Nav);

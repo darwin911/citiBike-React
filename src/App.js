@@ -6,7 +6,8 @@ import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
 import Map from './components/Map';
-import InfoBox from './components/InfoBox';
+import { Route } from 'react-router-dom';
+import Results from './components/Results';
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class App extends Component {
       <div className="App">
 
         <Header />
+
         <Nav
           origin={this.state.origin}
           originAddress={this.state.originAddress}
@@ -54,23 +56,23 @@ class App extends Component {
           destinationAddress={this.state.destinationAddress}
           handleChange={this.handleChange}
           onSubmit={this.handleSubmit} />
+
         <Map
           origin={this.state.originLatLng}
           destination={this.state.destinationLatLng}
           zoom={this.state.defaultZoom}
           defaultCenter={this.state.defaultCenter}/>
-        {this.state.originAddress && <InfoBox 
-              origin={this.state.originAddress}
-              destination={this.state.destinationAddress} />}
-        {this.state.originLatLng &&
-          <section className="stations">
-            <OriginStations
+
+        <Route path="/results" render={(props) => (
+
+          <Results 
+            {...props}
+            origin={this.state.originAddress}
+            destination={this.state.destinationAddress}
             originLatLng={this.state.originLatLng}
-            stationList={this.state.stations}/>
-            <DestinationStations
             destinationLatLng={this.state.destinationLatLng}
-            stationList={this.state.stations}/>
-          </section>}
+            stationList={this.state.stations} />
+        )} />
           
       </div>
     );
