@@ -7,6 +7,7 @@ import { formatAddress, getLatLng } from './services/geocode';
 import Map from './components/Map';
 import { Route } from 'react-router-dom';
 import Results from './components/Results';
+import Footer from './components/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -73,6 +74,7 @@ class App extends Component {
             stationList={this.state.stations} />
         )} />
 
+        <Footer />
       </div>
     );
   }
