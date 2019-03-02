@@ -6,8 +6,8 @@ const InfoBox = (props) => {
     (props.origin)
       ?
       <section className="infobox">
-        <h4 className="origin">From: {props.origin}</h4>
-        <h4 className="destination">To: {props.destination}</h4>
+        <p className="origin">From: {props.origin}</p>
+        <p className="destination">To: {props.destination}</p>
       </section>
       :
       <div></div>

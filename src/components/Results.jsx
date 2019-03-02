@@ -6,9 +6,9 @@ const Results = (props) => {
 
   return (
     <section className="results">
-      {props.origin && <InfoBox
+      <InfoBox
         origin={props.origin}
-        destination={props.destination} />}
+        destination={props.destination} />
 
       {props.originLatLng &&
         <section className="stations">

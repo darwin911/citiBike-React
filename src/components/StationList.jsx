@@ -6,7 +6,7 @@ const OriginStations = (props) => {
 
   return (
     <section className="origin-stations">
-      <h2>Origin Stations</h2>
+      <h3>Origin Stations</h3>
       {props.stationList && props.stationList
         .filter(
           stn => (
@@ -24,7 +24,7 @@ const OriginStations = (props) => {
         )
         .map(stn => (
           <article className="card" key={stn.id}>
-            <h3>{stn.stationName}</h3>
+            <h5>{stn.stationName}</h5>
             <p>{stn.availableBikes} / {stn.totalDocks} bikes </p>
           </article>))}
     </section>
@@ -34,7 +34,7 @@ const OriginStations = (props) => {
 const DestinationStations = (props) => {
   return (
     <section className="destination-stations">
-      <h2>Destination Stations</h2>
+      <h3>Destination Stations</h3>
       {props.stationList && props.stationList
         .filter(
           stn => (
@@ -52,7 +52,7 @@ const DestinationStations = (props) => {
         )
         .map(stn => (
           <article className="card" key={stn.id}>
-            <h3>{stn.stationName}</h3>
+            <h5>{stn.stationName}</h5>
             <p>{stn.availableBikes} / {stn.totalDocks} bikes </p>
           </article>))}
     </section>

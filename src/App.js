@@ -16,7 +16,7 @@ class App extends Component {
       originLatLng: null,
       destinationLatLng: null,
       defaultZoom: [11],
-      defaultCenter: [-73.965101, 40.783874]
+      defaultCenter: [-73.989885, 40.739970]
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }

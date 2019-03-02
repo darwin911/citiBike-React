@@ -4,8 +4,8 @@
   margin: 0;
 }
 
-canvas.mapboxgl-canvas {
-  position: static !important;
+html {
+  min-height: 100vh;
 }
 
 body {
@@ -15,12 +15,14 @@ body {
   color: #ffffff;
   text-align: center;
   position: relative;
-  overflow-x: hidden;
 }
 
+p {
+  font-size: 0.8rem;
+}
+  
 .App { 
-  display: grid;
-  grid-template-rows: 80px 4fr auto;
+  min-height: 100vh;
 }
 
 header {
@@ -39,16 +41,15 @@ header {
   user-select: none;
 }
 
-h1 span {
+.title span {
   color: #0098e4;
   letter-spacing: -6px;
 }
-/* Map Styles */
-.map {
-  margin: 0;
-  background: linear-gradient(to top, #0098e4, #052b6c 420%);
+
+form {
+  margin: 0 auto;
+  max-width: 300px;
 }
-/* /Map Styles */
 
 nav { 
   width: 100%;
@@ -64,27 +65,32 @@ nav {
   padding: .65rem;
   border-radius: 6px;
   border: none;
-  box-shadow: none;
   display: block;
-  max-width: 65vmin;
   width: 90%;
-  -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.25);
+  max-width: 280px;
+  color: white;
+  background: rgba(255, 255, 255, 0.225);
+  -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
 }
 
 .origin-input, .destination-input {
-  transition: background 250ms ease;
+  transition: background 200ms ease;
+}
+
+.origin-input::placeholder, .destination-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .origin-input:hover, .destination-input:hover {
-  background: rgba(240, 240, 240, 1)
+  background: rgba(255, 255, 255, 0.275);
 }
 
 .submit {
   background: #052b6c;
   color: white;
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-bottom: 0;
   padding: 0.75rem .75rem;
   cursor: pointer;
@@ -97,13 +103,15 @@ nav {
   background: hsl(249, 100%, 22%);
 }
 
-.origin-input::placeholder, .destination-input::placeholder {
-  color: lightgrey;
+/* Map Styles */
+canvas.mapboxgl-canvas {
+  position: relative !important;
 }
+/* /Map Styles */
 
 .infobox {
   padding: 1rem 4rem;
-  margin: 0 auto 3rem;
+  margin: 0 auto;
 }
 
 .origin, .destination {
@@ -124,20 +132,31 @@ nav {
 }
 
 .origin-stations, .destination-stations {
-  margin-bottom: 5rem;
+  margin-bottom: 2.5rem;
 }
 
-.origin-stations h2, .destination-stations h2 {
+.origin-stations h3, .destination-stations h3 {
   background: rgba(255, 255, 255, 0.15);
   padding: .75rem 0;
 }
 
-@media screen and (min-width: 404px) {
-  .map {
-    height: 10vh;
+@media screen and (min-width: 680px) {
+  form {
+   max-width: 100%;
+  }
+  .origin-input, .destination-input {
+    display: inline;
+    margin: 0 .5rem .5rem;
+  }
+
+  .stations {
+    display: flex;
+  }
+
+  .origin-stations, .destination-stations {
+    width: 100%;
   }
 }
-
 
 @media screen and (min-width: 1020px) {
 
@@ -151,6 +170,10 @@ nav {
     border-bottom: 1px solid rgba(255, 255, 255, 0.45);
     width: 100%;
   }
+
+  .title {
+    font-size: 5.5rem;
+  }
   
   nav {
     grid-column: span 12;
@@ -158,7 +181,6 @@ nav {
   }
 
   .origin-input, .destination-input, .submit{
-    display: inline-block;
     max-width: 325px;
   }
   
@@ -170,12 +192,9 @@ nav {
   }
 
   .submit {
-    display: none;
-  }
-
-  .map {
-    grid-column: span 12;
-    grid-row: span 2;
+    display: inline-block;
+    position: absolute;
+    font-size: 1rem;
   }
 
   .results {
@@ -193,17 +212,5 @@ nav {
     grid-template-columns: 1fr 1fr;
   }
 
-  .title {
-    font-size: 5.5rem;
-  }
-  .container-element {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.5);
-    max-width: 100%;
-  }
-  .map-element {
-    border-radius: 8px;
-  }
 }
 
