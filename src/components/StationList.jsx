@@ -1,6 +1,6 @@
 import React from 'react';
 
-const r = 0.003
+const r = 0.00375
 
 const OriginStations = (props) => {
 
@@ -21,7 +21,7 @@ const OriginStations = (props) => {
               stn.longitude - props.originLatLng[0]
             ) <= r
           )
-        )
+        ).sort((a,b) =>(b.availableBikes - a.availableBikes))
         .map(stn => (
           <article className="card" key={stn.id}>
             <h5>{stn.stationName}</h5>

@@ -80,7 +80,7 @@ nav {
 .origin-input, .destination-input {
   transition: background 200ms ease;
   color: #111;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .origin-input::placeholder, .destination-input::placeholder {
@@ -114,6 +114,9 @@ nav {
 /* Map Styles */
 canvas.mapboxgl-canvas {
   position: relative !important;
+}
+.map {
+
 }
 /* /Map Styles */
 

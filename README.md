@@ -7,14 +7,13 @@
 
 [Citibike Stations](https://citibike-react.netlify.com/) helps you find the nearest CitiBike stations nearest to where you are and your destination. Origin and Destination will have Markers on the Map. Find Stations will location the nearest stations.
 
->[Mapbox Docs](https://docs.mapbox.com/mapbox-gl-js/api/)
+- Mapbox Docs: https://docs.mapbox.com/mapbox-gl-js/api/
 
->[Mapbox React GL](https://github.com/alex3165/react-mapbox-gl)
+- Mapbox React GL: https://github.com/alex3165/react-mapbox-gl
 
->[React Google Maps Style Guide](https://tomchentw.github.io/react-google-maps/#introduction)
+- React Google Maps Style Guide: https://tomchentw.github.io/react-google-maps/#introduction
 
-
-> [Maps Javascript API Documentation](https://developers.google.com/maps/documentation/javascript/tutorial)
+- Maps Javascript API Documentation: https://developers.google.com/maps/documentation/javascript/tutorial
 
 ## Wireframes & Component Hierarchy
 
@@ -70,6 +69,8 @@ App will hold all state and will be passed down through props to `<Map />, <Stat
 This code snippet filters stations that have a difference (r) in their locations (Latitude and Longitude).
 
 ```javascript
+const r = 0.0003;
+
 return (
     <section className="origin-stations">
       <h2>Origin Stations</h2>
