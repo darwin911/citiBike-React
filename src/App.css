@@ -57,7 +57,7 @@ nav {
   padding: .8rem 0;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 4;
 }
 
 .origin-input, .destination-input, .submit {
@@ -71,7 +71,6 @@ nav {
   display: block;
   width: 90%;
   max-width: 280px;
-  color: white;
   background: rgba(255, 255, 255, 0.225);
   -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
@@ -80,10 +79,16 @@ nav {
 
 .origin-input, .destination-input {
   transition: background 200ms ease;
+  color: #111;
+  font-weight: 400;
 }
 
 .origin-input::placeholder, .destination-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.origin-input:focus, .destination-input:focus {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .origin-input:hover, .destination-input:hover {
