@@ -112,11 +112,15 @@ nav {
 }
 
 /* Map Styles */
+.map * {
+  transition: all 100ms ease-out;
+}
 canvas.mapboxgl-canvas {
   position: relative !important;
+  /* transition: height 100ms ease; */
 }
-.map {
-
+.mapboxgl-marker {
+  transition: transform 25ms ease;
 }
 /* /Map Styles */
 

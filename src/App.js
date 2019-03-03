@@ -13,11 +13,12 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      bearing: [30],
       stations: [],
       originLatLng: null,
       destinationLatLng: null,
       defaultZoom: [11],
-      defaultCenter: [-73.989885, 40.739970]
+      center: [-73.989885, 40.739970]
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -58,10 +59,11 @@ class App extends Component {
           onSubmit={this.handleSubmit} />
 
         <Map
+          bearing={this.state.bearing}
           origin={this.state.originLatLng}
           destination={this.state.destinationLatLng}
           zoom={this.state.defaultZoom}
-          defaultCenter={this.state.defaultCenter} />
+          center={this.state.center} />
 
         <Route path="/results" render={(props) => (
 
