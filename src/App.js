@@ -25,9 +25,7 @@ class App extends Component {
 
   async componentDidMount() {
     const stations = await getStationData()
-    this.setState({
-      stations
-    })
+    this.setState({ stations })
   }
 
   async handleSubmit(origin, destination) {
