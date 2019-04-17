@@ -17,9 +17,9 @@
 
 ## Wireframes & Component Hierarchy
 
-[Wireframe](https://github.com/darwin911/citiBike-React/blob/master/src/assets/images/citibike-wireframe.jpg)
+![Wireframe](src/assets/images/citibike-wireframe.jpg)
 
-[Component Hierarchy](https://github.com/darwin911/citiBike-React/blob/master/src/assets/images/citibike-component-hierarchy.jpg)
+![Component Hierarchy](src/assets/images/citibike-component-hierarchy.jpg)
 
 ## User Stories
 
@@ -106,4 +106,4 @@ return (
 
 - Issue: Was not able to use Google Maps API directions service given documentation was written for Javascript, not React projects; and, `react-google-maps` which is a wrapper for Google Maps, was limited in documention and code snippets were written with `recompose.
 
-- Resolution: Mapbox. Better documentation and easier to incorporate into my project.
+- Resolution: Mapbox. Documentation was more accessible for this project given the time constrainsts which made it possible to incorporate into my project.
