@@ -2,91 +2,81 @@ import React, { Component } from 'react';
 import './App.css';
 import getStationData from './services/getStationData';
 import Header from './components/Header';
-import Main from './components/Main';
-import { OriginStations, DestinationStations } from './components/StationList';
 import Nav from './components/Nav';
 import { formatAddress, getLatLng } from './services/geocode';
+import Map from './components/Map';
+import { Route } from 'react-router-dom';
+import Results from './components/Results';
+import Footer from './components/Footer';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      bearing: [30],
       stations: [],
-      origin: '',
       originLatLng: null,
-      destination: '',
       destinationLatLng: null,
-      defaultZoom: 14,
-      defaultCenter: {
-        lat: 40.783874,
-        lng: -73.965101
-      },
-      directions: null,
-      isMarkerShown: true,
-      mapTypeId: 'roadmap',
-      travelMode: 'BICYCLING '
+      defaultZoom: [11],
+      center: [-73.989885, 40.739970]
     }
-    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async componentDidMount() {
     const stations = await getStationData()
-
     this.setState({
       stations
     })
   }
 
-  handleChange(e) {
-    const { name, value } = e.target
-    this.setState({
-      [name]: value
-    })
-  }
-
-  async handleSubmit(e) {
-    e.preventDefault();
-    const originAddress = await formatAddress(this.state.origin);
-    const destinationAddress = await formatAddress(this.state.destination);
+  async handleSubmit(origin, destination) {
+    const originAddress = await formatAddress(origin);
+    const destinationAddress = await formatAddress(destination);
     const originLatLng = await getLatLng(originAddress);
     const destinationLatLng = await getLatLng(destinationAddress);
-    console.log('origin: ', originLatLng, 'destination', destinationLatLng)
     this.setState({
-      origin: '',
       originAddress,
-      originLatLng,
-      destination: '',
+      originLatLng: [originLatLng.lng, originLatLng.lat],
       destinationAddress,
-      destinationLatLng
+      destinationLatLng: [destinationLatLng.lng, destinationLatLng.lat]
     })
   }
 
   render() {
+
     return (
       <div className="App">
 
         <Header />
-        <Main state={this.state} />
+
         <Nav
           origin={this.state.origin}
-          destination={this.state.destination}
-          handleChange={this.handleChange}
-          onSubmit={this.handleSubmit}
           originAddress={this.state.originAddress}
-          destinationAddress={this.state.destinationAddress} />
+          destination={this.state.destination}
+          destinationAddress={this.state.destinationAddress}
+          handleChange={this.handleChange}
+          onSubmit={this.handleSubmit} />
 
-        {this.state.originLatLng &&
-          <section className="stations">
-            <OriginStations
+        <Map
+          bearing={this.state.bearing}
+          origin={this.state.originLatLng}
+          destination={this.state.destinationLatLng}
+          zoom={this.state.defaultZoom}
+          center={this.state.center} />
+
+        <Route path="/results" render={(props) => (
+
+          <Results
+            {...props}
+            origin={this.state.originAddress}
+            destination={this.state.destinationAddress}
             originLatLng={this.state.originLatLng}
-            stationList={this.state.stations}/>
-            <DestinationStations
             destinationLatLng={this.state.destinationLatLng}
-            stationList={this.state.stations}/>
-          </section>
-        }
-        
+            stationList={this.state.stations} />
+        )} />
+
+        <Footer />
       </div>
     );
   }

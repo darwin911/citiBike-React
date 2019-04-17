@@ -1,42 +1,63 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom';
 
-const Nav = (props) => {
-  return (
-    <nav>
-      <form onSubmit={props.onSubmit}>
+class Nav extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      origin: '',
+      destination: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
 
-        <input type="text"
+  handleChange(e) {
+    const { name, value } = e.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  render() {
+
+    return (
+      <nav>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          this.props.history.push('/results');
+          this.props.onSubmit(this.state.origin, this.state.destination)
+          this.setState({
+            origin: '',
+            destination: ''
+          })
+        }}>
+
+          <input
+            className="origin-input"
+            type="text"
             placeholder="Origin"
             name="origin"
-            onChange={props.handleChange}
-            value={props.origin} required/>
+            onChange={this.handleChange}
+            value={this.state.origin} required />
 
-        <input type="text"
+          <input
+            className="destination-input"
+            type="text"
             placeholder="Destination"
             name="destination"
-            onChange={props.handleChange}
-            value={props.destination} required/>
+            onChange={this.handleChange}
+            value={this.state.destination} required />
 
-        <input type="submit"
-          value="Get directions" />
+          <input
+            className="submit"
+            type="submit"
+            value="Find Stations" />
 
-      </form>
+        </form>
 
-      {props.originAddress && (
-      <div className="infobox">
-        <aside className="origin">
-          <h4>From: {props.originAddress}</h4>
-        </aside>
-        <aside className="destination">
-          <h4>To: {props.destinationAddress}</h4>
-        </aside>
-      </div>
-        )
-      }
-
-      
-    </nav>
-  )
+      </nav>
+    )
+  }
 }
 
-export default Nav;
+export default withRouter(Nav);

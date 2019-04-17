@@ -1,34 +1,61 @@
 import React from 'react';
 
+const r = 0.00375
+
 const OriginStations = (props) => {
+
   return (
-  <section className="origin-stations">
-    <h2>Origin Stations</h2>
-      {props.stationList.filter(
-        station => (Math.abs(station.latitude - props.originLatLng.lat) <= 0.001) && Math.abs(station.longitude - props.originLatLng.lng <= 0.001))
-          .map(station => (
-            <article className="card" key={station.id}>
-              <h3>{station.stationName}</h3>
-              <p>{station.availableBikes} bikes available</p>
-            </article>
-          ))}
-  </section>
+    <section className="origin-stations">
+      <h3>Origin Stations</h3>
+      {props.stationList && props.stationList
+        .filter(
+          stn => (
+            Math.abs(
+              stn.latitude - props.originLatLng[1]
+            ) <= r
+          )
+        )
+        .filter(
+          stn => (
+            Math.abs(
+              stn.longitude - props.originLatLng[0]
+            ) <= r
+          )
+        ).sort((a,b) =>(b.availableBikes - a.availableBikes))
+        .map(stn => (
+          <article className="card" key={stn.id}>
+            <h5>{stn.stationName}</h5>
+            <p>{stn.availableBikes} / {stn.totalDocks} bikes </p>
+          </article>))}
+    </section>
   )
 }
 
 const DestinationStations = (props) => {
   return (
-  <section className="destination-stations">
-    <h2>Destination Stations</h2>{
-      props.stationList.filter(
-        station => Math.abs(station.latitude - props.destinationLatLng.lat) <= 0.00050)
-          .map(station => (
-            <article className="card" key={station.id}>
-              <h3>{station.stationName}</h3>
-              <p>{station.availableBikes} bikes available</p>
-            </article>
-          ))}
-  </section>
+    <section className="destination-stations">
+      <h3>Destination Stations</h3>
+      {props.stationList && props.stationList
+        .filter(
+          stn => (
+            Math.abs(
+              stn.latitude - props.destinationLatLng[1]
+            ) <= r
+          )
+        )
+        .filter(
+          stn => (
+            Math.abs(
+              stn.longitude - props.destinationLatLng[0]
+            ) <= r
+          )
+        )
+        .map(stn => (
+          <article className="card" key={stn.id}>
+            <h5>{stn.stationName}</h5>
+            <p>{stn.availableBikes} / {stn.totalDocks} bikes </p>
+          </article>))}
+    </section>
   )
 }
 

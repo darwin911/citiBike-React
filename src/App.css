@@ -4,6 +4,11 @@
   margin: 0;
 }
 
+html {
+  position: relative;
+  min-height: 100vh;
+}
+
 body {
   font-family: 'Overpass', Helvetica, sans-serif;
   background: #0098e4;
@@ -12,9 +17,12 @@ body {
   text-align: center;
 }
 
+p {
+  font-size: 0.8rem;
+}
+  
 .App { 
-  display: grid;
-  grid-template-rows: 80px 4fr auto;
+  min-height: 100vh;
 }
 
 header {
@@ -22,42 +30,111 @@ header {
 }
 
 .title {
-  color: rgba(0, 0, 0, 1);
-  font-size: 4rem;
+  color: #052b6c;
+  font-size: 3.25rem;
   line-height: 1;
   margin: 0 auto;
   padding-top: 1rem;
   padding-bottom: .25rem;
   letter-spacing: -2px;
   transition: font-size 500ms ease-out;
+  user-select: none;
 }
 
-h1 span {
+.title span {
   color: #0098e4;
   letter-spacing: -6px;
 }
-/* Map Styles */
-.map {
-  margin: 0;
-  background: linear-gradient(to top, #0098e4, #052b6c 420%);
-}
 
-.loading-element, .map-element {
-  height: 100%;
-}
-.container-element {
-  height: 265px;
-  width: 100%;
-  max-width: 800px;
+form {
   margin: 0 auto;
-  transition: height 1250ms ease-out;
+  max-width: 300px;
 }
-/* /Map Styles */
 
 nav { 
   width: 100%;
   background: #0098e4;
-  padding: 3rem 0;
+  padding: .8rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
+
+.origin-input, .destination-input, .submit {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  margin: 0 auto 0.5rem;
+  padding: .65rem;
+  border-radius: 6px;
+  border: none;
+  display: block;
+  width: 90%;
+  max-width: 280px;
+  background: rgba(255, 255, 255, 0.225);
+  -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
+}
+
+.origin-input, .destination-input {
+  transition: background 200ms ease;
+  color: #111;
+  font-weight: 500;
+}
+
+.origin-input::placeholder, .destination-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.origin-input:focus, .destination-input:focus {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.origin-input:hover, .destination-input:hover {
+  background: rgba(255, 255, 255, 0.275);
+}
+
+.submit {
+  background: #052b6c;
+  color: white;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+  padding: 0.75rem .75rem;
+  cursor: pointer;
+  transition: all 200ms ease;
+  box-shadow: none;
+  width: auto;
+}
+
+.submit:hover {
+  background: hsl(249, 100%, 22%);
+}
+
+/* Map Styles */
+.map * {
+  transition: all 100ms ease-out;
+}
+canvas.mapboxgl-canvas {
+  position: relative !important;
+  /* transition: height 100ms ease; */
+}
+.mapboxgl-marker {
+  transition: transform 25ms ease;
+}
+/* /Map Styles */
+
+.infobox {
+  padding: 1rem 4rem;
+  margin: 0 auto;
+}
+
+.origin, .destination {
+  margin: 0 auto .75rem;
+}
+
+.origin h3 {
+  font-size: 1rem;
 }
 
 .card {
@@ -69,105 +146,72 @@ nav {
   background: rgba(0, 0, 0, .2);
 }
 
-input[name="origin"],
-input[name="destination"],
-input[type="submit"] {
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
-  margin: 0 auto 0.75rem;
-  padding: .75rem;
-  border-radius: 6px;
-  border: none;
-  box-shadow: none;
-  display: block;
-  max-width: 70vmin;
-  width: 90%;
-  transition: all 250ms ease-out;
+.origin-stations, .destination-stations {
+  margin-bottom: 2.5rem;
 }
 
-input[type="submit"] {
-  background: transparent;
-  border: 3px solid#052b6c;
-  color: #052b6c;
-  font-size: 1.5rem;
-  /* padding: 1rem; */
-  cursor: pointer;
-  transition: all 250ms ease;
-  box-shadow: none;
+.origin-stations h3, .destination-stations h3 {
+  background: rgba(255, 255, 255, 0.15);
+  padding: .75rem 0;
 }
 
-input[name="origin"]:hover,
-input[name="destination"]:hover,
-input[type="submit"]:hover {
-  box-shadow: inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+footer {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-input[type="submit"]:hover {
-  color: rgba(255, 255, 255, 1);
-  background: #052b6c;
-}
-
-input[name="origin"]::placeholder,
-input[name="destination"]::placeholder {
-  color: lightgrey;
-}
-
-.infobox {
-  padding: 1rem 4rem;
-  margin: 0 auto;
-}
-
-.origin, .destination {
-  text-align: left;
-  margin: 0 auto .75rem;
-}
-
-.origin h3 {
-  font-size: 1rem;
-}
-
-@media screen and (min-width: 375px) and  (min-height: 668px) {
-
-  .container-element {
-    height: 40vh;
+/* Media Queries */
+/* iPad */
+@media screen and (min-width: 660px) {
+  form {
+   max-width: 100%;
+  }
+  .origin-input, .destination-input, .submit {
+    display: inline;
+    margin: 0 .5rem;
   }
 
-  input[name="origin"],
-  input[name="destination"],
-  input[type="submit"] {
-    margin-bottom: 1rem;
+  .origin-input {
+    margin-left: 0;
+  }
+
+  .subimit {
+    margin-right: 0;
+  }
+
+  .infobox {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+
+  .infobox p {
+    margin: 0;
+  }
+
+  .stations {
+    display: flex;
+  }
+
+  .origin-stations, .destination-stations {
+    width: 100%;
+  }
+
+  .origin-stations h3, .destination-stations h3 {
+    font-size: 1.5rem;
+  }
+  .card {
+    display: inline-block;
   }
 }
 
-@media screen and (min-width: 414px) {
-  input[name="origin"], input[name="destination"], input[type="submit"] {
-    margin-bottom: 1rem;
-  }
-}
+/* Laptop */
 
-@media screen and (min-width: 768px) and  (min-height: 1024px) {
-  .App {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  header    {grid-column: span 4;}
-  main      {grid-column: span 4;}
-  nav       {grid-column: 1/3;}
-  .stations {grid-column: span 4;}
-
-  .title {
-    font-size: 6rem;
-  }
-}
-
-@media screen and (min-width: 900px) {
-  .container-element {
-    /* max-width: 1100px; */
-  }
-}
-
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1020px) {
 
   .App {
     grid-template-columns: 50px repeat(10, 1fr) 50px;  
@@ -175,30 +219,45 @@ input[name="destination"]::placeholder {
   }
 
   header {
-    margin: 1rem auto;
-    grid-column: 2/12;
+    grid-column: span 12;
     border-bottom: 1px solid rgba(255, 255, 255, 0.45);
     width: 100%;
   }
 
-  main {
-    grid-column: 2/7;
-    grid-row: span 2;
+  .title {
+    font-size: 5.5rem;
   }
   
-  .origin {
-    grid-column: span 3;
-    align-self: center
-  }
-
-  .destination {
-    grid-column: span 3;
-    align-self: center;
-  }
-
   nav {
-    grid-column: span 6;
+    grid-column: span 12;
     width: 100%;
+  }
+
+  .origin-input, .destination-input, .submit{
+    max-width: 325px;
+    margin-bottom: 0;
+  }
+  
+  .origin-input, .destination-input {
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .submit {
+    display: inline-block;
+    position: absolute;
+    font-size: 1rem;
+  }
+
+  .results {
+    grid-column: span 12;
+  }
+
+  .infobox {
+    grid-column: span 12;
+    margin: 0;
   }
   
   .stations {
@@ -206,25 +265,6 @@ input[name="destination"]::placeholder {
     grid-column: span 12;
     grid-template-columns: 1fr 1fr;
   }
-  
-  .origin-stations {
 
-  }
-  .destination-stations {
-
-  }
-
-  .title {
-    font-size: 5.5rem;
-  }
-  .container-element {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.5);
-    max-width: 100%;
-  }
-  .map-element {
-    border-radius: 8px;
-  }
 }
 
