@@ -7,6 +7,7 @@ class Map extends Component {
   }
 
   render() {
+    const { center, originLatLng, destinationLatLng } = this.props;
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
       logoPosition: "top-left"
@@ -21,8 +22,8 @@ class Map extends Component {
     const defaultMap = (
       <Map
         className="map"
-        bearing={this.props.bearing}
-        center={this.props.center}
+        bearing={[30]}
+        center={center}
         onRender={e => this.mapEvent(e)}
         // eslint-disable-next-line
         style="mapbox://styles/mapbox/streets-v10"
@@ -33,29 +34,25 @@ class Map extends Component {
     const renderMap = (
       <Map
         className="map"
-        bearing={this.props.bearing}
-        center={this.props.destination ? this.props.origin : this.props.center}
+        bearing={[30]}
+        center={destinationLatLng ? originLatLng : center}
         // eslint-disable-next-line
         style="mapbox://styles/mapbox/streets-v10"
         containerStyle={style}
       >
-        <Marker
-          coordinates={
-            this.props.origin ? this.props.origin : this.props.center
-          }
-        >
+        <Marker coordinates={originLatLng ? originLatLng : center}>
           <img src="https://i.imgur.com/MK4NUzI.png" alt="Origin" />
         </Marker>
 
-        {this.props.destination && (
-          <Marker coordinates={this.props.destination}>
+        {destinationLatLng && (
+          <Marker coordinates={destinationLatLng}>
             <img src="https://i.imgur.com/MK4NUzI.png" alt="Destination" />
           </Marker>
         )}
       </Map>
     );
 
-    return this.props.destination ? renderMap : defaultMap;
+    return destinationLatLng ? renderMap : defaultMap;
   }
 }
 

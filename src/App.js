@@ -8,12 +8,15 @@ import Map from "./components/Map";
 import { Route } from "react-router-dom";
 import Results from "./components/Results";
 import Footer from "./components/Footer";
+import { withRouter } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bearing: [30],
+      origin: "",
+      destination: "",
+      bearing: [],
       stations: [],
       originLatLng: null,
       destinationLatLng: null,
@@ -21,6 +24,7 @@ class App extends Component {
       center: [-73.989885, 40.73997]
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   async componentDidMount() {
@@ -28,17 +32,27 @@ class App extends Component {
     this.setState({ stations });
   }
 
-  async handleSubmit(origin, destination) {
-    const originAddress = await formatAddress(origin);
-    const destinationAddress = await formatAddress(destination);
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  async handleSubmit() {
+    const originAddress = await formatAddress(this.state.origin);
+    const destinationAddress = await formatAddress(this.state.destination);
     const originLatLng = await getLatLng(originAddress);
     const destinationLatLng = await getLatLng(destinationAddress);
     this.setState({
+      origin: "",
+      destination: "",
       originAddress,
       originLatLng: [originLatLng.lng, originLatLng.lat],
       destinationAddress,
       destinationLatLng: [destinationLatLng.lng, destinationLatLng.lat]
     });
+    this.props.history.push("/results");
   }
 
   render() {
@@ -52,7 +66,7 @@ class App extends Component {
       destinationLatLng,
       defaultZoom,
       center,
-      stations,
+      stations
     } = this.state;
     return (
       <div className="App">
@@ -64,13 +78,13 @@ class App extends Component {
           destination={destination}
           destinationAddress={destinationAddress}
           handleChange={this.handleChange}
-          onSubmit={this.handleSubmit}
+          handleSubmit={this.handleSubmit}
         />
 
         <Map
           bearing={bearing}
-          origin={originLatLng}
-          destination={destinationLatLng}
+          originLatLng={originLatLng}
+          destinationLatLng={destinationLatLng}
           zoom={defaultZoom}
           center={center}
         />
@@ -95,4 +109,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -1,62 +1,38 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import React from "react";
 
-class Nav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      origin: "",
-      destination: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const Nav = ({ handleSubmit, handleChange, origin, destination }) => {
+  return (
+    <nav>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          handleSubmit(origin, destination);
+        }}
+      >
+        <input
+          className="origin-input"
+          type="text"
+          placeholder="Origin"
+          name="origin"
+          onChange={handleChange}
+          value={origin}
+          required
+        />
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value
-    });
-  }
+        <input
+          className="destination-input"
+          type="text"
+          placeholder="Destination"
+          name="destination"
+          onChange={handleChange}
+          value={destination}
+          required
+        />
 
-  render() {
-    return (
-      <nav>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            this.props.history.push("/results");
-            this.props.onSubmit(this.state.origin, this.state.destination);
-            this.setState({
-              origin: "",
-              destination: ""
-            });
-          }}
-        >
-          <input
-            className="origin-input"
-            type="text"
-            placeholder="Origin"
-            name="origin"
-            onChange={this.handleChange}
-            value={this.state.origin}
-            required
-          />
+        <input className="submit" type="submit" value="Find Stations" />
+      </form>
+    </nav>
+  );
+};
 
-          <input
-            className="destination-input"
-            type="text"
-            placeholder="Destination"
-            name="destination"
-            onChange={this.handleChange}
-            value={this.state.destination}
-            required
-          />
-
-          <input className="submit" type="submit" value="Find Stations" />
-        </form>
-      </nav>
-    );
-  }
-}
-
-export default withRouter(Nav);
+export default Nav;
