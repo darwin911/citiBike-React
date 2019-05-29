@@ -1,28 +1,26 @@
-import React from 'react';
-import InfoBox from './InfoBox';
-import { OriginStations, DestinationStations } from './StationList'
+import React from "react";
+import InfoBox from "./InfoBox";
+import { OriginStations, DestinationStations } from "./StationList";
 
-const Results = (props) => {
-
+const Results = props => {
   return (
     <section className="results">
-      <InfoBox
-        origin={props.origin}
-        destination={props.destination} />
+      <InfoBox origin={props.origin} destination={props.destination} />
 
-      {props.originLatLng &&
+      {props.originLatLng && (
         <section className="stations">
           <OriginStations
             originLatLng={props.originLatLng}
-            stationList={props.stationList} />
+            stationList={props.stationList}
+          />
           <DestinationStations
             destinationLatLng={props.destinationLatLng}
-            stationList={props.stationList} />
-        </section>}
+            stationList={props.stationList}
+          />
+        </section>
+      )}
     </section>
-  )
-}
+  );
+};
 
 export default Results;
-
-
