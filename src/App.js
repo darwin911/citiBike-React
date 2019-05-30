@@ -48,7 +48,7 @@ class App extends Component {
         origin.geometry.location.lng,
         origin.geometry.location.lat
       ],
-      destinationAddress: destination.formatAddress,
+      destinationAddress: destination.formatted_address,
       destinationLatLng: [
         destination.geometry.location.lng,
         destination.geometry.location.lat
