@@ -1,19 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactMapboxGl, { Marker } from "react-mapbox-gl";
 
-class Map extends Component {
+class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      origin: this.props.originLatLng,
-      destination: this.props.destinationLatLng,
       center: [-73.989885, 40.73997],
       bearing: [30]
     };
   }
 
   render() {
-    const { originLatLng, destinationLatLng, center, bearing } = this.state;
+    const { center, bearing } = this.state;
+    const { originLatLng, destinationLatLng } = this.props;
 
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
@@ -37,7 +36,7 @@ class Map extends Component {
       >
         {originLatLng && (
           <>
-            <Marker coordinates={originLatLng ? originLatLng : center}>
+            <Marker coordinates={originLatLng}>
               <img
                 src="https://i.imgur.com/MK4NUzI.png"
                 width="20px"
@@ -55,8 +54,6 @@ class Map extends Component {
         )}
       </Map>
     );
-
-    console.log(renderMap);
     return renderMap;
   }
 }
