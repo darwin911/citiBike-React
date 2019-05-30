@@ -5,23 +5,21 @@ import Header from "./components/Header";
 import Nav from "./components/Nav";
 import { formatAddress, getLatLng } from "./services/geocode";
 import Map from "./components/Map";
-import { Route } from "react-router-dom";
 import Results from "./components/Results";
 import Footer from "./components/Footer";
-import { withRouter } from "react-router-dom";
+import { withRouter, Route } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       origin: "",
+      originAddress: "",
       destination: "",
-      bearing: [],
+      destinationAddress: "",
       stations: [],
       originLatLng: null,
       destinationLatLng: null,
-      defaultZoom: [11],
-      center: [-73.989885, 40.73997]
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -61,11 +59,8 @@ class App extends Component {
       originAddress,
       destination,
       destinationAddress,
-      bearing,
       originLatLng,
       destinationLatLng,
-      defaultZoom,
-      center,
       stations
     } = this.state;
     return (
@@ -80,13 +75,10 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-
+        
         <Map
-          bearing={bearing}
           originLatLng={originLatLng}
           destinationLatLng={destinationLatLng}
-          zoom={defaultZoom}
-          center={center}
         />
 
         <Route

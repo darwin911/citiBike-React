@@ -2,12 +2,19 @@ import React, { Component } from "react";
 import ReactMapboxGl, { Marker } from "react-mapbox-gl";
 
 class Map extends Component {
-  mapEvent(e) {
-    console.log("loading");
+  constructor(props) {
+    super(props);
+    this.state = {
+      origin: this.props.originLatLng,
+      destination: this.props.destinationLatLng,
+      center: [-73.989885, 40.73997],
+      bearing: [30]
+    };
   }
 
   render() {
-    const { center, originLatLng, destinationLatLng } = this.props;
+    const { originLatLng, destinationLatLng, center, bearing } = this.state;
+
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
       logoPosition: "top-left"
@@ -19,40 +26,38 @@ class Map extends Component {
       width: "auto"
     };
 
-    const defaultMap = (
-      <Map
-        className="map"
-        bearing={[30]}
-        center={center}
-        onRender={e => this.mapEvent(e)}
-        // eslint-disable-next-line
-        style="mapbox://styles/mapbox/streets-v10"
-        containerStyle={style}
-      />
-    );
-
     const renderMap = (
       <Map
         className="map"
-        bearing={[30]}
+        bearing={bearing}
         center={destinationLatLng ? originLatLng : center}
         // eslint-disable-next-line
         style="mapbox://styles/mapbox/streets-v10"
         containerStyle={style}
       >
-        <Marker coordinates={originLatLng ? originLatLng : center}>
-          <img src="https://i.imgur.com/MK4NUzI.png" alt="Origin" />
-        </Marker>
-
-        {destinationLatLng && (
-          <Marker coordinates={destinationLatLng}>
-            <img src="https://i.imgur.com/MK4NUzI.png" alt="Destination" />
-          </Marker>
+        {originLatLng && (
+          <>
+            <Marker coordinates={originLatLng ? originLatLng : center}>
+              <img
+                src="https://i.imgur.com/MK4NUzI.png"
+                width="20px"
+                alt="Origin"
+              />
+            </Marker>
+            <Marker coordinates={destinationLatLng}>
+              <img
+                src="https://i.imgur.com/MK4NUzI.png"
+                width="20px"
+                alt="Destination"
+              />
+            </Marker>
+          </>
         )}
       </Map>
     );
 
-    return destinationLatLng ? renderMap : defaultMap;
+    console.log(renderMap);
+    return renderMap;
   }
 }
 
