@@ -6,12 +6,13 @@ class Map extends React.PureComponent {
     super(props);
     this.state = {
       center: [-73.989885, 40.73997],
-      bearing: [30]
+      bearing: [30],
+      isLoading: true
     };
   }
 
   render() {
-    const { center, bearing } = this.state;
+    const { center, bearing, isLoading } = this.state;
     const { originLatLng, destinationLatLng } = this.props;
 
     const Map = ReactMapboxGl({
@@ -25,9 +26,9 @@ class Map extends React.PureComponent {
       width: "auto"
     };
 
-    const renderMap = (
+    return (
       <Map
-        className="map"
+        className={"map"}
         bearing={bearing}
         center={destinationLatLng ? originLatLng : center}
         // eslint-disable-next-line
@@ -54,7 +55,6 @@ class Map extends React.PureComponent {
         )}
       </Map>
     );
-    return renderMap;
   }
 }
 
