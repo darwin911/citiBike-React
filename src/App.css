@@ -146,6 +146,10 @@ canvas.mapboxgl-canvas {
   background: rgba(0, 0, 0, .2);
 }
 
+.card h5, .card p {
+  font-size: 1rem;
+}
+
 .origin-stations, .destination-stations {
   margin-bottom: 2.5rem;
 }
@@ -168,6 +172,8 @@ footer {
 @media screen and (min-width: 660px) {
   form {
    max-width: 100%;
+   display: flex;
+   justify-content: center;
   }
   .origin-input, .destination-input, .submit {
     display: inline;
@@ -178,7 +184,7 @@ footer {
     margin-left: 0;
   }
 
-  .subimit {
+  .submit {
     margin-right: 0;
   }
 
@@ -247,7 +253,7 @@ footer {
 
   .submit {
     display: inline-block;
-    position: absolute;
+    position: relative;
     font-size: 1rem;
   }
 
@@ -268,3 +274,7 @@ footer {
 
 }
 
+
+.loading {
+  opacity: 0;
+}

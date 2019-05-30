@@ -25,11 +25,6 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  async componentDidMount() {
-    const stations = await getStationData();
-    this.setState({ stations });
-  }
-
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({
@@ -38,17 +33,20 @@ class App extends Component {
   }
 
   async handleSubmit() {
-    const originAddress = await formatAddress(this.state.origin);
-    const destinationAddress = await formatAddress(this.state.destination);
-    const originLatLng = await getLatLng(originAddress);
-    const destinationLatLng = await getLatLng(destinationAddress);
+    let stations;
+    if (!this.state.station) {
+      stations = await getStationData();
+    }
+    const origin = await formatAddress(this.state.origin);
+    const destination = await formatAddress(this.state.destination);
     this.setState({
+      stations,
       origin: "",
       destination: "",
-      originAddress,
-      originLatLng: [originLatLng.lng, originLatLng.lat],
-      destinationAddress,
-      destinationLatLng: [destinationLatLng.lng, destinationLatLng.lat]
+      originAddress: origin.formatAddress,
+      originLatLng: [origin.geometry.location.lng, origin.geometry.location.lat],
+      destinationAddress: destination.formatAddress,
+      destinationLatLng: [destination.geometry.location.lng, destination.geometry.location.lat]
     });
     this.props.history.push("/results");
   }
