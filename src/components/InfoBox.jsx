@@ -1,10 +1,10 @@
 import React from "react";
 
-const InfoBox = props => {
-  return props.origin ? (
+const InfoBox = ({ origin, destination }) => {
+  return origin ? (
     <section className="infobox">
-      <p className="origin">From: {props.origin}</p>
-      <p className="destination">To: {props.destination}</p>
+      <p className="origin">From: {origin}</p>
+      <p className="destination">To: {destination}</p>
     </section>
   ) : (
     ""

@@ -3,7 +3,7 @@ import "./App.css";
 import getStationData from "./services/getStationData";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
-import { formatAddress, getLatLng } from "./services/geocode";
+import { formatAddress } from "./services/geocode";
 import Map from "./components/Map";
 import Results from "./components/Results";
 import Footer from "./components/Footer";
@@ -19,7 +19,7 @@ class App extends Component {
       destinationAddress: "",
       stations: [],
       originLatLng: null,
-      destinationLatLng: null,
+      destinationLatLng: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -43,10 +43,16 @@ class App extends Component {
       stations,
       origin: "",
       destination: "",
-      originAddress: origin.formatAddress,
-      originLatLng: [origin.geometry.location.lng, origin.geometry.location.lat],
+      originAddress: origin.formatted_address,
+      originLatLng: [
+        origin.geometry.location.lng,
+        origin.geometry.location.lat
+      ],
       destinationAddress: destination.formatAddress,
-      destinationLatLng: [destination.geometry.location.lng, destination.geometry.location.lat]
+      destinationLatLng: [
+        destination.geometry.location.lng,
+        destination.geometry.location.lat
+      ]
     });
     this.props.history.push("/results");
   }
@@ -73,7 +79,7 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        
+
         <Map
           originLatLng={originLatLng}
           destinationLatLng={destinationLatLng}

@@ -2,20 +2,26 @@ import React from "react";
 import InfoBox from "./InfoBox";
 import { OriginStations, DestinationStations } from "./StationList";
 
-const Results = props => {
+const Results = ({
+  origin,
+  destination,
+  originLatLng,
+  destinationLatLng,
+  stationList
+}) => {
   return (
     <section className="results">
-      <InfoBox origin={props.origin} destination={props.destination} />
+      <InfoBox origin={origin} destination={destination} />
 
-      {props.originLatLng && (
+      {originLatLng && (
         <section className="stations">
           <OriginStations
-            originLatLng={props.originLatLng}
-            stationList={props.stationList}
+            originLatLng={originLatLng}
+            stationList={stationList}
           />
           <DestinationStations
-            destinationLatLng={props.destinationLatLng}
-            stationList={props.stationList}
+            destinationLatLng={destinationLatLng}
+            stationList={stationList}
           />
         </section>
       )}
