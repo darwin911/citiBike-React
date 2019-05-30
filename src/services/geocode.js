@@ -7,14 +7,7 @@ const formatAddress = async location => {
   const resp = await axios(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${KEY}`
   );
-  return resp.data.results[0].formatted_address;
+  return resp.data.results[0];
 };
 
-const getLatLng = async location => {
-  const resp = await axios(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${KEY}`
-  );
-  return resp.data.results[0].geometry.location;
-};
-
-export { formatAddress, getLatLng };
+export { formatAddress };
