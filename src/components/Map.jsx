@@ -6,13 +6,12 @@ class Map extends React.PureComponent {
     super(props);
     this.state = {
       center: [-73.989885, 40.73997],
-      bearing: [30],
-      isLoading: true
+      bearing: [30]
     };
   }
 
   render() {
-    const { center, bearing, isLoading } = this.state;
+    const { center, bearing } = this.state;
     const { originLatLng, destinationLatLng } = this.props;
 
     const Map = ReactMapboxGl({
