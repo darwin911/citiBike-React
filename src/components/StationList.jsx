@@ -1,5 +1,5 @@
 import React from "react";
-
+// distance (radius) which the components will filter the lat and lng of stations compared to the user's input in lat lng
 const r = 0.00375;
 
 const OriginStations = ({ stationList, originLatLng }) => {

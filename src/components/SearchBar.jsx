@@ -1,6 +1,6 @@
 import React from "react";
 
-const Nav = ({ handleSubmit, handleChange, origin, destination }) => {
+const SearchBar = ({ handleSubmit, handleChange, origin, destination }) => {
   return (
     <nav>
       <form
@@ -35,4 +35,4 @@ const Nav = ({ handleSubmit, handleChange, origin, destination }) => {
   );
 };
 
-export default Nav;
+export default SearchBar;

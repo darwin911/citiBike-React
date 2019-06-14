@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import getStationData from "./services/getStationData";
 import Header from "./components/Header";
-import Nav from "./components/Nav";
+import SearchBar from "./components/SearchBar";
 import { formatAddress } from "./services/geocode";
 import Map from "./components/Map";
 import Results from "./components/Results";
@@ -21,18 +21,16 @@ class App extends Component {
       originLatLng: null,
       destinationLatLng: null
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
     });
-  }
+  };
 
-  async handleSubmit() {
+  handleSubmit = async () => {
     let stations;
     if (!this.state.station) {
       stations = await getStationData();
@@ -55,7 +53,7 @@ class App extends Component {
       ]
     });
     this.props.history.push("/results");
-  }
+  };
 
   render() {
     const {
@@ -71,7 +69,7 @@ class App extends Component {
       <div className="App">
         <Header />
 
-        <Nav
+        <SearchBar
           origin={origin}
           originAddress={originAddress}
           destination={destination}
