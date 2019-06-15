@@ -15,7 +15,7 @@ const SearchBar = ({ handleSubmit, handleChange, origin, destination }) => {
           placeholder="Origin"
           name="origin"
           onChange={handleChange}
-          value={origin}
+          value={origin.text}
           required
         />
 
@@ -25,7 +25,7 @@ const SearchBar = ({ handleSubmit, handleChange, origin, destination }) => {
           placeholder="Destination"
           name="destination"
           onChange={handleChange}
-          value={destination}
+          value={destination.text}
           required
         />
 

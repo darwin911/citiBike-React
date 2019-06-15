@@ -12,7 +12,7 @@ class Map extends React.PureComponent {
 
   render() {
     const { center, bearing } = this.state;
-    const { originLatLng, destinationLatLng } = this.props;
+    const { originLngLat, destinationLngLat } = this.props;
 
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
@@ -29,21 +29,21 @@ class Map extends React.PureComponent {
       <Map
         className={"map"}
         bearing={bearing}
-        center={destinationLatLng ? originLatLng : center}
+        center={destinationLngLat ? originLngLat : center}
         // eslint-disable-next-line
         style="mapbox://styles/mapbox/streets-v10"
         containerStyle={style}
       >
-        {originLatLng && (
+        {originLngLat && (
           <>
-            <Marker coordinates={originLatLng}>
+            <Marker coordinates={originLngLat}>
               <img
                 src="https://i.imgur.com/MK4NUzI.png"
                 width="20px"
                 alt="Origin"
               />
             </Marker>
-            <Marker coordinates={destinationLatLng}>
+            <Marker coordinates={destinationLngLat}>
               <img
                 src="https://i.imgur.com/MK4NUzI.png"
                 width="20px"

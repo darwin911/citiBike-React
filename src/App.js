@@ -13,74 +13,74 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      origin: "",
-      originAddress: "",
-      destination: "",
-      destinationAddress: "",
-      stations: [],
-      originLatLng: null,
-      destinationLatLng: null
+      origin: {
+        text: "",
+        address: "",
+        lat: null,
+        lng: null
+      },
+      destination: {
+        text: "",
+        address: "",
+        lat: null,
+        lng: null
+      },
+      stations: []
     };
+  }
+
+  async componentDidMount() {
+    const stations = await getStationData();
+    this.setState({ stations });
   }
 
   handleChange = e => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState(prevState => ({
+      [name]: {
+        ...prevState[name],
+        text: value
+      }
+    }));
   };
 
   handleSubmit = async () => {
-    let stations;
-    if (!this.state.station) {
-      stations = await getStationData();
-    }
-    const origin = await formatAddress(this.state.origin);
-    const destination = await formatAddress(this.state.destination);
+    const origin = await formatAddress(this.state.origin.text);
+    const destination = await formatAddress(this.state.destination.text);
     this.setState({
-      stations,
-      origin: "",
-      destination: "",
-      originAddress: origin.formatted_address,
-      originLatLng: [
-        origin.geometry.location.lng,
-        origin.geometry.location.lat
-      ],
-      destinationAddress: destination.formatted_address,
-      destinationLatLng: [
-        destination.geometry.location.lng,
-        destination.geometry.location.lat
-      ]
+      origin: {
+        text: "",
+        address: origin.formatted_address,
+        lnglat: [origin.geometry.location.lng, origin.geometry.location.lat]
+      },
+      destination: {
+        text: "",
+        address: destination.formatted_address,
+        lnglat: [
+          destination.geometry.location.lng,
+          destination.geometry.location.lat
+        ]
+      }
     });
     this.props.history.push("/results");
   };
 
   render() {
-    const {
-      origin,
-      originAddress,
-      destination,
-      destinationAddress,
-      originLatLng,
-      destinationLatLng,
-      stations
-    } = this.state;
+    const { origin, destination, stations } = this.state;
     return (
       <div className="App">
         <Header />
 
         <SearchBar
           origin={origin}
-          originAddress={originAddress}
           destination={destination}
-          destinationAddress={destinationAddress}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
 
         <Map
-          originLatLng={originLatLng}
-          destinationLatLng={destinationLatLng}
+          originLngLat={origin.lnglat}
+          destinationLngLat={destination.lnglat}
         />
 
         <Route
@@ -88,10 +88,8 @@ class App extends Component {
           render={props => (
             <Results
               {...props}
-              origin={originAddress}
-              destination={destinationAddress}
-              originLatLng={originLatLng}
-              destinationLatLng={destinationLatLng}
+              origin={origin}
+              destination={destination}
               stationList={stations}
             />
           )}
