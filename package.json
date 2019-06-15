@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy" : "npm run build && netlify deploy -d ./build --prod",
+    "deploy": "npm run build && cd build && echo '/results /' >> _redirects && netlify deploy -d ./ --prod",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
