@@ -7,7 +7,8 @@ const Results = ({
   destination,
   stationList,
   moreDetails,
-  toggleDetails
+  toggleDetails,
+  radius
 }) => {
   return (
     <section className="results">
@@ -21,6 +22,7 @@ const Results = ({
             toggleDetails={toggleDetails}
             lngLat={origin.lnglat}
             stationList={stationList}
+            radius={radius}
           />
           <StationList
             type="destination"
@@ -28,6 +30,7 @@ const Results = ({
             toggleDetails={toggleDetails}
             lngLat={destination.lnglat}
             stationList={stationList}
+            radius={radius}
           />
         </section>
       )}

@@ -1,14 +1,12 @@
 import React from "react";
 
-// distance (radius) which the components will filter the lat and lng of stations compared to the user's input in lat lng
-const r = 0.00375;
-
 const StationList = ({
   stationList,
   lngLat,
   moreDetails,
   toggleDetails,
-  type
+  type,
+  radius
 }) => {
   return (
     <section
@@ -19,8 +17,8 @@ const StationList = ({
         stationList
           .filter(
             stn =>
-              Math.abs(stn.latitude - lngLat[1]) <= r &&
-              Math.abs(stn.longitude - lngLat[0]) <= r
+              Math.abs(stn.latitude - lngLat[1]) <= radius &&
+              Math.abs(stn.longitude - lngLat[0]) <= radius
           )
           .map(stn => {
             return (

@@ -16,7 +16,9 @@ class Map extends React.PureComponent {
 
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
-      logoPosition: "top-left"
+      logoPosition: "top-left",
+      minZoom: 11,
+      maxZoom: 15
     });
 
     const style = {
@@ -31,7 +33,7 @@ class Map extends React.PureComponent {
         bearing={bearing}
         center={destinationLngLat ? originLngLat : center}
         // eslint-disable-next-line
-        style="mapbox://styles/mapbox/streets-v10"
+        style="mapbox://styles/mapbox/streets-v10?optimize=true"
         containerStyle={style}
       >
         {originLngLat && (

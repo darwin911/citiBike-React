@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import getStationData from "./services/getStationData";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
-import { formatAddress } from "./services/geocode";
+import { formatAddress, getStationData } from "./services/helper";
 import Map from "./components/Map";
 import Results from "./components/Results";
 import Footer from "./components/Footer";
@@ -25,7 +24,9 @@ class App extends Component {
         lat: null,
         lng: null
       },
-      stations: []
+      stations: [],
+      moreDetails: false,
+      radius: 0.00375
     };
   }
 
@@ -65,8 +66,12 @@ class App extends Component {
     this.props.history.push("/results");
   };
 
+  toggleDetails = () => {
+    this.setState({ moreDetails: !this.state.moreDetails });
+  };
+
   render() {
-    const { origin, destination, stations } = this.state;
+    const { origin, destination, stations, moreDetails, radius } = this.state;
     return (
       <div className="App">
         <Header />
@@ -90,7 +95,10 @@ class App extends Component {
               {...props}
               origin={origin}
               destination={destination}
+              toggleDetails={this.toggleDetails}
+              moreDetails={moreDetails}
               stationList={stations}
+              radius={radius}
             />
           )}
         />
