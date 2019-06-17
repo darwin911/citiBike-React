@@ -15,14 +15,12 @@ class App extends Component {
       origin: {
         text: "",
         address: "",
-        lat: null,
-        lng: null
+        lnglat: [null, null]
       },
       destination: {
         text: "",
         address: "",
-        lat: null,
-        lng: null
+        lnglat: [null, null]
       },
       stations: [],
       moreDetails: false,
@@ -66,9 +64,7 @@ class App extends Component {
     this.props.history.push("/results");
   };
 
-  toggleDetails = () => {
-    this.setState({ moreDetails: !this.state.moreDetails });
-  };
+  toggleDetails = e => this.setState({ moreDetails: !this.state.moreDetails });
 
   render() {
     const { origin, destination, stations, moreDetails, radius } = this.state;
@@ -83,10 +79,7 @@ class App extends Component {
           handleSubmit={this.handleSubmit}
         />
 
-        <Map
-          originLngLat={origin.lnglat}
-          destinationLngLat={destination.lnglat}
-        />
+        <Map origin={origin.lnglat} destination={destination.lnglat} />
 
         <Route
           path="/results"

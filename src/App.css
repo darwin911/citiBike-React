@@ -1,18 +1,24 @@
-@import url('https://fonts.googleapis.com/css?family=Overpass:100,200,400,700,900');
-*, *::before, *::after {
+@import url("https://fonts.googleapis.com/css?family=Overpass:100,200,400,700,900");
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
 }
 
 html {
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 body {
-  font-family: 'Overpass', Helvetica, sans-serif;
+  font-family: "Overpass", Helvetica, sans-serif;
   background: #0098e4;
-  background: radial-gradient(circle at 10% 30%, hsl(200, 100%, 35%) 0%, #052b6c 94%);
+  background: radial-gradient(
+    circle at 10% 30%,
+    hsl(200, 100%, 35%) 0%,
+    #052b6c 94%
+  );
   color: #ffffff;
   text-align: center;
 }
@@ -20,8 +26,8 @@ body {
 p {
   font-size: 0.8rem;
 }
-  
-.App { 
+
+.App {
   min-height: 100vh;
 }
 
@@ -35,7 +41,7 @@ header {
   line-height: 1;
   margin: 0 auto;
   padding-top: 1rem;
-  padding-bottom: .25rem;
+  padding-bottom: 0.25rem;
   letter-spacing: -2px;
   transition: font-size 500ms ease-out;
   user-select: none;
@@ -51,21 +57,23 @@ form {
   max-width: 300px;
 }
 
-nav { 
+nav {
   width: 100%;
   background: #0098e4;
-  padding: .8rem 0;
+  padding: 0.8rem 0;
   position: sticky;
   top: 0;
   z-index: 4;
 }
 
-.origin-input, .destination-input, .submit {
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+.origin-input,
+.destination-input,
+.submit {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-size: 0.8rem;
   font-weight: 900;
   margin: 0 auto 0.5rem;
-  padding: .65rem;
+  padding: 0.65rem;
   border-radius: 6px;
   border: none;
   display: block;
@@ -77,21 +85,25 @@ nav {
   box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
 }
 
-.origin-input, .destination-input {
+.origin-input,
+.destination-input {
   transition: background 200ms ease;
   color: #111;
   font-weight: 500;
 }
 
-.origin-input::placeholder, .destination-input::placeholder {
+.origin-input::placeholder,
+.destination-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.origin-input:focus, .destination-input:focus {
+.origin-input:focus,
+.destination-input:focus {
   background: rgba(255, 255, 255, 0.4);
 }
 
-.origin-input:hover, .destination-input:hover {
+.origin-input:hover,
+.destination-input:hover {
   background: rgba(255, 255, 255, 0.275);
 }
 
@@ -100,7 +112,7 @@ nav {
   color: white;
   font-size: 0.8rem;
   margin-bottom: 0;
-  padding: 0.75rem .75rem;
+  padding: 0.75rem 0.75rem;
   cursor: pointer;
   transition: all 200ms ease;
   box-shadow: none;
@@ -129,8 +141,9 @@ canvas.mapboxgl-canvas {
   margin: 0 auto;
 }
 
-.origin, .destination {
-  margin: 0 auto .75rem;
+.origin,
+.destination {
+  margin: 0 auto 0.75rem;
 }
 
 .origin h3 {
@@ -143,20 +156,23 @@ canvas.mapboxgl-canvas {
 }
 
 .card:nth-child(odd) {
-  background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
-.card h5, .card p {
+.card h5,
+.card p {
   font-size: 1rem;
 }
 
-.origin-stations, .destination-stations {
+.origin-stations,
+.destination-stations {
   margin-bottom: 2.5rem;
 }
 
-.origin-stations h3, .destination-stations h3 {
+.origin-stations h3,
+.destination-stations h3 {
   background: rgba(255, 255, 255, 0.15);
-  padding: .75rem 0;
+  padding: 0.75rem 0;
 }
 
 footer {
@@ -171,13 +187,15 @@ footer {
 /* iPad */
 @media screen and (min-width: 660px) {
   form {
-   max-width: 100%;
-   display: flex;
-   justify-content: center;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
   }
-  .origin-input, .destination-input, .submit {
+  .origin-input,
+  .destination-input,
+  .submit {
     display: inline;
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
   }
 
   .origin-input {
@@ -203,11 +221,13 @@ footer {
     display: flex;
   }
 
-  .origin-stations, .destination-stations {
+  .origin-stations,
+  .destination-stations {
     width: 100%;
   }
 
-  .origin-stations h3, .destination-stations h3 {
+  .origin-stations h3,
+  .destination-stations h3 {
     font-size: 1.5rem;
   }
   .card {
@@ -218,10 +238,9 @@ footer {
 /* Laptop */
 
 @media screen and (min-width: 1020px) {
-
   .App {
-    grid-template-columns: 50px repeat(10, 1fr) 50px;  
-    grid-template-rows: repeat(12, auto);  
+    grid-template-columns: 50px repeat(10, 1fr) 50px;
+    grid-template-rows: repeat(12, auto);
   }
 
   header {
@@ -233,18 +252,21 @@ footer {
   .title {
     font-size: 5.5rem;
   }
-  
+
   nav {
     grid-column: span 12;
     width: 100%;
   }
 
-  .origin-input, .destination-input, .submit{
+  .origin-input,
+  .destination-input,
+  .submit {
     max-width: 325px;
     margin-bottom: 0;
   }
-  
-  .origin-input, .destination-input {
+
+  .origin-input,
+  .destination-input {
     padding: 0.75rem;
     font-size: 1rem;
     margin-left: 1rem;
@@ -265,15 +287,13 @@ footer {
     grid-column: span 12;
     margin: 0;
   }
-  
+
   .stations {
     display: grid;
     grid-column: span 12;
     grid-template-columns: 1fr 1fr;
   }
-
 }
-
 
 .loading {
   opacity: 0;

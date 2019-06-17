@@ -6,7 +6,6 @@ const URL =
 
 const getStationData = async () => {
   const resp = await axios(`${URL}`);
-  console.log(resp.data);
   return resp.data.stationBeanList.filter(
     station => station.statusValue === "In Service"
   );

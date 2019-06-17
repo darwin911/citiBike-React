@@ -2,40 +2,65 @@ import React from "react";
 import InfoBox from "./InfoBox";
 import StationList from "./StationList";
 
-const Results = ({
-  origin,
-  destination,
-  stationList,
-  moreDetails,
-  toggleDetails,
-  radius
-}) => {
-  return (
-    <section className="results">
-      <InfoBox origin={origin.address} destination={destination.address} />
+class Results extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      originStations: [],
+      destinationStations: []
+    };
+  }
 
-      {origin.lnglat && (
-        <section className="stations">
-          <StationList
-            type="origin"
-            moreDetails={moreDetails}
-            toggleDetails={toggleDetails}
-            lngLat={origin.lnglat}
-            stationList={stationList}
-            radius={radius}
-          />
-          <StationList
-            type="destination"
-            moreDetails={moreDetails}
-            toggleDetails={toggleDetails}
-            lngLat={destination.lnglat}
-            stationList={stationList}
-            radius={radius}
-          />
-        </section>
-      )}
-    </section>
-  );
-};
+  componentDidUpdate(prevProps) {
+    const { origin, destination, radius, stationList } = this.props;
+    if (origin.lnglat !== prevProps.origin.lnglat) {
+      this.setState({
+        originStations: stationList.filter(
+          stn =>
+            Math.abs(stn.latitude - origin.lnglat[1]) <= radius &&
+            Math.abs(stn.longitude - origin.lnglat[0]) <= radius
+        ),
+        destinationStations: stationList.filter(
+          stn =>
+            Math.abs(stn.latitude - destination.lnglat[1]) <= radius &&
+            Math.abs(stn.longitude - destination.lnglat[0]) <= radius
+        )
+      });
+    }
+  }
+
+  render() {
+    const {
+      radius,
+      origin,
+      destination,
+      toggleDetails,
+      moreDetails
+    } = this.props;
+
+    return (
+      <section className="results">
+        <InfoBox origin={origin.address} destination={destination.address} />
+
+        {origin.lnglat[0] && (
+          <section className="stations">
+            <StationList
+              type="origin"
+              moreDetails={moreDetails}
+              toggleDetails={toggleDetails}
+              stationList={this.state.originStations}
+            />
+            <StationList
+              type="destination"
+              moreDetails={moreDetails}
+              toggleDetails={toggleDetails}
+              stationList={this.state.destinationStations}
+            />
+          </section>
+        )}
+      </section>
+    );
+  }
+}
 
 export default Results;
