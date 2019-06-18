@@ -23,7 +23,6 @@ class App extends Component {
         lnglat: [null, null]
       },
       stations: [],
-      moreDetails: false,
       radius: 0.00375
     };
   }
@@ -64,10 +63,8 @@ class App extends Component {
     this.props.history.push("/results");
   };
 
-  toggleDetails = e => this.setState({ moreDetails: !this.state.moreDetails });
-
   render() {
-    const { origin, destination, stations, moreDetails, radius } = this.state;
+    const { origin, destination, stations, radius } = this.state;
     return (
       <div className="App">
         <Header />
@@ -88,8 +85,6 @@ class App extends Component {
               {...props}
               origin={origin}
               destination={destination}
-              toggleDetails={this.toggleDetails}
-              moreDetails={moreDetails}
               stationList={stations}
               radius={radius}
             />

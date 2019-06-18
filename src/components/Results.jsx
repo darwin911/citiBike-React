@@ -12,8 +12,8 @@ class Results extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { origin, destination, radius, stationList } = this.props;
-    if (origin.lnglat !== prevProps.origin.lnglat) {
+    if (this.props.origin.lnglat[0] !== prevProps.origin.lnglat[0]) {
+      const { origin, destination, radius, stationList } = this.props;
       this.setState({
         originStations: stationList.filter(
           stn =>
@@ -30,13 +30,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const {
-      radius,
-      origin,
-      destination,
-      toggleDetails,
-      moreDetails
-    } = this.props;
+    const { origin, destination, toggleDetails, moreDetails } = this.props;
 
     return (
       <section className="results">
