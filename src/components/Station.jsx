@@ -13,9 +13,8 @@ const Station = ({ station }) => {
       <p>
         {station.availableBikes} / {station.totalDocks} bikes{" "}
       </p>
-      <p style={!toggle ? { display: "none" } : {}}>
-        Last Updated at:{" "}
-        {moment(station.lastCommunicationTime).format("h:mm:ss a")}
+      <p style={{ opacity: toggle ? 1 : 0, transition: "500ms" }}>
+        Updated: {moment(station.lastCommunicationTime).format("h:mm:ss a")}
       </p>
     </article>
   );
