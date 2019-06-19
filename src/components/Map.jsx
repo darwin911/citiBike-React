@@ -5,9 +5,23 @@ class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      center: [-73.989885, 40.73997],
-      bearing: [30]
+      center: [-122.418701, 37.769047],
+      bearing: [0]
     };
+  }
+
+  componentDidMount() {
+    if ("geolocation" in navigator) {
+      /* geolocation is available */
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { longitude, latitude } }) =>
+          this.setState({ center: [longitude, latitude] }),
+        error => console.error(error)
+      );
+    } else {
+      /* geolocation IS NOT available */
+      this.setState({ center: [-122.418701, 37.769047] });
+    }
   }
 
   render() {

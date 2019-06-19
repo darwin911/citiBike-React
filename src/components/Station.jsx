@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import moment from "moment";
 
 const Station = ({ station }) => {
-  const [toggle, setToggle] = useState(false);
+  const [details, setDetails] = useState(false);
   return (
     <article
       className="card"
-      onMouseEnter={() => setToggle(!toggle)}
-      onMouseLeave={() => setToggle(!toggle)}
+      onMouseEnter={() => setDetails(!details)}
+      onMouseLeave={() => setDetails(!details)}
     >
-      <h5>{station.stationName}</h5>
+      <h4>{station.stationName}</h4>
       <p>
         {station.availableBikes} / {station.totalDocks} bikes{" "}
       </p>
-      <p style={{ opacity: toggle ? 1 : 0, transition: "500ms" }}>
-        Updated: {moment(station.lastCommunicationTime).format("h:mm:ss a")}
+      <p style={{ opacity: details ? 1 : 0, transition: "500ms" }}>
+        Updated:{" "}
+        {moment(station.lastCommunicationTime, "h:mm:ss a").format("h:mm:ss a")}
       </p>
     </article>
   );

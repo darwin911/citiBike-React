@@ -159,7 +159,6 @@ canvas.mapboxgl-canvas {
   background: rgba(0, 0, 0, 0.2);
 }
 
-.card h5,
 .card p {
   font-size: 1rem;
 }
