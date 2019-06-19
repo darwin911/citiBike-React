@@ -1,16 +1,14 @@
 import React from "react";
 import Station from "./Station";
 
-const StationList = ({ stationList, type }) => {
+const StationList = ({ stations, type }) => {
   return (
     <section
       className={type === "origin" ? "origin-stations" : "destination-stations"}
     >
       <h3>{type === "origin" ? "Origin" : "Destination"} Stations</h3>
-      {stationList &&
-        stationList.map(station => (
-          <Station key={station.id} station={station} />
-        ))}
+      {stations &&
+        stations.map(station => <Station key={station.id} station={station} />)}
     </section>
   );
 };
