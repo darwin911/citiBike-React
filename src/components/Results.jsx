@@ -30,7 +30,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const { origin, destination, toggleDetails, moreDetails } = this.props;
+    const { origin, destination } = this.props;
 
     return (
       <section className="results">
@@ -40,14 +40,10 @@ class Results extends React.Component {
           <section className="stations">
             <StationList
               type="origin"
-              moreDetails={moreDetails}
-              toggleDetails={toggleDetails}
               stationList={this.state.originStations}
             />
             <StationList
               type="destination"
-              moreDetails={moreDetails}
-              toggleDetails={toggleDetails}
               stationList={this.state.destinationStations}
             />
           </section>
