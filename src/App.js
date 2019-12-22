@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import "./App.css";
-import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
-import { formatAddress, getStationData } from "./services/helper";
-import Map from "./components/Map";
-import Results from "./components/Results";
-import Footer from "./components/Footer";
-import { withRouter, Route } from "react-router-dom";
+import React, { Component } from 'react';
+import './App.css';
+import Header from './components/Header';
+import SearchBar from './components/SearchBar';
+import { formatAddress, getStationData } from './services/helper';
+import { Map } from './components/Map';
+import Results from './components/Results';
+import Footer from './components/Footer';
+import { withRouter, Route } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       origin: {
-        text: "",
-        address: "",
+        text: '',
+        address: '',
         lnglat: [null, null],
         stations: []
       },
       destination: {
-        text: "",
-        address: "",
+        text: '',
+        address: '',
         lnglat: [null, null],
         stations: []
       },
@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    if ("geolocation" in navigator) {
+    if ('geolocation' in navigator) {
       /* geolocation is available */
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => console.log(coords),
@@ -70,18 +70,18 @@ class App extends Component {
     // clears input fields, sets formatted address and coordinates of origin and destination
     this.setState({
       origin: {
-        text: "",
+        text: '',
         address: origin.formatted_address,
         lnglat: originLngLat
       },
       destination: {
-        text: "",
+        text: '',
         address: destination.formatted_address,
         lnglat: destinationLngLat
       }
     });
     this.filterStations(originLngLat, destinationLngLat);
-    this.props.history.push("/results");
+    this.props.history.push('/results');
   };
 
   filterStations(origin, destination) {
@@ -109,7 +109,7 @@ class App extends Component {
   render() {
     const { origin, destination } = this.state;
     return (
-      <div className="App">
+      <div className='App'>
         <Header />
 
         <SearchBar
@@ -122,7 +122,7 @@ class App extends Component {
         <Map origin={origin.lnglat} destination={destination.lnglat} />
 
         <Route
-          path="/results"
+          path='/results'
           render={props => (
             <Results {...props} origin={origin} destination={destination} />
           )}
