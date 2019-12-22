@@ -86,52 +86,58 @@ class App extends Component {
 
   filterStations(origin, destination) {
     const { stations, radius } = this.state;
+
+    const originStations = stations.filter(
+      stn =>
+        Math.abs(stn.latitude - origin[1]) <= radius &&
+        Math.abs(stn.longitude - origin[0]) <= radius
+    );
+
+    const destinationStations = stations.filter(
+      stn =>
+        Math.abs(stn.latitude - destination[1]) <= radius &&
+        Math.abs(stn.longitude - destination[0]) <= radius
+    );
+
     this.setState(prevState => ({
+      ...prevState,
       origin: {
         ...prevState.origin,
-        stations: stations.filter(
-          stn =>
-            Math.abs(stn.latitude - origin[1]) <= radius &&
-            Math.abs(stn.longitude - origin[0]) <= radius
-        )
+        stations: originStations
       },
       destination: {
         ...prevState.destination,
-        stations: stations.filter(
-          stn =>
-            Math.abs(stn.latitude - destination[1]) <= radius &&
-            Math.abs(stn.longitude - destination[0]) <= radius
-        )
+        stations: destinationStations
       }
     }));
   }
+
+  reducedStations = num => {
+    return this.state.stations.slice(0, num);
+  };
 
   render() {
     const { origin, destination, stations } = this.state;
     return (
       <div className='App'>
         <Header />
-
         <SearchBar
           origin={origin}
           destination={destination}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-
         <Map
           origin={origin.lnglat}
           destination={destination.lnglat}
-          stations={stations}
+          stations={this.reducedStations(500)}
         />
-
         <Route
           path='/results'
           render={props => (
             <Results {...props} origin={origin} destination={destination} />
           )}
         />
-
         <Footer />
       </div>
     );
