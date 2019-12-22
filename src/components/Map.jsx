@@ -1,27 +1,34 @@
-import React from 'react';
-// import ReactMapboxGl, { Marker } from "react-mapbox-gl";
-import ReactMapGl from 'react-map-gl';
+import React, { useState, useEffect } from 'react';
+import ReactMapGl, { Marker } from 'react-map-gl';
 
-export const Map = ({ origin, destination }) => {
-  const [viewport, setViewport] = React.useState({
+export const Map = ({ origin, destination, stations }) => {
+  const [viewport, setViewport] = useState({
     latitude: 40.7359,
-    longitud: 73.9911,
-    width: '100vw',
-    height: '60vh',
-    zoom: 7
+    longitude: -73.9911,
+    width: '100%',
+    height: '70vh',
+    maxWidth: '100%',
+    zoom: 11.5
   });
-  const style = {
-    height: '50vmin',
-    minHeight: '200px',
-    width: 'auto'
-  };
+
+  useEffect(() => {
+    console.log('useEffect: Map');
+  }, []);
 
   return (
     <ReactMapGl
       {...viewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+      mapStyle={'mapbox://styles/darwin911/ck4ggb5z611bl1ctklfx428u0'}
       onViewportChange={viewport => setViewport(viewport)}>
-      markers
+      {stations.map(station => (
+        <Marker
+          key={station.id}
+          latitude={station.latitude}
+          longitude={station.longitude}>
+          <button className='bike-icon' />
+        </Marker>
+      ))}
     </ReactMapGl>
   );
 };
