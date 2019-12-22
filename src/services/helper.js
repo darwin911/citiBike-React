@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 
 const KEY = process.env.REACT_APP_API_KEY;
 const URL =
-  "https://cors-anywhere.herokuapp.com/https://feeds.citibikenyc.com/stations/stations.json";
+  'https://cors-anywhere.herokuapp.com/https://feeds.citibikenyc.com/stations/stations.json';
 
-const getStationData = async () => {
+const getStationData = async max => {
   const resp = await axios(`${URL}`);
-  return resp.data.stationBeanList.filter(
-    station => station.statusValue === "In Service"
-  );
+  return resp.data.stationBeanList
+    .filter(station => station.statusValue === 'In Service')
+    .slice(0, max);
 };
 
 const formatAddress = async location => {
