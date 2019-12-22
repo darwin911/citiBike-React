@@ -38,6 +38,7 @@ p {
 
 header {
   background: rgba(255, 255, 255, 1);
+  display: flex;
 }
 
 .title {
@@ -71,16 +72,6 @@ nav {
   z-index: 4;
 }
 
-.search-bar-container form {
-  display: grid;
-  grid-template-columns: 5fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    'origin origin origin origin origin go'
-    'dest  dest   dest   dest   dest   go';
-  grid-gap: 0.35rem;
-}
-
 .origin-input {
   grid-area: origin;
 }
@@ -91,6 +82,16 @@ nav {
 
 .submit {
   grid-area: go;
+}
+
+.search-bar-container form {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    'origin origin origin origin origin go'
+    'dest  dest   dest   dest   dest   go';
+  grid-gap: 0.5rem;
 }
 
 .origin-input,
@@ -105,7 +106,6 @@ nav {
   border: none;
   display: block;
   width: 100%;
-  max-width: 280px;
   background: rgba(255, 255, 255, 0.125);
   -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
@@ -210,6 +210,17 @@ footer {
 }
 
 /* Media Queries */
+
+@media screen and (min-width: 500px) {
+  .search-bar-container form {
+    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 'origin dest go';
+    width: 90%;
+    max-width: 900px;
+  }
+}
+
 /* iPad */
 @media screen and (min-width: 660px) {
   form {
