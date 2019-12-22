@@ -1,9 +1,14 @@
-@import url("https://fonts.googleapis.com/css?family=Overpass:100,200,400,700,900");
+@import url('https://fonts.googleapis.com/css?family=Overpass:100,200,400,700,900');
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
+}
+
+:root {
+  --dark-blue: #052b6c;
+  --light-blue: #0098e4;
 }
 
 html {
@@ -12,12 +17,12 @@ html {
 }
 
 body {
-  font-family: "Overpass", Helvetica, sans-serif;
-  background: #0098e4;
+  font-family: 'Overpass', Helvetica, sans-serif;
+  background: var(--light-blue);
   background: radial-gradient(
     circle at 10% 30%,
     hsl(200, 100%, 35%) 0%,
-    #052b6c 94%
+    var(--dark-blue) 94%
   );
   color: #ffffff;
   text-align: center;
@@ -36,7 +41,7 @@ header {
 }
 
 .title {
-  color: #052b6c;
+  color: var(--dark-blue);
   font-size: 3.25rem;
   line-height: 1;
   margin: 0 auto;
@@ -48,7 +53,7 @@ header {
 }
 
 .title span {
-  color: #0098e4;
+  color: var(--light-blue);
   letter-spacing: -6px;
 }
 
@@ -59,27 +64,49 @@ form {
 
 nav {
   width: 100%;
-  background: #0098e4;
+  background: var(--light-blue);
   padding: 0.8rem 0;
   position: sticky;
   top: 0;
   z-index: 4;
 }
 
+.search-bar-container form {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    'origin origin origin origin origin go'
+    'dest  dest   dest   dest   dest   go';
+  grid-gap: 0.35rem;
+}
+
+.origin-input {
+  grid-area: origin;
+}
+
+.destination-input {
+  grid-area: dest;
+}
+
+.submit {
+  grid-area: go;
+}
+
 .origin-input,
 .destination-input,
 .submit {
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 0.8rem;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.9rem;
   font-weight: 900;
-  margin: 0 auto 0.5rem;
+  margin: 0 auto;
   padding: 0.65rem;
   border-radius: 6px;
   border: none;
   display: block;
-  width: 90%;
+  width: 100%;
   max-width: 280px;
-  background: rgba(255, 255, 255, 0.225);
+  background: rgba(255, 255, 255, 0.125);
   -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
   box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.125);
@@ -90,11 +117,12 @@ nav {
   transition: background 200ms ease;
   color: #111;
   font-weight: 500;
+  border: 5px solid rgba(255, 255, 255, 0.02);
 }
 
 .origin-input::placeholder,
 .destination-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .origin-input:focus,
@@ -108,15 +136,14 @@ nav {
 }
 
 .submit {
-  background: #052b6c;
+  background: var(--dark-blue);
   color: white;
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin-bottom: 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   cursor: pointer;
   transition: all 200ms ease;
   box-shadow: none;
-  width: auto;
 }
 
 .submit:hover {
@@ -296,4 +323,13 @@ footer {
 
 .loading {
   opacity: 0;
+}
+
+.bike-icon {
+  /* url('https://cdn.pixabay.com/photo/2016/04/20/15/36/bike-1341369_960_720.png'); */
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 8px;
+  background: center/contain no-repeat url('./assets/images/bike_icon.png');
+  background-color: rgba(255, 255, 255, 0.9);
 }
