@@ -30,6 +30,16 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    if ("geolocation" in navigator) {
+      /* geolocation is available */
+      navigator.geolocation.getCurrentPosition(
+        ({ coords }) => console.log(coords),
+        error => console.error(error)
+      );
+    } else {
+      /* geolocation IS NOT available */
+      // this.setState({ center: [-122.418701, 37.769047] });
+    }
     const stations = await getStationData();
     this.setState({ stations });
   }
