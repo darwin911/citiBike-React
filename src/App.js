@@ -40,7 +40,7 @@ class App extends Component {
       /* geolocation IS NOT available */
       // this.setState({ center: [-122.418701, 37.769047] });
     }
-    const stations = await getStationData();
+    const stations = await getStationData(100);
     this.setState({ stations });
   }
 
@@ -107,7 +107,7 @@ class App extends Component {
   }
 
   render() {
-    const { origin, destination } = this.state;
+    const { origin, destination, stations } = this.state;
     return (
       <div className='App'>
         <Header />
@@ -119,7 +119,11 @@ class App extends Component {
           handleSubmit={this.handleSubmit}
         />
 
-        <Map origin={origin.lnglat} destination={destination.lnglat} />
+        <Map
+          origin={origin.lnglat}
+          destination={destination.lnglat}
+          stations={stations}
+        />
 
         <Route
           path='/results'
