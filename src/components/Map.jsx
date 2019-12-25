@@ -1,6 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, PureComponent } from 'react';
 import ReactMapGl from 'react-map-gl';
 import { BikeMarker } from './BikeMarker';
+
+class Markers extends PureComponent {
+  render() {
+    const { data } = this.props;
+    return data.map(station => (
+      <BikeMarker
+        key={station.id}
+        latitude={station.latitude}
+        longitude={station.longitude}
+      />
+    ));
+  }
+}
 
 export const Map = ({
   origin,
@@ -15,20 +28,23 @@ export const Map = ({
     width: '100%',
     height: '70vh',
     maxWidth: '100%',
-    zoom: 11.5
+    zoom: 11
   });
 
   useEffect(() => {
-    console.log('useEffect: Map');
+    // console.log('useEffect: Map');
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        console.log(coords);
+        // setViewport(prevState => ({
+        //   ...prevState,
+        //   latitude: coords.latitude,
+        //   longitude: coords.longitude
+        // }));
+      },
+      error => console.error(error)
+    );
   }, []);
-
-  const allStationMarkers = stations.map(station => (
-    <BikeMarker
-      key={station.id}
-      latitude={station.latitude}
-      longitude={station.longitude}
-    />
-  ));
 
   const originAndDestinationStations = (
     <>
@@ -37,7 +53,7 @@ export const Map = ({
     </>
   );
 
-  console.log(origin, destination, isOriginSet, isDestinationSet);
+  // console.log(origin, destination, isOriginSet, isDestinationSet);
   return (
     <ReactMapGl
       {...viewport}
@@ -45,9 +61,11 @@ export const Map = ({
       mapStyle={'mapbox://styles/darwin911/ck4ggb5z611bl1ctklfx428u0'}
       zoom={isOriginSet ? 13 : viewport.zoom}
       onViewportChange={viewport => setViewport(viewport)}>
-      {!isOriginSet && !isDestinationSet
-        ? allStationMarkers
-        : originAndDestinationStations}
+      {!isOriginSet && !isDestinationSet ? (
+        <Markers data={stations} />
+      ) : (
+        originAndDestinationStations
+      )}
     </ReactMapGl>
   );
 };

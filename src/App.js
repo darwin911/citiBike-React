@@ -7,6 +7,7 @@ import { Map } from './components/Map';
 import Results from './components/Results';
 import Footer from './components/Footer';
 import { withRouter, Route } from 'react-router-dom';
+import { knuthShuffle } from 'knuth-shuffle';
 
 class App extends Component {
   constructor(props) {
@@ -32,27 +33,10 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    if ('geolocation' in navigator) {
-      /* geolocation is available */
-      navigator.geolocation.getCurrentPosition(
-        ({ coords }) => console.log(coords),
-        error => console.error(error)
-      );
-    } else {
-      /* geolocation IS NOT available */
-      // this.setState({ center: [-122.418701, 37.769047] });
-    }
     const stations = await getStationData();
-    this.setState({ stations });
-
-    // this.interval = setInterval(
-    //   () =>
-    //     console.log(
-    //       'random stations num: ',
-    //       this.reducedStations(100).map(station => station.id)
-    //     ),
-    //   5000
-    // );
+    // shuffles stationsList https://github.com/Daplie/knuth-shuffle/blob/master/index.js
+    const suffledStations = knuthShuffle(stations);
+    this.setState(prevState => ({ ...prevState, stations: suffledStations }));
   }
 
   componentWillUnmount() {
@@ -135,23 +119,20 @@ class App extends Component {
   getRandomStart = size => {
     // gets random val between 0 and max station val
     let { stations } = this.state;
-    if (this.state.stations) {
-      return parseInt(Math.random() * (this.state.stations.length - size));
+    if (stations) {
+      return parseInt(Math.random() * (stations.length - size));
     } else {
       return 0;
     }
   };
 
   reducedStations = size => {
-    // find slice of num station length stations
-    // start will be between 0 and length - size
-    // if size > length
-    // size = length
-    // end will be random + num
-    let start = this.getRandomStart(size);
-    if (this.state.stations) {
+    let { stations } = this.state;
+    if (!size) size = stations.length;
+    if (stations) {
+      let start = this.getRandomStart(size);
       console.log(start, start + size, 'total', start + size - start);
-      return this.state.stations.slice(start, start + size);
+      return stations.slice(start, start + size);
     } else {
       return null;
     }
@@ -178,7 +159,7 @@ class App extends Component {
           <Map
             origin={origin.lnglat}
             destination={destination.lnglat}
-            stations={this.reducedStations(150)}
+            stations={this.reducedStations(300)}
             isOriginSet={isOriginSet}
             isDestinationSet={isDestinationSet}
           />
