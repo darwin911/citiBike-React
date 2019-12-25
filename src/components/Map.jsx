@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import ReactMapGl, { Marker } from 'react-map-gl';
+import ReactMapGl from 'react-map-gl';
+import { BikeMarker } from './BikeMarker';
 
-export const Map = ({ origin, destination, stations }) => {
+export const Map = ({
+  origin,
+  destination,
+  stations,
+  isOriginSet,
+  isDestinationSet
+}) => {
   const [viewport, setViewport] = useState({
     latitude: 40.7359,
     longitude: -73.9911,
@@ -15,20 +22,32 @@ export const Map = ({ origin, destination, stations }) => {
     console.log('useEffect: Map');
   }, []);
 
+  const allStationMarkers = stations.map(station => (
+    <BikeMarker
+      key={station.id}
+      latitude={station.latitude}
+      longitude={station.longitude}
+    />
+  ));
+
+  const originAndDestinationStations = (
+    <>
+      <BikeMarker latitude={origin[1]} longitude={origin[0]} />
+      <BikeMarker latitude={destination[1]} longitude={destination[0]} />
+    </>
+  );
+
+  console.log(origin, destination, isOriginSet, isDestinationSet);
   return (
     <ReactMapGl
       {...viewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
       mapStyle={'mapbox://styles/darwin911/ck4ggb5z611bl1ctklfx428u0'}
+      zoom={isOriginSet ? 13 : viewport.zoom}
       onViewportChange={viewport => setViewport(viewport)}>
-      {stations.map(station => (
-        <Marker
-          key={station.id}
-          latitude={station.latitude}
-          longitude={station.longitude}>
-          <button className='bike-icon' />
-        </Marker>
-      ))}
+      {!isOriginSet && !isDestinationSet
+        ? allStationMarkers
+        : originAndDestinationStations}
     </ReactMapGl>
   );
 };
@@ -42,15 +61,6 @@ export const Map = ({ origin, destination, stations }) => {
 //       error => console.error(error)
 //     );
 //   } else {
-//     /* geolocation IS NOT available */
-//     this.setState({ center: [-122.418701, 37.769047] });
+//     /* geolocation IS NOT available */;
 //   }
 // }
-
-// <Marker coordinates={destination}>
-// <img
-//   src='https://i.imgur.com/MK4NUzI.png'
-//   width='20px'
-//   alt='Destination'
-// />
-// </Marker>
