@@ -25,7 +25,9 @@ class App extends Component {
         stations: []
       },
       stations: [],
-      radius: 0.00375
+      radius: 0.00375,
+      isOriginSet: false,
+      isDestinationSet: false
     };
   }
 
@@ -40,7 +42,7 @@ class App extends Component {
       /* geolocation IS NOT available */
       // this.setState({ center: [-122.418701, 37.769047] });
     }
-    const stations = await getStationData(100);
+    const stations = await getStationData();
     this.setState({ stations });
   }
 
@@ -67,20 +69,23 @@ class App extends Component {
       destination.geometry.location.lng,
       destination.geometry.location.lat
     ];
-    // clears input fields, sets formatted address and coordinates of origin and destination
-    this.setState({
+    // replaces input fields, sets formatted address and coordinates of origin and destination
+    this.setState(prevState => ({
+      ...prevState,
       origin: {
-        text: '',
+        text: origin.formatted_address,
         address: origin.formatted_address,
         lnglat: originLngLat
       },
       destination: {
-        text: '',
+        text: destination.formatted_address,
         address: destination.formatted_address,
         lnglat: destinationLngLat
       }
-    });
+    }));
+
     this.filterStations(originLngLat, destinationLngLat);
+
     this.props.history.push('/results');
   };
 
@@ -88,15 +93,15 @@ class App extends Component {
     const { stations, radius } = this.state;
 
     const originStations = stations.filter(
-      stn =>
-        Math.abs(stn.latitude - origin[1]) <= radius &&
-        Math.abs(stn.longitude - origin[0]) <= radius
+      station =>
+        Math.abs(station.latitude - origin[1]) <= radius &&
+        Math.abs(station.longitude - origin[0]) <= radius
     );
 
     const destinationStations = stations.filter(
-      stn =>
-        Math.abs(stn.latitude - destination[1]) <= radius &&
-        Math.abs(stn.longitude - destination[0]) <= radius
+      station =>
+        Math.abs(station.latitude - destination[1]) <= radius &&
+        Math.abs(station.longitude - destination[0]) <= radius
     );
 
     this.setState(prevState => ({
@@ -108,7 +113,9 @@ class App extends Component {
       destination: {
         ...prevState.destination,
         stations: destinationStations
-      }
+      },
+      isOriginSet: true,
+      isDestinationSet: true
     }));
   }
 
@@ -117,7 +124,7 @@ class App extends Component {
   };
 
   render() {
-    const { origin, destination, stations } = this.state;
+    const { origin, destination, isOriginSet, isDestinationSet } = this.state;
     return (
       <div className='App'>
         <Header />
@@ -130,7 +137,9 @@ class App extends Component {
         <Map
           origin={origin.lnglat}
           destination={destination.lnglat}
-          stations={this.reducedStations(500)}
+          stations={this.reducedStations(100)}
+          isOriginSet={isOriginSet}
+          isDestinationSet={isDestinationSet}
         />
         <Route
           path='/results'
