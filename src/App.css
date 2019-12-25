@@ -115,14 +115,15 @@ nav {
 .origin-input,
 .destination-input {
   transition: background 200ms ease;
-  color: #111;
-  font-weight: 500;
+  color: white;
+  font-weight: 700;
   border: 5px solid rgba(255, 255, 255, 0.02);
 }
 
 .origin-input::placeholder,
 .destination-input::placeholder {
   color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
 }
 
 .origin-input:focus,
