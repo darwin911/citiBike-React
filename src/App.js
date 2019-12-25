@@ -16,15 +16,15 @@ class App extends Component {
         text: '',
         address: '',
         lnglat: [null, null],
-        stations: []
+        stations: null
       },
       destination: {
         text: '',
         address: '',
         lnglat: [null, null],
-        stations: []
+        stations: null
       },
-      stations: [],
+      stations: null,
       radius: 0.00375,
       isOriginSet: false,
       isDestinationSet: false
@@ -44,6 +44,19 @@ class App extends Component {
     }
     const stations = await getStationData();
     this.setState({ stations });
+
+    // this.interval = setInterval(
+    //   () =>
+    //     console.log(
+    //       'random stations num: ',
+    //       this.reducedStations(100).map(station => station.id)
+    //     ),
+    //   5000
+    // );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   handleChange = e => {
@@ -119,12 +132,39 @@ class App extends Component {
     }));
   }
 
-  reducedStations = num => {
-    return this.state.stations.slice(0, num);
+  getRandomStart = size => {
+    // gets random val between 0 and max station val
+    let { stations } = this.state;
+    if (this.state.stations) {
+      return parseInt(Math.random() * (this.state.stations.length - size));
+    } else {
+      return 0;
+    }
+  };
+
+  reducedStations = size => {
+    // find slice of num station length stations
+    // start will be between 0 and length - size
+    // if size > length
+    // size = length
+    // end will be random + num
+    let start = this.getRandomStart(size);
+    if (this.state.stations) {
+      console.log(start, start + size, 'total', start + size - start);
+      return this.state.stations.slice(start, start + size);
+    } else {
+      return null;
+    }
   };
 
   render() {
-    const { origin, destination, isOriginSet, isDestinationSet } = this.state;
+    const {
+      origin,
+      destination,
+      isOriginSet,
+      isDestinationSet,
+      stations
+    } = this.state;
     return (
       <div className='App'>
         <Header />
@@ -134,13 +174,17 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        <Map
-          origin={origin.lnglat}
-          destination={destination.lnglat}
-          stations={this.reducedStations(100)}
-          isOriginSet={isOriginSet}
-          isDestinationSet={isDestinationSet}
-        />
+        {stations ? (
+          <Map
+            origin={origin.lnglat}
+            destination={destination.lnglat}
+            stations={this.reducedStations(150)}
+            isOriginSet={isOriginSet}
+            isDestinationSet={isDestinationSet}
+          />
+        ) : (
+          <h1>LOADING STATIONS</h1>
+        )}
         <Route
           path='/results'
           render={props => (
