@@ -32,7 +32,6 @@ export const Map = ({
   });
 
   useEffect(() => {
-    // console.log('useEffect: Map');
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         console.log(coords);
@@ -53,7 +52,6 @@ export const Map = ({
     </>
   );
 
-  // console.log(origin, destination, isOriginSet, isDestinationSet);
   return (
     <ReactMapGl
       {...viewport}
@@ -69,16 +67,3 @@ export const Map = ({
     </ReactMapGl>
   );
 };
-
-// componentDidMount() {
-//   if ('geolocation' in navigator) {
-//     /* geolocation is available */
-//     navigator.geolocation.getCurrentPosition(
-//       ({ coords: { longitude, latitude } }) =>
-//         this.setState({ center: [longitude, latitude] }),
-//       error => console.error(error)
-//     );
-//   } else {
-//     /* geolocation IS NOT available */;
-//   }
-// }

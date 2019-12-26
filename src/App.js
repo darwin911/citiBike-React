@@ -82,24 +82,21 @@ class App extends Component {
     }));
 
     this.filterStations(originLngLat, destinationLngLat);
-
     this.props.history.push('/results');
   };
 
-  filterStations(origin, destination) {
+  getResultStations = location => {
     const { stations, radius } = this.state;
-
-    const originStations = stations.filter(
+    return stations.filter(
       station =>
-        Math.abs(station.latitude - origin[1]) <= radius &&
-        Math.abs(station.longitude - origin[0]) <= radius
+        Math.abs(station.latitude - location[1]) <= radius &&
+        Math.abs(station.longitude - location[0]) <= radius
     );
+  };
 
-    const destinationStations = stations.filter(
-      station =>
-        Math.abs(station.latitude - destination[1]) <= radius &&
-        Math.abs(station.longitude - destination[0]) <= radius
-    );
+  filterStations(origin, destination) {
+    const originStations = this.getResultStations(origin);
+    const destinationStations = this.getResultStations(destination);
 
     this.setState(prevState => ({
       ...prevState,
@@ -159,7 +156,7 @@ class App extends Component {
           <Map
             origin={origin.lnglat}
             destination={destination.lnglat}
-            stations={this.reducedStations(300)}
+            stations={this.reducedStations()}
             isOriginSet={isOriginSet}
             isDestinationSet={isDestinationSet}
           />
