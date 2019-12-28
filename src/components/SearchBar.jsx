@@ -38,17 +38,17 @@ export const SearchBar = ({
           required
         />
 
-        {isLoading ? (
-          <button className='submit'>
+        <button className='submit'>
+          {isLoading ? (
             <MoonLoader
               size={32}
               color='white'
               css={{ width: 32, height: 32, margin: '0 auto' }}
             />
-          </button>
-        ) : (
-          <button className='submit'>Go!</button>
-        )}
+          ) : (
+            'Go!'
+          )}
+        </button>
       </form>
     </nav>
   );

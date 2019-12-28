@@ -10,46 +10,39 @@ const WrappedMap = withScriptjs(
       stations,
       station => station.availableBikes
     );
-
-    const stationList = resultStations
-      ? stations.map(station => {
-          const availableBikes = station.availableBikes;
-          const sizeVal =
-            16 +
-            Math.ceil(
-              (availableBikes / maxAvailableStation.availableBikes) * 8
+    console.log(resultStations);
+    const stationList =
+      resultStations.length <= 0
+        ? stations.map(station => {
+            const availableBikes = station.availableBikes;
+            const sizeVal =
+              12 +
+              Math.ceil(
+                (availableBikes / maxAvailableStation.availableBikes) * 8
+              );
+            return (
+              <BikeMarker
+                key={station.id}
+                latitude={station.latitude}
+                longitude={station.longitude}
+                size={sizeVal}
+              />
             );
-          return (
+          })
+        : resultStations.map(station => (
             <BikeMarker
               key={station.id}
               latitude={station.latitude}
               longitude={station.longitude}
-              size={sizeVal}
+              size={20}
             />
-          );
-        })
-      : resultStations.map(station => (
-          <BikeMarker
-            key={station.id}
-            latitude={station.latitude}
-            longitude={station.longitude}
-            size={20}
-          />
-        ));
-
-    // citibike stations indicating number of available bikes, and each station has a different number of total bikes, so I also have the number of available bike. These stations show up as markers that I’d like to show in different sizes, the difference calculated in a range between 8px the smallest, and 24px the biggest, taking into account the number of available bikes
-
-    const handleZoomChanged = zoom => {
-      console.log('handleBoundChanged\n', zoom, new Date(Date.now()));
-      // setCurrentZoom();
-    };
+          ));
 
     const googleMap = (
       <GoogleMap
         defaultOptions={{ styles: mapStyles }}
-        defaultZoom={14}
-        defaultCenter={{ lat: 40.7359, lng: -73.9911 }}
-        onZoomChanged={handleZoomChanged}>
+        defaultZoom={13}
+        defaultCenter={{ lat: 40.7359, lng: -73.9911 }}>
         {stationList}
       </GoogleMap>
     );
