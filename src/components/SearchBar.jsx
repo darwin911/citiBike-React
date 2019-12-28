@@ -1,17 +1,23 @@
 import React from 'react';
+import { MoonLoader } from 'react-spinners';
 
-const SearchBar = ({ handleSubmit, handleChange, origin, destination }) => {
+export const SearchBar = ({
+  handleSubmit,
+  handleChange,
+  origin,
+  destination,
+  isLoading,
+  setIsLoading
+}) => {
   const handleClick = e => {
     e.preventDefault();
+    setIsLoading();
+    handleSubmit(origin, destination);
   };
 
   return (
     <nav className='search-bar-container'>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          handleSubmit(origin, destination);
-        }}>
+      <form onSubmit={e => handleClick(e)}>
         <input
           className='origin-input'
           type='text'
@@ -32,10 +38,18 @@ const SearchBar = ({ handleSubmit, handleChange, origin, destination }) => {
           required
         />
 
-        <input className='submit' type='submit' value='Go!' />
+        {isLoading ? (
+          <button className='submit'>
+            <MoonLoader
+              size={32}
+              color='white'
+              css={{ width: 32, height: 32, margin: '0 auto' }}
+            />
+          </button>
+        ) : (
+          <button className='submit'>Go!</button>
+        )}
       </form>
     </nav>
   );
 };
-
-export default SearchBar;
