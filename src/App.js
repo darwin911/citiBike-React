@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
+import { Header } from './components/Header';
+import { SearchBar } from './components/SearchBar';
 import { formatAddress, getStationData } from './services/helper';
-import { Map } from './components/Map';
-import Results from './components/Results';
-import Footer from './components/Footer';
+import { MapContainer } from './components/MapContainer';
+import { Results } from './components/Results';
+import { Footer } from './components/Footer';
 import { withRouter, Route } from 'react-router-dom';
 import { knuthShuffle } from 'knuth-shuffle';
 
@@ -25,10 +25,12 @@ class App extends Component {
         lnglat: [null, null],
         stations: null
       },
-      stations: null,
+      stations: [],
       radius: 0.00375,
       isOriginSet: false,
-      isDestinationSet: false
+      isDestinationSet: false,
+      resultStations: [],
+      isLoading: false
     };
   }
 
@@ -37,10 +39,6 @@ class App extends Component {
     // shuffles stationsList https://github.com/Daplie/knuth-shuffle/blob/master/index.js
     const suffledStations = knuthShuffle(stations);
     this.setState(prevState => ({ ...prevState, stations: suffledStations }));
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
   handleChange = e => {
@@ -70,19 +68,20 @@ class App extends Component {
     this.setState(prevState => ({
       ...prevState,
       origin: {
-        text: origin.formatted_address,
+        text: '',
         address: origin.formatted_address,
         lnglat: originLngLat
       },
       destination: {
-        text: destination.formatted_address,
+        text: '',
         address: destination.formatted_address,
         lnglat: destinationLngLat
       }
     }));
 
-    this.filterStations(originLngLat, destinationLngLat);
     this.props.history.push('/results');
+    this.setIsLoading();
+    return this.filterStations(originLngLat, destinationLngLat);
   };
 
   getResultStations = location => {
@@ -109,30 +108,16 @@ class App extends Component {
         stations: destinationStations
       },
       isOriginSet: true,
-      isDestinationSet: true
+      isDestinationSet: true,
+      resultStations: [...originStations, ...destinationStations]
     }));
   }
 
-  getRandomStart = size => {
-    // gets random val between 0 and max station val
-    let { stations } = this.state;
-    if (stations) {
-      return parseInt(Math.random() * (stations.length - size));
-    } else {
-      return 0;
-    }
-  };
-
-  reducedStations = size => {
-    let { stations } = this.state;
-    if (!size) size = stations.length;
-    if (stations) {
-      let start = this.getRandomStart(size);
-      console.log(start, start + size, 'total', start + size - start);
-      return stations.slice(start, start + size);
-    } else {
-      return null;
-    }
+  setIsLoading = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      isLoading: !prevState.isLoading
+    }));
   };
 
   render() {
@@ -141,7 +126,9 @@ class App extends Component {
       destination,
       isOriginSet,
       isDestinationSet,
-      stations
+      stations,
+      resultStations,
+      isLoading
     } = this.state;
     return (
       <div className='App'>
@@ -151,12 +138,15 @@ class App extends Component {
           destination={destination}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          isLoading={isLoading}
+          setIsLoading={this.setIsLoading}
         />
         {stations ? (
-          <Map
+          <MapContainer
             origin={origin.lnglat}
             destination={destination.lnglat}
-            stations={this.reducedStations()}
+            stations={stations}
+            resultStations={resultStations}
             isOriginSet={isOriginSet}
             isDestinationSet={isDestinationSet}
           />
