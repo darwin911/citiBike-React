@@ -1,79 +1,76 @@
 export default [
   {
-    featureType: 'administrative',
+    featureType: 'all',
     elementType: 'all',
     stylers: [
+      {
+        saturation: '32'
+      },
+      {
+        lightness: '-3'
+      },
       {
         visibility: 'on'
       },
       {
-        lightness: 33
+        weight: '1.18'
+      }
+    ]
+  },
+  {
+    featureType: 'administrative',
+    elementType: 'labels',
+    stylers: [
+      {
+        visibility: 'off'
       }
     ]
   },
   {
     featureType: 'landscape',
-    elementType: 'all',
-    stylers: [
-      {
-        color: '#f2e5d4'
-      }
-    ]
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#c5dac6'
-      }
-    ]
-  },
-  {
-    featureType: 'poi.park',
     elementType: 'labels',
     stylers: [
       {
-        visibility: 'on'
+        visibility: 'off'
+      }
+    ]
+  },
+  {
+    featureType: 'landscape.man_made',
+    elementType: 'all',
+    stylers: [
+      {
+        saturation: '-70'
       },
       {
-        lightness: 20
+        lightness: '14'
+      }
+    ]
+  },
+  {
+    featureType: 'poi',
+    elementType: 'labels',
+    stylers: [
+      {
+        visibility: 'off'
       }
     ]
   },
   {
     featureType: 'road',
-    elementType: 'all',
+    elementType: 'labels',
     stylers: [
       {
-        lightness: 20
+        visibility: 'off'
       }
     ]
   },
   {
-    featureType: 'road.highway',
-    elementType: 'geometry',
+    featureType: 'transit',
+    elementType: 'labels',
     stylers: [
       {
-        color: '#c5c6c6'
-      }
-    ]
-  },
-  {
-    featureType: 'road.arterial',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#e4d7c6'
-      }
-    ]
-  },
-  {
-    featureType: 'road.local',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#fbfaf7'
+        visibility: 'off'
       }
     ]
   },
@@ -82,10 +79,22 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        visibility: 'on'
+        saturation: '100'
       },
       {
-        color: '#acbcc9'
+        lightness: '-14'
+      }
+    ]
+  },
+  {
+    featureType: 'water',
+    elementType: 'labels',
+    stylers: [
+      {
+        visibility: 'off'
+      },
+      {
+        lightness: '12'
       }
     ]
   }
