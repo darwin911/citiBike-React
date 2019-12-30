@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps';
 import { BikeMarker } from './BikeMarker';
 import mapStyles from '../ mapStyles';
@@ -6,64 +6,46 @@ import { maxBy } from 'lodash';
 
 const WrappedMap = withScriptjs(
   withGoogleMap(({ stations, resultStations }) => {
-    const maxAvailableStation = maxBy(
-      stations,
-      station => station.availableBikes
-    );
-    console.log(resultStations);
+    const maxStation = maxBy(stations, station => station.availableDocks);
+
+    const maxDocks = maxStation ? maxStation.availableDocks : 0;
+
     const stationList =
       resultStations.length <= 0
-        ? stations.map(station => {
-            const availableBikes = station.availableBikes;
-            const sizeVal =
-              12 +
-              Math.ceil(
-                (availableBikes / maxAvailableStation.availableBikes) * 8
-              );
+        ? stations.map(({ availableDocks, id, latitude, longitude }) => {
+            const sizeVal = 30 + Math.ceil((availableDocks / maxDocks) * 30);
             return (
               <BikeMarker
-                key={station.id}
-                latitude={station.latitude}
-                longitude={station.longitude}
+                key={id}
+                latitude={latitude}
+                longitude={longitude}
                 size={sizeVal}
               />
             );
           })
-        : resultStations.map(station => (
-            <BikeMarker
-              key={station.id}
-              latitude={station.latitude}
-              longitude={station.longitude}
-              size={20}
-            />
-          ));
-
-    const googleMap = (
+        : resultStations.map(({ availableDocks, id, latitude, longitude }) => {
+            const sizeVal = 12 + Math.ceil((availableDocks / maxDocks) * 12);
+            return (
+              <BikeMarker
+                key={id}
+                latitude={latitude}
+                longitude={longitude}
+                size={sizeVal}
+              />
+            );
+          });
+    return (
       <GoogleMap
         defaultOptions={{ styles: mapStyles }}
-        defaultZoom={13}
+        defaultZoom={14}
         defaultCenter={{ lat: 40.7359, lng: -73.9911 }}>
         {stationList}
       </GoogleMap>
     );
-
-    return googleMap;
   })
 );
 
-export const MapContainer = ({
-  origin,
-  destination,
-  stations,
-  isOriginSet,
-  isDestinationSet,
-  resultStations
-}) => {
-  const [center, setCenter] = useState({
-    latitude: 40.7359,
-    longitude: -73.9911
-  });
-
+export const MapContainer = ({ stations, resultStations }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
