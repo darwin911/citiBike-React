@@ -8,7 +8,8 @@ export const BikeMarker = ({ latitude, longitude, size }) => {
       position={{ lat: latitude, lng: longitude }}
       icon={{
         url: blueMarker,
-        scaledSize: new window.google.maps.Size(size, size)
+        scaledSize: new window.google.maps.Size(size, size),
+        anchor: { x: size / 4, y: size / 4 }
       }}
     />
   );
