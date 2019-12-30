@@ -27,8 +27,6 @@ class App extends Component {
       },
       stations: [],
       radius: 0.00375,
-      isOriginSet: false,
-      isDestinationSet: false,
       resultStations: [],
       isLoading: false
     };
@@ -107,8 +105,6 @@ class App extends Component {
         ...prevState.destination,
         stations: destinationStations
       },
-      isOriginSet: true,
-      isDestinationSet: true,
       resultStations: [...originStations, ...destinationStations]
     }));
   }
@@ -124,8 +120,6 @@ class App extends Component {
     const {
       origin,
       destination,
-      isOriginSet,
-      isDestinationSet,
       stations,
       resultStations,
       isLoading
@@ -142,14 +136,7 @@ class App extends Component {
           setIsLoading={this.setIsLoading}
         />
         {stations ? (
-          <MapContainer
-            origin={origin.lnglat}
-            destination={destination.lnglat}
-            stations={stations}
-            resultStations={resultStations}
-            isOriginSet={isOriginSet}
-            isDestinationSet={isDestinationSet}
-          />
+          <MapContainer stations={stations} resultStations={resultStations} />
         ) : (
           <h1>LOADING STATIONS</h1>
         )}
