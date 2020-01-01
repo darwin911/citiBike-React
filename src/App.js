@@ -128,12 +128,12 @@ class App extends Component {
       <main className='App'>
         <Header />
 
-        <div>
+        <section className='section-info'>
           <h2>Bike Availability</h2>
           <p>
             Input your origin and destination to find see bike availability.
           </p>
-        </div>
+        </section>
         <SearchBar
           origin={origin}
           destination={destination}

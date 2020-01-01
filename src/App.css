@@ -37,27 +37,33 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 5%;
+  padding: 1vh 2.5%;
 }
 
 .title {
   color: white;
   font-size: 2.5rem;
-  letter-spacing: -1px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  letter-spacing: -2px;
+}
+
+.title::before {
+  content: '';
+  display: block;
+  width: 2rem;
 }
 
 .title span {
   color: #ddf1fa;
-  letter-spacing: -6px;
+  letter-spacing: -4px;
 }
 
 form {
   margin: 0 auto;
-  max-width: 95vw;
+  max-width: 95%;
 }
 
 nav {
@@ -241,6 +247,24 @@ footer {
   width: 100%;
 }
 
+.loading {
+  opacity: 0;
+}
+
+.bike-icon {
+  /* url('https://cdn.pixabay.com/photo/2016/04/20/15/36/bike-1341369_960_720.png'); */
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 8px;
+  background: center/contain no-repeat url("./assets/images/bike_icon.png");
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.section-info {
+  text-align: left;
+  padding: 0 2.5%;
+}
+
 /* Media Queries */
 @media screen and (min-width: 500px) {
   .search-bar-container form {
@@ -360,18 +384,5 @@ footer {
     -ms-grid-columns: 1fr 1fr;
         grid-template-columns: 1fr 1fr;
   }
-}
-
-.loading {
-  opacity: 0;
-}
-
-.bike-icon {
-  /* url('https://cdn.pixabay.com/photo/2016/04/20/15/36/bike-1341369_960_720.png'); */
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 8px;
-  background: center/contain no-repeat url("./assets/images/bike_icon.png");
-  background-color: rgba(255, 255, 255, 0.9);
 }
 /*# sourceMappingURL=App.css.map */
