@@ -117,6 +117,27 @@ class App extends Component {
   };
 
   render() {
+    const stationObjectFormat = {
+      id: 72,
+      stationName: 'W 52 St & 11 Ave',
+      availableDocks: 35,
+      totalDocks: 55,
+      latitude: 40.76727216,
+      longitude: -73.99392888,
+      statusValue: 'In Service',
+      statusKey: 1,
+      availableBikes: 18,
+      stAddress1: 'W 52 St & 11 Ave',
+      stAddress2: '',
+      city: '',
+      postalCode: '',
+      location: '',
+      altitude: '',
+      testStation: false,
+      lastCommunicationTime: '2020-01-01 04:45:55 PM',
+      landMark: ''
+    };
+
     const {
       origin,
       destination,
@@ -124,12 +145,14 @@ class App extends Component {
       resultStations,
       isLoading
     } = this.state;
+
+    console.log(stations.filter(stn => stn.availableDocks <= 0));
     return (
       <main className='App'>
         <Header />
 
         <section className='section-info'>
-          <h2>Bike Availability</h2>
+          <h1>Bike Availability</h1>
           <p>
             Input your origin and destination to find see bike availability.
           </p>
