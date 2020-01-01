@@ -21,7 +21,7 @@ export const SearchBar = ({
         <input
           className='origin-input'
           type='text'
-          placeholder='Origin'
+          placeholder='I need a bike near...'
           name='origin'
           onChange={handleChange}
           value={origin.text}
@@ -31,7 +31,7 @@ export const SearchBar = ({
         <input
           className='destination-input'
           type='text'
-          placeholder='Destination'
+          placeholder='Are there available docks at...?'
           name='destination'
           onChange={handleChange}
           value={destination.text}
