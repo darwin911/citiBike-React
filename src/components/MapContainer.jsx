@@ -61,12 +61,11 @@ export const MapContainer = ({ stations, resultStations }) => {
   }, []);
 
   const mapStyle = {
-    width: '90%',
+    width: '100%',
     height: '45vh',
     margin: '2rem auto',
-    borderRadius: '8px',
     overflow: 'hidden',
-    boxShadow: '0 0 2rem rgba(0,0, 0, 0.5)'
+    boxShadow: '0 0 16px -4px rgba(0, 0, 0, 0.7)'
   };
 
   return (
