@@ -8,10 +8,10 @@ export const Results = ({ origin, destination }) => {
       <InfoBox origin={origin.address} destination={destination.address} />
 
       {origin.lnglat[0] && (
-        <section className='stations'>
+        <div className='stations'>
           <StationList type='origin' stations={origin.stations} />
           <StationList type='destination' stations={destination.stations} />
-        </section>
+        </div>
       )}
     </section>
   );
