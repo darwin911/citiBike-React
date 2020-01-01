@@ -27,17 +27,21 @@ const WrappedMap = withScriptjs(
               );
             }
           )
-        : resultStations.map(({ availableDocks, id, latitude, longitude }) => {
-            const sizeVal = 10 + Math.ceil((availableDocks / maxDocks) * 9);
-            return (
-              <BikeMarker
-                key={id}
-                latitude={latitude}
-                longitude={longitude}
-                size={sizeVal}
-              />
-            );
-          });
+        : resultStations.map(
+            ({ availableDocks, id, latitude, longitude, totalDocks }) => {
+              const sizeVal = 10 + Math.ceil((availableDocks / maxDocks) * 9);
+              return (
+                <BikeMarker
+                  key={id}
+                  latitude={latitude}
+                  longitude={longitude}
+                  size={sizeVal}
+                  availableDocks={availableDocks}
+                  totalDocks={totalDocks}
+                />
+              );
+            }
+          );
     console.log(stationList);
     return (
       <GoogleMap
