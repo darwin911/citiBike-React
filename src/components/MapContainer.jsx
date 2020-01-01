@@ -12,19 +12,23 @@ const WrappedMap = withScriptjs(
 
     const stationList =
       resultStations.length <= 0
-        ? stations.map(({ availableDocks, id, latitude, longitude }) => {
-            const sizeVal = 30 + Math.ceil((availableDocks / maxDocks) * 30);
-            return (
-              <BikeMarker
-                key={id}
-                latitude={latitude}
-                longitude={longitude}
-                size={sizeVal}
-              />
-            );
-          })
+        ? stations.map(
+            ({ availableDocks, id, latitude, longitude, totalDocks }) => {
+              const sizeVal = 10 + Math.ceil((availableDocks / maxDocks) * 9);
+              return (
+                <BikeMarker
+                  key={id}
+                  latitude={latitude}
+                  longitude={longitude}
+                  size={sizeVal}
+                  availableDocks={availableDocks}
+                  totalDocks={totalDocks}
+                />
+              );
+            }
+          )
         : resultStations.map(({ availableDocks, id, latitude, longitude }) => {
-            const sizeVal = 12 + Math.ceil((availableDocks / maxDocks) * 12);
+            const sizeVal = 10 + Math.ceil((availableDocks / maxDocks) * 9);
             return (
               <BikeMarker
                 key={id}
@@ -34,10 +38,11 @@ const WrappedMap = withScriptjs(
               />
             );
           });
+    console.log(stationList);
     return (
       <GoogleMap
         defaultOptions={{ styles: mapStyles }}
-        defaultZoom={14}
+        defaultZoom={15}
         defaultCenter={{ lat: 40.7359, lng: -73.9911 }}>
         {stationList}
       </GoogleMap>
@@ -55,8 +60,17 @@ export const MapContainer = ({ stations, resultStations }) => {
     );
   }, []);
 
+  const mapStyle = {
+    width: '90%',
+    height: '45vh',
+    margin: '2rem auto',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    boxShadow: '0 0 2rem rgba(0,0, 0, 0.5)'
+  };
+
   return (
-    <div style={{ width: '100%', height: '70vh' }}>
+    <div style={mapStyle}>
       <WrappedMap
         stations={stations}
         resultStations={resultStations}

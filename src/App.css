@@ -34,22 +34,16 @@ p {
 }
 
 header {
-  background: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding: 0 5%;
 }
 
 .title {
-  color: var(--dark-blue);
-  font-size: 3.25rem;
-  line-height: 1;
-  margin: 0 auto;
-  padding-top: 1rem;
-  padding-bottom: 0.25rem;
-  letter-spacing: -2px;
-  -webkit-transition: font-size 500ms ease-out;
-  transition: font-size 500ms ease-out;
+  color: white;
+  font-size: 2.5rem;
+  letter-spacing: -1px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -57,7 +51,7 @@ header {
 }
 
 .title span {
-  color: var(--light-blue);
+  color: #ddf1fa;
   letter-spacing: -6px;
 }
 
@@ -68,8 +62,7 @@ form {
 
 nav {
   width: 100%;
-  background: var(--light-blue);
-  padding: 0.8rem 0;
+  padding: 1.5rem 0;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -243,6 +236,7 @@ canvas.mapboxgl-canvas {
 footer {
   background: rgba(0, 0, 0, 0.5);
   padding: 0.5rem 0;
+  position: fixed;
   bottom: 0;
   width: 100%;
 }

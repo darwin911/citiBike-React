@@ -125,8 +125,15 @@ class App extends Component {
       isLoading
     } = this.state;
     return (
-      <div className='App'>
+      <main className='App'>
         <Header />
+
+        <div>
+          <h2>Bike Availability</h2>
+          <p>
+            Input your origin and destination to find see bike availability.
+          </p>
+        </div>
         <SearchBar
           origin={origin}
           destination={destination}
@@ -147,7 +154,7 @@ class App extends Component {
           )}
         />
         <Footer />
-      </div>
+      </main>
     );
   }
 }

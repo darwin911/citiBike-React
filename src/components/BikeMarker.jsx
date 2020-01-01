@@ -2,15 +2,21 @@ import React from 'react';
 import { Marker } from 'react-google-maps';
 import blueMarker from '../assets/images/placeholder-svgrepo-com.svg';
 
-export const BikeMarker = ({ latitude, longitude, size }) => {
+export const BikeMarker = ({
+  latitude,
+  longitude,
+  size,
+  availableDocks,
+  totalDocks
+}) => {
   return (
     <Marker
       position={{ lat: latitude, lng: longitude }}
-      icon={{
-        url: blueMarker,
-        scaledSize: new window.google.maps.Size(size, size),
-        anchor: { x: size / 4, y: size / 4 }
-      }}
+      label={`${availableDocks}/${totalDocks}`}
+      // icon={{
+      //   url: blueMarker,
+      //   scaledSize: new window.google.maps.Size(size, size)
+      // }}
     />
   );
 };
