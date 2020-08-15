@@ -37,26 +37,22 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 1vh 2.5%;
+  padding: 3vh 2.5%;
+  background: white;
 }
 
-.title {
-  color: white;
-  font-size: 2.5rem;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  letter-spacing: -2px;
+.logo {
+  background: center/cover no-repeat url("./assets/images/citibike_logo.png");
+  width: 100px;
 }
 
-.title::before {
+.logo::before {
   content: '';
   display: block;
   width: 2rem;
 }
 
-.title span {
+.logo span {
   color: #ddf1fa;
   letter-spacing: -4px;
 }
@@ -68,7 +64,6 @@ form {
 
 nav {
   width: 100%;
-  padding: 1.5rem 0;
   top: 0;
   z-index: 4;
 }
@@ -237,7 +232,7 @@ canvas.mapboxgl-canvas {
 }
 
 footer {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--dark-blue);
   padding: 0.5rem 0;
   position: fixed;
   bottom: 0;
@@ -259,7 +254,7 @@ footer {
 
 .section-info {
   text-align: left;
-  padding: 0 2.5%;
+  padding: 1em 2.5%;
 }
 
 /* Media Queries */
@@ -357,7 +352,7 @@ footer {
     border-bottom: 1px solid rgba(255, 255, 255, 0.45);
     width: 100%;
   }
-  .title {
+  .logo {
     font-size: 4.5rem;
   }
   nav {

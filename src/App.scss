@@ -38,23 +38,27 @@ p {
 
 header {
   display: flex;
-  padding: 1vh 2.5%;
+  padding: 3vh 2.5%;
+  background: white;
 }
 
-.title {
-  color: white;
-  font-size: 2.5rem;
-  user-select: none;
-  letter-spacing: -2px;
+.logo {
+  background: center/cover no-repeat url('./assets/images/citibike_logo.png');
+  width: 100px;
+
+  // color: white;
+  // font-size: 2.5rem;
+  // user-select: none;
+  // letter-spacing: -2px;
 }
 
-.title::before {
+.logo::before {
   content: '';
   display: block;
   width: 2rem;
 }
 
-.title span {
+.logo span {
   // color: var(--light-blue);
   color: rgb(221, 241, 250);
   letter-spacing: -4px;
@@ -68,7 +72,6 @@ form {
 nav {
   width: 100%;
   // background: var(--light-blue);
-  padding: 1.5rem 0;
   top: 0;
   z-index: 4;
 }
@@ -203,7 +206,7 @@ canvas.mapboxgl-canvas {
 }
 
 footer {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--dark-blue);
   padding: 0.5rem 0;
   position: fixed;
   bottom: 0;
@@ -225,7 +228,7 @@ footer {
 
 .section-info {
   text-align: left;
-  padding: 0 2.5%;
+  padding: 1em 2.5%;
 }
 
 /* Media Queries */
@@ -317,7 +320,7 @@ footer {
     width: 100%;
   }
 
-  .title {
+  .logo {
     font-size: 4.5rem;
   }
 
