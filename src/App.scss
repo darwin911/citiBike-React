@@ -19,11 +19,7 @@ html {
 body {
   font-family: 'Overpass', Helvetica, sans-serif;
   background: var(--light-blue);
-  background: radial-gradient(
-    circle at 10% 30%,
-    hsl(200, 100%, 35%) 0%,
-    var(--dark-blue) 94%
-  );
+  background: radial-gradient(circle at 150% -40%, var(--light-blue), var(--dark-blue) 94%);
   color: #ffffff;
   text-align: center;
 }
@@ -38,23 +34,27 @@ p {
 
 header {
   display: flex;
-  padding: 1vh 2.5%;
+  padding: 3vh 2.5%;
+  background: white;
 }
 
-.title {
-  color: white;
-  font-size: 2.5rem;
-  user-select: none;
-  letter-spacing: -2px;
+.logo {
+  background: center/cover no-repeat url('./assets/images/citibike_logo.png');
+  width: 100px;
+
+  // color: white;
+  // font-size: 2.5rem;
+  // user-select: none;
+  // letter-spacing: -2px;
 }
 
-.title::before {
+.logo::before {
   content: '';
   display: block;
   width: 2rem;
 }
 
-.title span {
+.logo span {
   // color: var(--light-blue);
   color: rgb(221, 241, 250);
   letter-spacing: -4px;
@@ -68,8 +68,6 @@ form {
 nav {
   width: 100%;
   // background: var(--light-blue);
-  padding: 1.5rem 0;
-  position: sticky;
   top: 0;
   z-index: 4;
 }
@@ -99,11 +97,11 @@ nav {
 .origin-input,
 .destination-input,
 .submit {
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Overpass', 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 0.9rem;
   font-weight: 900;
   margin: 0 auto;
-  padding: 0.65rem;
+  padding: 1.15em;
   border-radius: 6px;
   border: none;
   display: block;
@@ -119,7 +117,6 @@ nav {
   transition: background 200ms ease;
   color: white;
   font-weight: 700;
-  border: 5px solid rgba(255, 255, 255, 0.02);
 }
 
 .origin-input::placeholder,
@@ -167,8 +164,12 @@ canvas.mapboxgl-canvas {
 /* /Map Styles */
 
 .infobox {
-  padding: 1rem 4rem;
+  padding: 1rem;
   margin: 0 auto;
+  p {
+    font-size: 1.25em;
+    font-weight: bold;
+  }
 }
 
 .origin,
@@ -183,6 +184,10 @@ canvas.mapboxgl-canvas {
 .card {
   width: 100%;
   padding: 1.5rem 0;
+
+  h4 {
+    font-size: 1.25em;
+  }
 }
 
 .card:nth-child(odd) {
@@ -200,12 +205,13 @@ canvas.mapboxgl-canvas {
 
 .origin-stations h3,
 .destination-stations h3 {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.74);
   padding: 0.75rem 0;
+  color: navy;
 }
 
 footer {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--dark-blue);
   padding: 0.5rem 0;
   position: fixed;
   bottom: 0;
@@ -227,12 +233,24 @@ footer {
 
 .section-info {
   text-align: left;
-  padding: 0 2.5%;
+  padding: 1em 2.5%;
 }
 
 /* Media Queries */
 
 @media screen and (min-width: 500px) {
+  .origin-input {
+    grid-area: origin;
+  }
+
+  .destination-input {
+    grid-area: dest;
+  }
+
+  .submit {
+    grid-area: go;
+  }
+
   .search-bar-container form {
     grid-template-columns: 3fr 3fr 1fr;
     grid-template-rows: 1fr;
@@ -265,8 +283,8 @@ footer {
   }
 
   .infobox {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin: 0 auto;
     padding: 1rem 0;
   }
@@ -307,7 +325,7 @@ footer {
     width: 100%;
   }
 
-  .title {
+  .logo {
     font-size: 4.5rem;
   }
 

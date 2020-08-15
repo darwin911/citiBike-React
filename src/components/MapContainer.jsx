@@ -6,39 +6,20 @@ import { maxBy } from 'lodash';
 
 const WrappedMap = withScriptjs(
   withGoogleMap(({ stations, resultStations }) => {
-    const maxStation = maxBy(stations, station => station.availableDocks);
+    const maxStation = maxBy(stations, (station) => station.num_docks_available);
+    const maxDocks = maxStation ? maxStation.num_docks_available : 0;
 
-    const maxDocks = maxStation ? maxStation.availableDocks : 0;
+    const renderStationList =
+      resultStations && resultStations.length > 0 ? resultStations : stations;
 
-    const stationList =
-      resultStations.length <= 0
-        ? stations.map(
-            ({ availableDocks, id, latitude, longitude, totalDocks }) => {
-              const sizeVal = 10 + Math.ceil((availableDocks / maxDocks) * 9);
-              return (
-                <BikeMarker
-                  key={id}
-                  latitude={latitude}
-                  longitude={longitude}
-                  size={sizeVal}
-                  availableDocks={availableDocks}
-                  totalDocks={totalDocks}
-                />
-              );
-            }
-          )
-        : resultStations.map(({ availableDocks, id, latitude, longitude }) => {
-            const sizeVal = 10 + Math.ceil((availableDocks / maxDocks) * 9);
-            return (
-              <BikeMarker
-                key={id}
-                latitude={latitude}
-                longitude={longitude}
-                size={sizeVal}
-              />
-            );
-          });
-    console.log(stationList);
+    // TODO Filter out stations closer to center of user location with radius;
+    const stationList = renderStationList
+      .filter((s) => s.station_status === 'active')
+      .map(({ station_id, num_docks_available, ...station }) => {
+        const sizeVal = 10 + Math.ceil((num_docks_available / maxDocks) * 9);
+        return <BikeMarker key={station_id} station={station} size={sizeVal} />;
+      });
+
     return (
       <GoogleMap
         defaultOptions={{ styles: mapStyles }}
@@ -56,16 +37,16 @@ export const MapContainer = ({ stations, resultStations }) => {
       ({ coords }) => {
         console.log(coords);
       },
-      error => console.error(error)
+      (error) => console.error(error)
     );
   }, []);
 
   const mapStyle = {
     width: '100%',
-    height: '45vh',
+    height: '55vh',
     margin: '2rem auto',
     overflow: 'hidden',
-    boxShadow: '0 0 16px -4px rgba(0, 0, 0, 0.7)'
+    boxShadow: '0 0 1.5rem -3px rgb(6, 43, 107)',
   };
 
   return (

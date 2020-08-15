@@ -7,7 +7,7 @@ import { MapContainer } from './components/MapContainer';
 import { Results } from './components/Results';
 import { Footer } from './components/Footer';
 import { withRouter, Route } from 'react-router-dom';
-import { knuthShuffle } from 'knuth-shuffle';
+// import { knuthShuffle } from 'knuth-shuffle';
 
 class App extends Component {
   constructor(props) {
@@ -17,35 +17,37 @@ class App extends Component {
         text: '',
         address: '',
         lnglat: [null, null],
-        stations: null
+        stations: null,
       },
       destination: {
         text: '',
         address: '',
         lnglat: [null, null],
-        stations: null
+        stations: null,
       },
       stations: [],
       radius: 0.00375,
       resultStations: [],
-      isLoading: false
+      isLoading: false,
     };
   }
 
   async componentDidMount() {
     const stations = await getStationData();
-    // shuffles stationsList https://github.com/Daplie/knuth-shuffle/blob/master/index.js
-    const suffledStations = knuthShuffle(stations);
-    this.setState(prevState => ({ ...prevState, stations: suffledStations }));
+    if (stations) {
+      // shuffles stationsList https://github.com/Daplie/knuth-shuffle/blob/master/index.js
+      // const suffledStations = knuthShuffle(stations);
+      this.setState((prevState) => ({ ...prevState, stations }));
+    }
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       [name]: {
         ...prevState[name],
-        text: value
-      }
+        text: value,
+      },
     }));
   };
 
@@ -54,27 +56,24 @@ class App extends Component {
     const origin = await formatAddress(this.state.origin.text);
     const destination = await formatAddress(this.state.destination.text);
     // creates array object with coords with mapbox specifications (array[lng,lat])
-    const originLngLat = [
-      origin.geometry.location.lng,
-      origin.geometry.location.lat
-    ];
+    const originLngLat = [origin.geometry.location.lng, origin.geometry.location.lat];
     const destinationLngLat = [
       destination.geometry.location.lng,
-      destination.geometry.location.lat
+      destination.geometry.location.lat,
     ];
     // replaces input fields, sets formatted address and coordinates of origin and destination
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       origin: {
         text: '',
         address: origin.formatted_address,
-        lnglat: originLngLat
+        lnglat: originLngLat,
       },
       destination: {
         text: '',
         address: destination.formatted_address,
-        lnglat: destinationLngLat
-      }
+        lnglat: destinationLngLat,
+      },
     }));
 
     this.props.history.push('/results');
@@ -82,57 +81,50 @@ class App extends Component {
     return this.filterStations(originLngLat, destinationLngLat);
   };
 
-  getResultStations = location => {
+  getResultStations = (location) => {
     const { stations, radius } = this.state;
-    return stations.filter(
-      station =>
-        Math.abs(station.latitude - location[1]) <= radius &&
-        Math.abs(station.longitude - location[0]) <= radius
-    );
+    return stations.filter((station) => {
+      return (
+        Math.abs(station.lat - location[1]) <= radius &&
+        Math.abs(station.lon - location[0]) <= radius
+      );
+    });
   };
 
   filterStations(origin, destination) {
     const originStations = this.getResultStations(origin);
     const destinationStations = this.getResultStations(destination);
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       origin: {
         ...prevState.origin,
-        stations: originStations
+        stations: originStations,
       },
       destination: {
         ...prevState.destination,
-        stations: destinationStations
+        stations: destinationStations,
       },
-      resultStations: [...originStations, ...destinationStations]
+      resultStations: [...originStations, ...destinationStations],
     }));
   }
 
   setIsLoading = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
-      isLoading: !prevState.isLoading
+      isLoading: !prevState.isLoading,
     }));
   };
 
   render() {
-    const {
-      origin,
-      destination,
-      stations,
-      resultStations,
-      isLoading
-    } = this.state;
+    const { origin, destination, stations, resultStations, isLoading } = this.state;
     return (
       <main className='App'>
         <Header />
 
         <section className='section-info'>
-          <h2>Bike Availability</h2>
-          <p>
-            Input your origin and destination to find see bike availability.
-          </p>
+          <h1>Bike Availability</h1>
+          <p>Input your origin and destination to find see bike availability.</p>
         </section>
         <SearchBar
           origin={origin}
@@ -142,16 +134,14 @@ class App extends Component {
           isLoading={isLoading}
           setIsLoading={this.setIsLoading}
         />
-        {stations ? (
+        {stations && stations.length > 0 ? (
           <MapContainer stations={stations} resultStations={resultStations} />
         ) : (
           <h1>LOADING STATIONS</h1>
         )}
         <Route
           path='/results'
-          render={props => (
-            <Results {...props} origin={origin} destination={destination} />
-          )}
+          render={(props) => <Results {...props} origin={origin} destination={destination} />}
         />
         <Footer />
       </main>
