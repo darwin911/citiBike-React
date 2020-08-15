@@ -19,11 +19,7 @@ html {
 body {
   font-family: 'Overpass', Helvetica, sans-serif;
   background: var(--light-blue);
-  background: radial-gradient(
-    circle at 150% -40%,
-    var(--light-blue),
-    var(--dark-blue) 94%
-  );
+  background: radial-gradient(circle at 150% -40%, var(--light-blue), var(--dark-blue) 94%);
   color: #ffffff;
   text-align: center;
 }
@@ -101,7 +97,7 @@ nav {
 .origin-input,
 .destination-input,
 .submit {
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Overpass', 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 0.9rem;
   font-weight: 900;
   margin: 0 auto;
@@ -168,8 +164,12 @@ canvas.mapboxgl-canvas {
 /* /Map Styles */
 
 .infobox {
-  padding: 1rem 4rem;
+  padding: 1rem;
   margin: 0 auto;
+  p {
+    font-size: 1.25em;
+    font-weight: bold;
+  }
 }
 
 .origin,
@@ -184,6 +184,10 @@ canvas.mapboxgl-canvas {
 .card {
   width: 100%;
   padding: 1.5rem 0;
+
+  h4 {
+    font-size: 1.25em;
+  }
 }
 
 .card:nth-child(odd) {
@@ -201,8 +205,9 @@ canvas.mapboxgl-canvas {
 
 .origin-stations h3,
 .destination-stations h3 {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.74);
   padding: 0.75rem 0;
+  color: navy;
 }
 
 footer {
@@ -278,8 +283,8 @@ footer {
   }
 
   .infobox {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin: 0 auto;
     padding: 1rem 0;
   }

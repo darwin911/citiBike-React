@@ -2,20 +2,18 @@ import React, { useState } from 'react';
 import moment from 'moment';
 
 const Station = ({ station }) => {
-  const [details, setDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   return (
     <article
       className='card'
-      onMouseEnter={() => setDetails(!details)}
-      onMouseLeave={() => setDetails(!details)}>
-      <h4>{station.stationName}</h4>
-      <p>
-        {station.availableBikes} / {station.totalDocks} bikes
-      </p>
-      <p>Docks Available: {station.availableDocks}</p>
-      <p style={{ opacity: details ? 1 : 0, transition: '500ms' }}>
-        Updated:{' '}
-        {moment(station.lastCommunicationTime, 'h:mm:ss a').format('h:mm:ss a')}
+      onMouseEnter={() => setShowDetails(true)}
+      onMouseLeave={() => setShowDetails(false)}>
+      <h4>{station.name}</h4>
+      <p>{station.num_bikes_available} bikes available</p>
+      <p>{station.num_docks_available} docks available</p>
+      <p>{station.num_bikes_disabled} disabled bikes</p>
+      <p style={{ opacity: showDetails ? 1 : 0, transition: '250ms' }}>
+        Updated: {moment(station.last_reported).format('h:mm:ss a')}
       </p>
     </article>
   );

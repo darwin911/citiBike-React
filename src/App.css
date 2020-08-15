@@ -101,7 +101,7 @@ nav {
 .origin-input,
 .destination-input,
 .submit {
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Overpass', 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 0.9rem;
   font-weight: 900;
   margin: 0 auto;
@@ -194,8 +194,13 @@ canvas.mapboxgl-canvas {
 
 /* /Map Styles */
 .infobox {
-  padding: 1rem 4rem;
+  padding: 1rem;
   margin: 0 auto;
+}
+
+.infobox p {
+  font-size: 1.25em;
+  font-weight: bold;
 }
 
 .origin,
@@ -210,6 +215,10 @@ canvas.mapboxgl-canvas {
 .card {
   width: 100%;
   padding: 1.5rem 0;
+}
+
+.card h4 {
+  font-size: 1.25em;
 }
 
 .card:nth-child(odd) {
@@ -227,8 +236,9 @@ canvas.mapboxgl-canvas {
 
 .origin-stations h3,
 .destination-stations h3 {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.74);
   padding: 0.75rem 0;
+  color: navy;
 }
 
 footer {
@@ -309,12 +319,10 @@ footer {
     margin-right: 0;
   }
   .infobox {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: space-evenly;
-        -ms-flex-pack: space-evenly;
-            justify-content: space-evenly;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     margin: 0 auto;
     padding: 1rem 0;
   }
