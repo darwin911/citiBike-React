@@ -119,32 +119,31 @@ class App extends Component {
   render() {
     const { origin, destination, stations, resultStations, isLoading } = this.state;
     return (
-      <main className='App'>
+      <div className='App'>
         <Header />
+        <main>
+          <section className='section-info'>
+            <h1>Bike Availability</h1>
+            <p>Set your origin and destination to see bike availability.</p>
+            <SearchBar
+              origin={origin}
+              destination={destination}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              isLoading={isLoading}
+              setIsLoading={this.setIsLoading}
+            />
+          </section>
 
-        <section className='section-info'>
-          <h1>Bike Availability</h1>
-          <p>Input your origin and destination to find see bike availability.</p>
-        </section>
-        <SearchBar
-          origin={origin}
-          destination={destination}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          isLoading={isLoading}
-          setIsLoading={this.setIsLoading}
-        />
-        {stations && stations.length > 0 ? (
           <MapContainer stations={stations} resultStations={resultStations} />
-        ) : (
-          <h1>LOADING STATIONS</h1>
-        )}
-        <Route
-          path='/results'
-          render={(props) => <Results {...props} origin={origin} destination={destination} />}
-        />
+
+          <Route
+            path='/results'
+            render={(props) => <Results {...props} origin={origin} destination={destination} />}
+          />
+        </main>
         <Footer />
-      </main>
+      </div>
     );
   }
 }

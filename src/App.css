@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  font-family: 'Overpass', Helvetica, sans-serif;
+  font-family: "Overpass";
   background: var(--light-blue);
   background: radial-gradient(circle at 150% -40%, var(--light-blue), var(--dark-blue) 94%);
   color: #ffffff;
@@ -30,7 +30,15 @@ p {
 }
 
 .App {
+  font-family: "Overpass";
   min-height: 100vh;
+}
+
+main {
+  padding: 5% 2.5%;
+  min-height: 90vh;
+  max-width: 95%;
+  margin: 0 auto;
 }
 
 header {
@@ -57,11 +65,6 @@ header {
   letter-spacing: -4px;
 }
 
-form {
-  margin: 0 auto;
-  max-width: 95%;
-}
-
 nav {
   width: 100%;
   top: 0;
@@ -85,17 +88,6 @@ nav {
   -ms-grid-row-span: 2;
   -ms-grid-column: 2;
   grid-area: go;
-}
-
-.search-bar-container form {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 4fr 1fr;
-      grid-template-columns: 4fr 1fr;
-  -ms-grid-rows: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      grid-template-areas: 'origin go' 'dest  go';
-  grid-gap: 0.5rem;
 }
 
 .origin-input,
@@ -158,7 +150,7 @@ nav {
 }
 
 .submit {
-  background: var(--dark-blue);
+  background: #110070;
   color: white;
   font-size: 1rem;
   margin-bottom: 0;
@@ -171,7 +163,7 @@ nav {
 }
 
 .submit:hover {
-  background: #110070;
+  background: #0c0052;
 }
 
 /* Map Styles */
@@ -236,17 +228,61 @@ canvas.mapboxgl-canvas {
 
 .origin-stations h3,
 .destination-stations h3 {
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.95);
   padding: 0.75rem 0;
-  color: navy;
+  color: var(--dark-blue);
+  border-radius: 0.5rem;
 }
 
 footer {
-  background: var(--dark-blue);
-  padding: 0.5rem 0;
-  position: fixed;
-  bottom: 0;
+  background: #021331;
+  padding: 1rem 5%;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media screen and (min-width: 640px) {
+  footer {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}
+
+footer p {
+  margin: 1em 0;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer a:link, footer a:visited {
+  color: white;
+}
+
+footer a:visited {
+  opacity: 0.9;
+}
+
+footer .react-icon {
+  background: center/cover url(https://cdn.svgporn.com/logos/react.svg);
+  height: 1em;
+  width: 1em;
+  display: inline-block;
 }
 
 .loading {
@@ -264,7 +300,28 @@ footer {
 
 .section-info {
   text-align: left;
-  padding: 1em 2.5%;
+  margin-bottom: 2em;
+}
+
+.section-info h1,
+.section-info p {
+  margin-bottom: 0.35em;
+}
+
+.section-info p {
+  font-size: 1.05em;
+}
+
+.search-bar-container form {
+  margin: 1em auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 4fr 1fr;
+      grid-template-columns: 4fr 1fr;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 'origin go' 'dest  go';
+  grid-gap: 0.5rem;
 }
 
 /* Media Queries */
@@ -290,8 +347,6 @@ footer {
     -ms-grid-rows: 1fr;
         grid-template-rows: 1fr;
         grid-template-areas: 'origin dest go';
-    width: 90%;
-    max-width: 900px;
   }
 }
 
@@ -330,9 +385,10 @@ footer {
     margin: 0;
   }
   .stations {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    display: -ms-grid;
+    display: grid;
+    -webkit-column-gap: 2em;
+            column-gap: 2em;
   }
   .origin-stations,
   .destination-stations {
@@ -370,15 +426,11 @@ footer {
   .origin-input,
   .destination-input,
   .submit {
-    max-width: 325px;
     margin-bottom: 0;
   }
   .origin-input,
   .destination-input {
-    padding: 0.75rem;
     font-size: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
   }
   .submit {
     display: inline-block;
@@ -393,8 +445,6 @@ footer {
     margin: 0;
   }
   .stations {
-    display: -ms-grid;
-    display: grid;
     grid-column: span 12;
     -ms-grid-columns: 1fr 1fr;
         grid-template-columns: 1fr 1fr;

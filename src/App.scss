@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Overpass:100,200,400,700,900');
+
+$footer-bg: #021331;
+$base-font: 'Overpass';
+
 *,
 *::before,
 *::after {
@@ -17,7 +21,7 @@ html {
 }
 
 body {
-  font-family: 'Overpass', Helvetica, sans-serif;
+  font-family: $base-font;
   background: var(--light-blue);
   background: radial-gradient(circle at 150% -40%, var(--light-blue), var(--dark-blue) 94%);
   color: #ffffff;
@@ -29,7 +33,15 @@ p {
 }
 
 .App {
+  font-family: $base-font;
   min-height: 100vh;
+}
+
+main {
+  padding: 5% 2.5%;
+  min-height: 90vh;
+  max-width: 95%;
+  margin: 0 auto;
 }
 
 header {
@@ -41,11 +53,6 @@ header {
 .logo {
   background: center/cover no-repeat url('./assets/images/citibike_logo.png');
   width: 100px;
-
-  // color: white;
-  // font-size: 2.5rem;
-  // user-select: none;
-  // letter-spacing: -2px;
 }
 
 .logo::before {
@@ -55,19 +62,12 @@ header {
 }
 
 .logo span {
-  // color: var(--light-blue);
   color: rgb(221, 241, 250);
   letter-spacing: -4px;
 }
 
-form {
-  margin: 0 auto;
-  max-width: 95%;
-}
-
 nav {
   width: 100%;
-  // background: var(--light-blue);
   top: 0;
   z-index: 4;
 }
@@ -82,16 +82,6 @@ nav {
 
 .submit {
   grid-area: go;
-}
-
-.search-bar-container form {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    'origin go'
-    'dest  go';
-  grid-gap: 0.5rem;
 }
 
 .origin-input,
@@ -136,7 +126,7 @@ nav {
 }
 
 .submit {
-  background: var(--dark-blue);
+  background: hsl(249, 100%, 22%);
   color: white;
   font-size: 1rem;
   margin-bottom: 0;
@@ -147,7 +137,7 @@ nav {
 }
 
 .submit:hover {
-  background: hsl(249, 100%, 22%);
+  background: hsl(249, 100%, 16%);
 }
 
 /* Map Styles */
@@ -205,17 +195,48 @@ canvas.mapboxgl-canvas {
 
 .origin-stations h3,
 .destination-stations h3 {
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.95);
   padding: 0.75rem 0;
-  color: navy;
+  color: var(--dark-blue);
+  border-radius: 0.5rem;
 }
 
 footer {
-  background: var(--dark-blue);
-  padding: 0.5rem 0;
-  position: fixed;
-  bottom: 0;
+  background: $footer-bg;
+  padding: 1rem 5%;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @media screen and (min-width: 640px) {
+    flex-direction: row;
+  }
+
+  p {
+    margin: 1em 0;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+      color: white;
+    }
+
+    &:visited {
+      opacity: 0.9;
+    }
+  }
+
+  .react-icon {
+    background: center/cover url(https://cdn.svgporn.com/logos/react.svg);
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+  }
 }
 
 .loading {
@@ -233,7 +254,26 @@ footer {
 
 .section-info {
   text-align: left;
-  padding: 1em 2.5%;
+  margin-bottom: 2em;
+  h1,
+  p {
+    margin-bottom: 0.35em;
+  }
+
+  p {
+    font-size: 1.05em;
+  }
+}
+
+.search-bar-container form {
+  margin: 1em auto;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    'origin go'
+    'dest  go';
+  grid-gap: 0.5rem;
 }
 
 /* Media Queries */
@@ -255,8 +295,6 @@ footer {
     grid-template-columns: 3fr 3fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: 'origin dest go';
-    width: 90%;
-    max-width: 900px;
   }
 }
 
@@ -294,7 +332,8 @@ footer {
   }
 
   .stations {
-    display: flex;
+    display: grid;
+    column-gap: 2em;
   }
 
   .origin-stations,
@@ -337,16 +376,12 @@ footer {
   .origin-input,
   .destination-input,
   .submit {
-    max-width: 325px;
     margin-bottom: 0;
   }
 
   .origin-input,
   .destination-input {
-    padding: 0.75rem;
     font-size: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
   }
 
   .submit {
@@ -365,7 +400,6 @@ footer {
   }
 
   .stations {
-    display: grid;
     grid-column: span 12;
     grid-template-columns: 1fr 1fr;
   }
