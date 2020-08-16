@@ -7,9 +7,9 @@ export const SearchBar = ({
   origin,
   destination,
   isLoading,
-  setIsLoading
+  setIsLoading,
 }) => {
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.preventDefault();
     setIsLoading();
     handleSubmit(origin, destination);
@@ -17,13 +17,13 @@ export const SearchBar = ({
 
   return (
     <nav className='search-bar-container'>
-      <form onSubmit={e => handleClick(e)}>
+      <form onSubmit={(e) => handleClick(e)}>
         <input
           className='origin-input'
           type='text'
           placeholder='I need a bike near...'
           name='origin'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           value={origin.text}
           required
         />
@@ -33,18 +33,14 @@ export const SearchBar = ({
           type='text'
           placeholder='Are there available docks at...?'
           name='destination'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           value={destination.text}
           required
         />
 
         <button className='submit'>
           {isLoading ? (
-            <MoonLoader
-              size={32}
-              color='white'
-              css={{ width: 32, height: 32, margin: '0 auto' }}
-            />
+            <MoonLoader size={32} color='white' css={{ width: 32, height: 32, margin: '0 auto' }} />
           ) : (
             'Go!'
           )}
