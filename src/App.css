@@ -52,6 +52,7 @@ header {
 .logo {
   background: center/cover no-repeat url("./assets/images/citibike_logo.png");
   width: 100px;
+  max-height: 26px;
 }
 
 .logo::before {
