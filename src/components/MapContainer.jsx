@@ -3,8 +3,8 @@ import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps';
 import { BikeMarker } from './BikeMarker';
 import mapStyles from '../ mapStyles';
 // import { maxBy } from 'lodash';
-import { CONSTANTS } from '../constants';
-const { RADIUS } = CONSTANTS;
+// import { CONSTANTS } from '../constants';
+// const { RADIUS } = CONSTANTS;
 
 const WrappedMap = withScriptjs(
   withGoogleMap(({ stations, resultStations, latitude, longitude }) => {

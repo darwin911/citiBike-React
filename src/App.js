@@ -65,11 +65,13 @@ const App = ({ history }) => {
     // replaces input fields, sets formatted address and coordinates of origin and destination
     setOrigin((prevOrigin) => ({
       ...prevOrigin,
+      text: originAddress.formatted_address,
       address: originAddress.formatted_address,
       lnglat: originLngLat,
     }));
     setDestination((prevDestination) => ({
       ...prevDestination,
+      text: destinationAddress.formatted_address,
       address: destinationAddress.formatted_address,
       lnglat: destinationLngLat,
     }));
