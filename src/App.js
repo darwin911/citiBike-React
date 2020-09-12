@@ -104,9 +104,8 @@ const App = ({ history }) => {
     setResultStations([...originStations, ...destinationStations]);
   };
 
-  return (
-    <div className='App'>
-      <Header />
+  const Main = () => {
+    return (
       <main>
         <section className='section-info'>
           <h1>Bike Availability</h1>
@@ -128,6 +127,13 @@ const App = ({ history }) => {
           render={(props) => <Results {...props} origin={origin} destination={destination} />}
         />
       </main>
+    );
+  };
+
+  return (
+    <div className='App'>
+      <Header />
+      <Main />
       <Footer />
     </div>
   );
