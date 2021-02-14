@@ -1,5 +1,5 @@
 import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import { BikeMarker } from './BikeMarker';
 import mapStyles from '../ mapStyles';
@@ -16,7 +16,7 @@ const WrappedMap = withScriptjs(
     });
 
     useEffect(() => {
-      console.log(center);
+      // console.log(center);
     }, [center.latitude, center.longitude]);
 
     // const maxStation = maxBy(stations, (station) => station.num_docks_available);
@@ -25,7 +25,10 @@ const WrappedMap = withScriptjs(
     const userAgentCenter = { lat: latitude, lng: longitude };
 
     function onCenterChanged() {
-      setCenter({ latitude: this.center.lat(), longitude: this.center.lng() });
+      setCenter({
+        latitude: this.center.lat(),
+        longitude: this.center.lng(),
+      });
     }
 
     return (
@@ -43,8 +46,8 @@ const WrappedMap = withScriptjs(
   })
 );
 
-export const MapContainer = ({ stations }) => {
-  const [navigatorCoords, setNavigatorCoords] = React.useState({
+export const MapContainer = memo(({ stations }) => {
+  const [navigatorCoords, setNavigatorCoords] = useState({
     latitude: 40.7359,
     longitude: -73.9911,
   });
@@ -82,4 +85,4 @@ export const MapContainer = ({ stations }) => {
       />
     </div>
   );
-};
+});
