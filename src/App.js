@@ -1,63 +1,71 @@
-import React from 'react';
 import './App.css';
-import { Header } from './components/Header';
-import { SearchBar } from './components/SearchBar';
+
+import React, { useEffect, useState } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 import { formatAddress, getStationData } from './services/helper';
+
+import { CONSTANTS } from './constants';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
 import { MapContainer } from './components/MapContainer';
 import { Results } from './components/Results';
-import { Footer } from './components/Footer';
-import { withRouter, Route } from 'react-router-dom';
-import { CONSTANTS } from './constants';
+import { SearchBar } from './components/SearchBar';
+
 const { RADIUS } = CONSTANTS;
 
 const App = ({ history }) => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [resultStations, setResultStations] = React.useState([]);
-  const [stations, setStations] = React.useState([]);
-  const [origin, setOrigin] = React.useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [resultStations, setResultStations] = useState([]);
+  const [stations, setStations] = useState([]);
+  const [inputOrigin, setInputOrigin] = useState('');
+  const [inputDestination, setDestinationInput] = useState('');
+  const [origin, setOrigin] = useState({
     text: '',
     address: '',
     lnglat: [null, null],
     stations: null,
   });
-  const [destination, setDestination] = React.useState({
+  const [destination, setDestination] = useState({
     text: '',
     address: '',
     lnglat: [null, null],
     stations: null,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadStationData = async () => {
       const stationData = await getStationData();
-      if (stationData) setStations(stationData);
+      if (stationData) {
+        const filterdStations = stationData
+          .filter(({ station_status }) => station_status === 'active')
+          .slice(0, 500);
+        setStations(filterdStations);
+      }
     };
 
     if (!stations || stations.length < 1) loadStationData();
   }, [stations]);
 
+  console.log(stations);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.toLowerCase().includes('origin')) {
-      setOrigin((prevOrigin) => ({
-        ...prevOrigin,
-        text: value,
-      }));
+      setInputOrigin(value);
     } else if (name.toLowerCase().includes('destination')) {
-      setDestination((prevDestination) => ({
-        ...prevDestination,
-        text: value,
-      }));
+      setDestinationInput(value);
     }
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true);
     // Geocodes user input and returns object with formatted address and coordinates (longitude and latitude)
     const originAddress = await formatAddress(origin.text);
     const destinationAddress = await formatAddress(destination.text);
     // creates array object with coords with mapbox specifications (array[lng,lat])
-    const originLngLat = [originAddress.geometry.location.lng, originAddress.geometry.location.lat];
+    const originLngLat = [
+      originAddress.geometry.location.lng,
+      originAddress.geometry.location.lat,
+    ];
     const destinationLngLat = [
       destinationAddress.geometry.location.lng,
       destinationAddress.geometry.location.lat,
@@ -76,18 +84,15 @@ const App = ({ history }) => {
       lnglat: destinationLngLat,
     }));
 
-    history.push('/results');
-    setIsLoading(false);
-    return filterStations(originLngLat, destinationLngLat);
+    filterStations(originLngLat, destinationLngLat);
   };
 
   const getResultStations = (location) => {
-    return stations.filter((station) => {
-      return (
+    return stations.filter(
+      (station) =>
         Math.abs(station.lat - location[1]) <= RADIUS &&
         Math.abs(station.lon - location[0]) <= RADIUS
-      );
-    });
+    );
   };
 
   const filterStations = (origin, destination) => {
@@ -120,11 +125,11 @@ const App = ({ history }) => {
           />
         </section>
 
-        <MapContainer stations={stations} resultStations={resultStations} />
+        <MapContainer stations={stations} />
 
         <Route
           path='/results'
-          render={(props) => <Results {...props} origin={origin} destination={destination} />}
+          render={() => <Results origin={origin} destination={destination} />}
         />
       </main>
     );

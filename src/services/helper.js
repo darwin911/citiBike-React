@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { mergeStationData } from '../util/mergeStationData';
 
 const GBFS = {
   STATION_INFO: 'https://gbfs.citibikenyc.com/gbfs/en/station_information.json',
@@ -24,25 +25,11 @@ const formatAddress = async (location) => {
   const resp = await axios(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&components=country:US&key=${process.env.REACT_APP_API_KEY}`
   );
+  console.log(resp.data);
   return resp.data.results[0];
 };
 
 export { getStationData, formatAddress };
-
-const mergeStationData = (infoData, statusData) => {
-  let mergedStations = [];
-  const length = infoData.length > statusData.length ? infoData.length : statusData.length;
-  for (let i = 0; i < length; i++) {
-    let info = infoData[i];
-    let status = statusData[i];
-    if (info.station_id === status.station_id) {
-      mergedStations.push({ ...info, ...status });
-    } else {
-      console.log('Did not match', { ...info, ...status });
-    }
-  }
-  return mergedStations;
-};
 
 // TODO
 // http://gbfs.citibikenyc.com/gbfs/gbfs.json

@@ -1,35 +1,26 @@
-import React, { useEffect } from 'react';
-import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps';
+import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import React, { useEffect, useState } from 'react';
+
 import { BikeMarker } from './BikeMarker';
 import mapStyles from '../ mapStyles';
+
 // import { maxBy } from 'lodash';
 // import { CONSTANTS } from '../constants';
 // const { RADIUS } = CONSTANTS;
 
 const WrappedMap = withScriptjs(
-  withGoogleMap(({ stations, resultStations, latitude, longitude }) => {
-    const [center, setCenter] = React.useState({ latitude: latitude, longitude: longitude });
-    // const [bounds, setBounds] = React.useState(null);
+  withGoogleMap(({ stations, latitude, longitude }) => {
+    const [center, setCenter] = useState({
+      latitude: latitude,
+      longitude: longitude,
+    });
 
-    React.useEffect(() => {
+    useEffect(() => {
       console.log(center);
     }, [center.latitude, center.longitude]);
 
     // const maxStation = maxBy(stations, (station) => station.num_docks_available);
     // const maxDocks = maxStation ? maxStation.num_docks_available : 0;
-
-    // TODO Filter out stations closer to center of user location with radius;
-    const stationList = stations
-      .filter(({ lat, lon, station_status, ...rest }) => {
-        return (
-          Math.abs(lon - longitude) <= 0.02 &&
-          Math.abs(lat - latitude) <= 0.02 &&
-          station_status === 'active'
-        );
-      })
-      .map(({ station_id, num_docks_available, ...station }) => {
-        return <BikeMarker key={station_id} station={station} />;
-      });
 
     const userAgentCenter = { lat: latitude, lng: longitude };
 
@@ -43,17 +34,16 @@ const WrappedMap = withScriptjs(
         defaultOptions={{ styles: mapStyles }}
         defaultZoom={14}
         defaultCenter={userAgentCenter}>
-        {resultStations.length > 0
-          ? resultStations.map(({ station_id, num_docks_available, ...station }) => {
-              return <BikeMarker key={station_id} station={station} />;
-            })
-          : stationList}
+        {stations &&
+          stations.map(({ station_id, num_docks_available, ...station }) => {
+            return <BikeMarker key={station_id} station={station} />;
+          })}
       </GoogleMap>
     );
   })
 );
 
-export const MapContainer = ({ stations, resultStations }) => {
+export const MapContainer = ({ stations }) => {
   const [navigatorCoords, setNavigatorCoords] = React.useState({
     latitude: 40.7359,
     longitude: -73.9911,
@@ -85,7 +75,6 @@ export const MapContainer = ({ stations, resultStations }) => {
         latitude={navigatorCoords.latitude}
         longitude={navigatorCoords.longitude}
         stations={stations}
-        resultStations={resultStations}
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{ height: '100%' }} />}
         containerElement={<div style={{ height: '100%' }} />}
